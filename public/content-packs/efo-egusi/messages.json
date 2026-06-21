@@ -1,0 +1,25 @@
+{
+  "loadingScreen": [
+    "Somebody's grandmother is already judging your ingredient choices.",
+    "If you add carrots, we won't stop you... but we will screenshot this.",
+    "There are 19 tribes and 73 Egusi opinions. You're about to trigger at least 12.",
+    "Calibrating the 'Is it soup or is it stew?' detection algorithm...",
+    "Remember: Egusi without palm oil is just sad seeds in water.",
+    "Your mortar and pestle technique is being pre-judged."
+  ],
+  "stationArrival": {
+    "washing_area": "Time to wash. Cleanliness is next to Egusi-ness.",
+    "ingredient_shelf": "Choose your weapons... er, ingredients.",
+    "prep_station": "Mise en place! (That's French for 'Don't mess this up')",
+    "cooking_stove": "The fire awaits. So does judgment.",
+    "serving_counter": "Presentation matters. Even if the kitchen is chaos."
+  },
+  "gameComplete": {
+    "title": "Dish Complete!",
+    "conversionPrompt": {
+      "message": "Is this Efo Egusi YOUR style?",
+      "noButton": "NO. This is not my style.",
+      "cta": "Create Your Own Nigerian Recipe Game — No Coding Required!"
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "packId": "jollof-rice",
+  "displayName": "Jollof Simulator: The Party Rice",
+  "alternateTitle": "Ghana Started It, Nigeria Perfected It",
+  "description": "The legendary West African rice dish. Your method will either unite or divide nations.",
+  "version": "1.0.0",
+  "culturalContext": {
+    "origin": "West Africa (Highly Contested)",
+    "commonOccasions": ["Parties", "Sunday Lunch", "International Diplomacy"],
+    "controversialFacts": [
+      "The Nigeria-Ghana Jollof War has no end in sight.",
+      "Party jollof cooked over firewood is scientifically proven to taste better.",
+      "The 'bottom pot' is either a delicacy or a tragedy, depending on execution."
+    ]
+  },
+  "totalStations": 4,
+  "kitchenMap": {
+    "width": 5,
+    "height": 4,
+    "stations": [
+      { "id": "washing_area", "x": 0, "y": 0, "label": "Washing Area", "icon": "🚿" },
+      { "id": "ingredient_shelf", "x": 1, "y": 0, "label": "Ingredient Shelf", "icon": "🗄️" },
+      { "id": "prep_station", "x": 2, "y": 1, "label": "Prep Station", "icon": "🔪" },
+      { "id": "cooking_stove", "x": 3, "y": 2, "label": "Cooking Stove", "icon": "🔥" },
+      { "id": "serving_counter", "x": 4, "y": 3, "label": "Serving Counter", "icon": "🍽️" }
+    ]
+  }
+}

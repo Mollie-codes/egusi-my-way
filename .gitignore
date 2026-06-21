@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+
+# Planning & design artifacts
+*.txt
+prd.md
+prompt-planner.md
+PlaceholderSpritesRenderer.js
+palm-icon.png
+items-sprite.png
+grindegusi.html
+recipebook.html
+selectutensilinspo.html
+market-dash/
+new sprites/
+public/assets/*.html
+public/assets/*.zip
+public/content-packs/**/*.html
+screen-specification.md
+sprites-cooking.png
+stitch_mobile_game_ui_refinement.zip
+whatsapp-chat.png
+*.zip

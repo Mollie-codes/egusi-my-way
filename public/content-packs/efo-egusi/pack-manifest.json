@@ -1,0 +1,27 @@
+{
+  "packId": "efo-egusi",
+  "displayName": "Efo Egusi: Cooking My Way!",
+  "alternateTitle": "Who Put Tomatoes In My Egusi?",
+  "description": "The classic Yoruba melon seed soup with leafy greens. Will you honor tradition or invite chaos?",
+  "version": "1.0.0",
+  "culturalContext": {
+    "origin": "Yoruba, Southwestern Nigeria",
+    "commonOccasions": ["Sunday Lunch", "Owambe Parties", "Family Gatherings"],
+    "controversialFacts": [
+      "Some add ogiri (fermented locust beans), others consider it an abomination.",
+      "The 'Egusi Ijebu' variant uses no vegetables at all.",
+      "Frying egusi in palm oil before adding stock is a matter of tribal identity."
+    ]
+  },
+  "totalStations": 4,
+  "kitchenMap": {
+    "width": 5,
+    "height": 4,
+    "stations": [
+      { "id": "washing_area", "x": 0, "y": 0, "label": "Washing Area", "icon": "🚿" },
+      { "id": "prep_station", "x": 1, "y": 0, "label": "Prep Station", "icon": "🔪" },
+      { "id": "cooking_stove", "x": 2, "y": 0, "label": "Cooking Stove", "icon": "🔥" },
+      { "id": "serving_counter", "x": 3, "y": 0, "label": "Serving Counter", "icon": "🍽️" }
+    ]
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "judges": [
+    {
+      "id": "grandma",
+      "name": "Grandma Adebayo",
+      "icon": "👵🏾",
+      "title": "The Traditionalist",
+      "personality": "warm_but_judgmental",
+      "primaryCriteria": "tradition",
+      "weightMultipliers": {
+        "tradition": 2.0,
+        "creativity": 0.5,
+        "efficiency": 1.0,
+        "execution": 1.5
+      },
+      "verdicts": [
+        {
+          "minScore": 90,
+          "maxScore": 100,
+          "message": "The egusi is well-fried, my child. You cooked with the ancestors' blessing. I will give you my secret ogiri recipe."
+        },
+        {
+          "minScore": 70,
+          "maxScore": 89,
+          "message": "Good, but you took shortcuts. I saw that blender. Next time use the mortar."
+        },
+        {
+          "minScore": 50,
+          "maxScore": 69,
+          "message": "Is this what they teach you on YouTube? Come, let me show you how to cook properly."
+        },
+        {
+          "minScore": 0,
+          "maxScore": 49,
+          "message": "Ah, our village people have succeeded! We have a confirmed hopeless culinary case in our lineage! AHHHH!!!"
+        }
+      ]
+    },
+    {
+      "id": "food_blogger",
+      "name": "Chef Fola (Food Blogger)",
+      "icon": "📸",
+      "title": "The Innovator",
+      "personality": "trendy_encouraging",
+      "primaryCriteria": "creativity",
+      "weightMultipliers": {
+        "tradition": 0.5,
+        "creativity": 2.0,
+        "efficiency": 1.0,
+        "execution": 1.0
+      },
+      "verdicts": [
+        {
+          "minScore": 90,
+          "maxScore": 100,
+          "message": "This is CONTENT! I'm posting this on my blog. #EgusiRevolution!"
+        },
+        {
+          "minScore": 70,
+          "maxScore": 89,
+          "message": "Interesting twist! A bit safe, but your plating is giving."
+        },
+        {
+          "minScore": 50,
+          "maxScore": 69,
+          "message": "Needs more fusion. Have you considered adding truffle oil? No? Okay..."
+        },
+        {
+          "minScore": 0,
+          "maxScore": 49,
+          "message": "This is aggressively traditional. Where's the creativity? The pizzazz?"
+        }
+      ]
+    },
+    {
+      "id": "hungry_student",
+      "name": "Tunde (Hungry Student)",
+      "icon": "🤤",
+      "title": "The Quantity Inspector",
+      "personality": "desperate_grateful",
+      "primaryCriteria": "efficiency",
+      "weightMultipliers": {
+        "tradition": 0.5,
+        "creativity": 0.5,
+        "efficiency": 2.5,
+        "execution": 0.5
+      },
+      "verdicts": [
+        {
+          "minScore": 90,
+          "maxScore": 100,
+          "message": "Boss! This food is plenty AND fast? You're a lifesaver. Do you cook everyday? Can I come and live with you??"
+        },
+        {
+          "minScore": 70,
+          "maxScore": 89,
+          "message": "Good portions. Could be faster, but I'm not complaining with a full stomach."
+        },
+        {
+          "minScore": 50,
+          "maxScore": 69,
+          "message": "Small portions, but the taste is there. I'll just eat more bread."
+        },
+        {
+          "minScore": 0,
+          "maxScore": 49,
+          "message": "I waited HOW long for this small thing? Omo, this is wickedness."
+        }
+      ]
+    },
+    {
+      "id": "restaurant_owner",
+      "name": "Madam Chidi (Restaurant Owner)",
+      "icon": "👩🏾‍🍳",
+      "title": "The Business Mind",
+      "personality": "pragmatic_professional",
+      "primaryCriteria": "execution",
+      "weightMultipliers": {
+        "tradition": 1.0,
+        "creativity": 0.75,
+        "efficiency": 1.5,
+        "execution": 2.0
+      },
+      "verdicts": [
+        {
+          "minScore": 90,
+          "maxScore": 100,
+          "message": "Consistent, balanced, profitable. You're hired. When can you start?"
+        },
+        {
+          "minScore": 70,
+          "maxScore": 89,
+          "message": "Good technique. With better time management, you could run a kitchen."
+        },
+        {
+          "minScore": 50,
+          "maxScore": 69,
+          "message": "This kitchen is chaos, but the food is edible. I've seen worse on opening night."
+        },
+        {
+          "minScore": 0,
+          "maxScore": 49,
+          "message": "My customers would demand a refund. And they'd be right."
+        }
+      ]
+    }
+  ]
+}

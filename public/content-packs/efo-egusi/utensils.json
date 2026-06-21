@@ -1,0 +1,110 @@
+{
+  "categories": {
+    "cooking_tools": {
+      "label": "Cooking Tools",
+      "icon": "🍳",
+      "items": [
+        {
+          "id": "pot",
+          "name": "Cooking Pot",
+          "icon": "🍲",
+          "required": true,
+          "scores": {
+            "tradition": 0,
+            "creativity": 0,
+            "efficiency": 0,
+            "execution": 10
+          },
+          "onSelect": {
+            "message": "You selected a pot. The bar continues to be on the floor. Well done."
+          }
+        }
+      ]
+    },
+    "grinding_tools": {
+      "label": "Grinding Method",
+      "icon": "🫗",
+      "tooltip": "How will you break down your egusi and pepper?",
+      "items": [
+        {
+          "id": "mortar_pestle",
+          "name": "Mortar & Pestle",
+          "icon": "🪨",
+          "tags": ["traditional", "manual", "textured-result"],
+          "scores": {
+            "tradition": 20,
+            "creativity": 0,
+            "efficiency": -15,
+            "execution": 15
+          },
+          "onSelect": {
+            "message": "Team Mortar! Your neighbors will hear your commitment.",
+            "unlockEvent": "minigame_difficulty_hard"
+          }
+        },
+        {
+          "id": "blender",
+          "name": "Electric Blender",
+          "icon": "⚡",
+          "tags": ["modern", "fast", "smooth-result"],
+          "scores": {
+            "tradition": -10,
+            "creativity": 5,
+            "efficiency": 20,
+            "execution": -5
+          },
+          "onSelect": {
+            "message": "Team Blender! NEPA better not betray you today.",
+            "unlockEvent": "power_dependent"
+          }
+        }
+      ],
+      "decisionPopUp": {
+        "trigger": "onSelect",
+        "title": "Team Mortar or Team Blender?",
+        "message": "This choice defines your cooking identity. Choose wisely.",
+        "options": [
+          {
+            "label": "TEAM MORTAR (Respect the old ways)",
+            "toolId": "mortar_pestle"
+          },
+          {
+            "label": "TEAM BLENDER (We're in 2026)",
+            "toolId": "blender"
+          }
+        ]
+      }
+    },
+    "heat_sources": {
+      "label": "Heat Source",
+      "icon": "🔥",
+      "items": [
+        {
+          "id": "gas_cooker",
+          "name": "Gas Cooker",
+          "icon": "🔵",
+          "scores": {
+            "tradition": 0,
+            "creativity": 0,
+            "efficiency": 15,
+            "execution": 5
+          }
+        },
+        {
+          "id": "charcoal_stove",
+          "name": "Charcoal Stove",
+          "icon": "🪵",
+          "scores": {
+            "tradition": 15,
+            "creativity": 0,
+            "efficiency": -10,
+            "execution": 10
+          },
+          "onSelect": {
+            "message": "Smoky flavor incoming. Your clothes will smell like commitment."
+          }
+        }
+      ]
+    }
+  }
+}

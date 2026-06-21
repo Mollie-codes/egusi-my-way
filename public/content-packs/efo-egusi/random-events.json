@@ -1,0 +1,93 @@
+{
+  "events": [
+    {
+      "id": "power_outage",
+      "name": "Power Outage!",
+      "icon": "⚡🔌",
+      "description": "NEPA has struck again! The power is gone.",
+      "triggerCondition": "using_blender AND cooking_phase === 'active'",
+      "probability": 0.3,
+      "message": "Darkness falls. Somewhere, a NEPA official laughs.",
+      "choices": [
+        {
+          "id": "wait",
+          "label": "Wait for power",
+          "message": "You sit in darkness. Hope is not a strategy.",
+          "scores": { "tradition": 0, "creativity": 0, "efficiency": -20, "execution": 0 }
+        },
+        {
+          "id": "use_generator",
+          "label": "Switch to Generator",
+          "message": "I better pass my neighbor! *Generator roars to life*",
+          "scores": { "tradition": 0, "creativity": 0, "efficiency": -5, "execution": 5 }
+        },
+        {
+          "id": "use_charcoal",
+          "label": "Use Charcoal Stove",
+          "message": "Back to basics. The old ways save you.",
+          "scores": { "tradition": 15, "creativity": 5, "efficiency": -10, "execution": -5 }
+        }
+      ]
+    },
+    {
+      "id": "visitor_enters",
+      "name": "Visitor Enters Kitchen",
+      "icon": "👀",
+      "description": "An uninvited kitchen guest appears!",
+      "triggerCondition": "cooking_phase === 'active'",
+      "probability": 0.4,
+      "message": "Aunty Bose has entered the kitchen. She's already judging.",
+      "choices": [
+        {
+          "id": "ignore",
+          "label": "Ignore and keep cooking",
+          "message": "You pretend she's not there. She pretends you're not rude. Everyone pretends.",
+          "scores": { "tradition": -5, "creativity": 0, "efficiency": 5, "execution": 0 }
+        },
+        {
+          "id": "offer_taste",
+          "label": "Give her a taste",
+          "message": "She tastes it. She pauses. The pause is LOUD.",
+          "scores": { "tradition": 10, "creativity": 0, "efficiency": -10, "execution": 5 },
+          "unlocksModifier": "aunty_opinion_modifier"
+        },
+        {
+          "id": "ask_opinion",
+          "label": "Ask her opinion",
+          "message": "She suggests adding ogiri. This changes EVERYTHING.",
+          "scores": { "tradition": 5, "creativity": 15, "efficiency": -15, "execution": 0 },
+          "unlocksModifier": "secret_ingredient_revealed"
+        }
+      ]
+    },
+    {
+      "id": "pepper_too_much",
+      "name": "Pepper is Too Much!",
+      "icon": "🌶️🔥",
+      "description": "You've added enough pepper to summon fire spirits.",
+      "triggerCondition": "pepper_added AND quantity === 'excessive'",
+      "probability": 0.5,
+      "message": "Smoke is coming from the pot. Your eyes are watering. This is not a drill.",
+      "choices": [
+        {
+          "id": "add_water",
+          "label": "Add Water",
+          "message": "You dilute the pepper. And the flavor. And your pride.",
+          "scores": { "tradition": -5, "creativity": 0, "efficiency": 0, "execution": -10 }
+        },
+        {
+          "id": "add_vegetables",
+          "label": "Add More Vegetables",
+          "message": "Smart. Vegetables absorb heat. You are a problem solver.",
+          "scores": { "tradition": 5, "creativity": 5, "efficiency": 5, "execution": 10 }
+        },
+        {
+          "id": "pretend_nothing",
+          "label": "Pretend Nothing Happened",
+          "message": "You serve it anyway. 'The pepper is the point,' you insist, sweating.",
+          "scores": { "tradition": 0, "creativity": 15, "efficiency": 15, "execution": -15 }
+        }
+      ]
+    }
+  ]
+}

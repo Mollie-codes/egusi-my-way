@@ -1,0 +1,50 @@
+{
+  "finalVerdicts": [
+    {
+      "id": "grandma_complains_but_eats",
+      "minTotalScore": 75,
+      "maxTotalScore": 100,
+      "message": "Grandma will complain but still eat it. And ask for the recipe. Secretly.",
+      "meme": "approving_grandma_smirk"
+    },
+    {
+      "id": "not_traditional_not_wrong",
+      "minTotalScore": 60,
+      "maxTotalScore": 74,
+      "message": "Not traditional. Not wrong. Just... dangerous.",
+      "meme": "side_eye_confusion"
+    },
+    {
+      "id": "group_chat_argument",
+      "minTotalScore": 45,
+      "maxTotalScore": 59,
+      "message": "The family group chat has started arguing. Screenshots are circulating.",
+      "meme": "whatsapp_war"
+    },
+    {
+      "id": "confidence_under_investigation",
+      "minTotalScore": 0,
+      "maxTotalScore": 44,
+      "message": "You cooked with confidence. Accuracy remains under investigation.",
+      "meme": "confident_wrong"
+    }
+  ],
+  "categorySpecificVerdicts": {
+    "highTradition": {
+      "minScore": 80,
+      "message": "The ancestors are proud. Very proud."
+    },
+    "highCreativity": {
+      "minScore": 80,
+      "message": "You're the reason Nigerian food is going global. Or giving people heartburn. Both."
+    },
+    "highEfficiency": {
+      "minScore": 80,
+      "message": "Speed master! Your guests didn't even finish asking 'Is the food ready?'"
+    },
+    "highExecution": {
+      "minScore": 80,
+      "message": "Technique so clean, even the pot is proud of itself."
+    }
+  }
+}

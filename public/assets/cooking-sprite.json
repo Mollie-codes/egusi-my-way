@@ -1,0 +1,135 @@
+{
+  "frames": {
+    "IDLE": {
+      "frame": {
+        "x": 16,
+        "y": 58,
+        "w": 153,
+        "h": 329
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 153,
+        "h": 329
+      },
+      "sourceSize": {
+        "w": 153,
+        "h": 342
+      }
+    },
+    "WALK_UP": {
+      "frame": {
+        "x": 179,
+        "y": 62,
+        "w": 156,
+        "h": 329
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 4,
+        "w": 156,
+        "h": 329
+      },
+      "sourceSize": {
+        "w": 156,
+        "h": 342
+      }
+    },
+    "WALK_DOWN": {
+      "frame": {
+        "x": 366,
+        "y": 64,
+        "w": 170,
+        "h": 335
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 6,
+        "w": 170,
+        "h": 335
+      },
+      "sourceSize": {
+        "w": 170,
+        "h": 342
+      }
+    },
+    "WALK_LEFT": {
+      "frame": {
+        "x": 555,
+        "y": 68,
+        "w": 172,
+        "h": 328
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 10,
+        "w": 172,
+        "h": 328
+      },
+      "sourceSize": {
+        "w": 172,
+        "h": 342
+      }
+    },
+    "WALK_RIGHT": {
+      "frame": {
+        "x": 754,
+        "y": 67,
+        "w": 172,
+        "h": 333
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 9,
+        "w": 172,
+        "h": 333
+      },
+      "sourceSize": {
+        "w": 172,
+        "h": 342
+      }
+    },
+    "WAVE": {
+      "frame": {
+        "x": 938,
+        "y": 65,
+        "w": 181,
+        "h": 327
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 7,
+        "w": 181,
+        "h": 327
+      },
+      "sourceSize": {
+        "w": 181,
+        "h": 342
+      }
+    }
+  },
+  "meta": {
+    "app": "atlas-generator",
+    "version": "1.0",
+    "image": "items-sprite.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1133,
+      "h": 466
+    },
+    "scale": "1"
+  }
+}

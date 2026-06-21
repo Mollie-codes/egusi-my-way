@@ -1,0 +1,75 @@
+{
+  "frames": {
+    "SMILING": {
+      "frame": {
+        "x": 7,
+        "y": 4,
+        "w": 107,
+        "h": 169
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 107,
+        "h": 169
+      },
+      "sourceSize": {
+        "w": 107,
+        "h": 169
+      }
+    },
+    "NEUTRAL": {
+      "frame": {
+        "x": 136,
+        "y": 4,
+        "w": 109,
+        "h": 168
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 109,
+        "h": 168
+      },
+      "sourceSize": {
+        "w": 109,
+        "h": 169
+      }
+    },
+    "STERN": {
+      "frame": {
+        "x": 267,
+        "y": 4,
+        "w": 109,
+        "h": 169
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 109,
+        "h": 169
+      },
+      "sourceSize": {
+        "w": 109,
+        "h": 169
+      }
+    }
+  },
+  "meta": {
+    "app": "atlas-generator",
+    "version": "1.0",
+    "image": "madam-chidi-judge-sprite.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 378,
+      "h": 173
+    },
+    "scale": "1"
+  }
+}

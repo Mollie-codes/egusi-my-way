@@ -1,0 +1,429 @@
+{
+  "categories": {
+    "proteins": {
+      "label": "Proteins",
+      "icon": "🥩",
+      "tooltip": "Choose your meat. Each brings different flavor and cooking time.",
+      "items": [
+        {
+          "id": "goat_meat",
+          "name": "Goat Meat",
+          "icon": "🐐",
+          "rarity": "common",
+          "tags": [
+            "traditional",
+            "flavorful",
+            "slow-cook"
+          ],
+          "scores": {
+            "tradition": 15,
+            "creativity": 0,
+            "efficiency": -5,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "Solid choice. The goat has given its consent... retroactively.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "cow_meat",
+          "name": "Cow Meat",
+          "icon": "🐄",
+          "rarity": "common",
+          "tags": [
+            "standard",
+            "reliable",
+            "medium-cook"
+          ],
+          "scores": {
+            "tradition": 10,
+            "creativity": -5,
+            "efficiency": 0,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "The default Nigerian party meat. Nobody will complain. Suspicious.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "stockfish",
+          "name": "Stockfish",
+          "icon": "🐟",
+          "rarity": "rare",
+          "tags": [
+            "traditional",
+            "umami-bomb",
+            "requires-soaking"
+          ],
+          "scores": {
+            "tradition": 20,
+            "creativity": 5,
+            "efficiency": -10,
+            "execution": 10
+          },
+          "onSelect": {
+            "message": "Ah! The smell that announces 'something serious is cooking.'",
+            "unlockEvent": "soaking_required"
+          }
+        },
+        {
+          "id": "snail",
+          "name": "Snail",
+          "icon": "🐌",
+          "rarity": "legendary",
+          "tags": [
+            "luxury",
+            "slimy",
+            "acquired-taste"
+          ],
+          "scores": {
+            "tradition": 5,
+            "creativity": 20,
+            "efficiency": -5,
+            "execution": -5
+          },
+          "onSelect": {
+            "message": "Oga! We see you! This is not just cooking, this is a flex.",
+            "unlockEvent": "guest_impressed"
+          }
+        }
+      ]
+    },
+    "vegetables": {
+      "label": "Leaves",
+      "icon": "🥬",
+      "tooltip": "The green that defines your pot.",
+      "items": [
+        {
+          "id": "efo_shoko",
+          "name": "Efo Shoko (Lagos Spinach)",
+          "icon": "🌿",
+          "rarity": "common",
+          "tags": [
+            "traditional",
+            "slightly-bitter",
+            "textured"
+          ],
+          "scores": {
+            "tradition": 15,
+            "creativity": -5,
+            "efficiency": 0,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "The people's champion. Safe. Respected. Expected.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "spinach",
+          "name": "Spinach (Foreign)",
+          "icon": "🥬",
+          "rarity": "common",
+          "tags": [
+            "foreign",
+            "soft",
+            "quick-cook"
+          ],
+          "scores": {
+            "tradition": -10,
+            "creativity": 0,
+            "efficiency": 10,
+            "execution": -5
+          },
+          "onSelect": {
+            "message": "Diaspora detected. Your aunty in Ibadan just felt a disturbance.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "bitter_leaf",
+          "name": "Bitter Leaf",
+          "icon": "🌱",
+          "rarity": "rare",
+          "tags": [
+            "traditional",
+            "bitter",
+            "washed"
+          ],
+          "scores": {
+            "tradition": 20,
+            "creativity": 10,
+            "efficiency": -15,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "You've chosen pain. Literally. Hope you washed it 27 times.",
+            "unlockEvent": "washing_minigame_hard"
+          }
+        }
+      ]
+    },
+    "bases": {
+      "label": "Base",
+      "icon": "🧈",
+      "tooltip": "The foundation. Without these, you're just playing.",
+      "items": [
+        {
+          "id": "egusi",
+          "name": "Egusi (Melon Seeds)",
+          "icon": "🟡",
+          "rarity": "essential",
+          "tags": [
+            "core",
+            "non-negotiable"
+          ],
+          "scores": {
+            "tradition": 25,
+            "creativity": -5,
+            "efficiency": 0,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "Congratulations. You are officially making Egusi. The bar is on the floor.",
+            "unlockEvent": null
+          },
+          "required": true,
+          "requiredMessage": "Without egusi, this is just... stew with identity issues. Pick the egusi."
+        },
+        {
+          "id": "palm_oil",
+          "name": "Palm Oil",
+          "icon": "🛢️",
+          "rarity": "essential",
+          "tags": [
+            "core",
+            "red-oil",
+            "flavor-base"
+          ],
+          "scores": {
+            "tradition": 20,
+            "creativity": -10,
+            "efficiency": 0,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Red gold. Your pot will now have that legitimate Nigerian glow.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "onions",
+          "name": "Onions",
+          "icon": "🧅",
+          "rarity": "essential",
+          "tags": [
+            "aromatic",
+            "flavor-base"
+          ],
+          "scores": {
+            "tradition": 10,
+            "creativity": 0,
+            "efficiency": 0,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": null,
+            "unlockEvent": null
+          },
+          "onSkip": {
+            "message": "Interesting decision. Very interesting. The ancestors are... confused.",
+            "scores": {
+              "tradition": -20,
+              "creativity": 10,
+              "efficiency": 5,
+              "execution": -10
+            }
+          }
+        },
+        {
+          "id": "crayfish",
+          "name": "Crayfish",
+          "icon": "🦐",
+          "rarity": "essential",
+          "tags": [
+            "umami",
+            "core",
+            "flavor-bomb"
+          ],
+          "scores": {
+            "tradition": 20,
+            "creativity": 0,
+            "efficiency": 5,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "The secret weapon. That pink powder is 50% of the flavor, 50% of the dust in your kitchen.",
+            "unlockEvent": null
+          },
+          "onSkip": {
+            "message": "No crayfish? Hope you have a backup plan for that flavor void.",
+            "scores": {
+              "tradition": -15,
+              "creativity": 5,
+              "efficiency": 0,
+              "execution": -10
+            }
+          }
+        },
+        {
+          "id": "pepper",
+          "name": "Pepper (Fresh & Dry)",
+          "icon": "🌶️",
+          "rarity": "essential",
+          "tags": [
+            "heat",
+            "core",
+            "non-negotiable"
+          ],
+          "scores": {
+            "tradition": 15,
+            "creativity": -5,
+            "efficiency": 0,
+            "execution": 10
+          },
+          "onSelect": {
+            "message": "Fire. Not optional. If your eyes don't water while grinding, you're doing it wrong.",
+            "unlockEvent": null
+          },
+          "required": true,
+          "requiredMessage": "Are you making egusi or baby food? Add pepper immediately."
+        },
+        {
+          "id": "locust_beans",
+          "name": "Locust Beans (Iru)",
+          "icon": "🫘",
+          "rarity": "rare",
+          "tags": [
+            "fermented",
+            "umami-nuke",
+            "traditional"
+          ],
+          "scores": {
+            "tradition": 25,
+            "creativity": 0,
+            "efficiency": -5,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "The smell of civilization. Your neighbors will either love you or hate you. No in-between.",
+            "unlockEvent": "fermented_aroma_alert"
+          },
+          "onSkip": {
+            "message": "Iru is not for the faint-hearted. We understand. But the ancestors are judging.",
+            "scores": {
+              "tradition": -10,
+              "creativity": 5,
+              "efficiency": 5,
+              "execution": 0
+            }
+          }
+        },
+        {
+          "id": "cow_skin",
+          "name": "Cow Skin (Ponmo)",
+          "icon": "🐮",
+          "rarity": "uncommon",
+          "tags": [
+            "chewy",
+            "protein-stretch",
+            "texture"
+          ],
+          "scores": {
+            "tradition": 10,
+            "creativity": -5,
+            "efficiency": -5,
+            "execution": 15
+          },
+          "onSelect": {
+            "message": "The great Nigerian illusion. Adds bulk, chews for 45 minutes, delivers 0.2g of protein. Essential.",
+            "unlockEvent": "chewing_marathon"
+          },
+          "onSkip": {
+            "message": "No ponmo? Your pot looks less authentic. But your jaw will thank you.",
+            "scores": {
+              "tradition": -10,
+              "creativity": 5,
+              "efficiency": 10,
+              "execution": 5
+            }
+          }
+        }
+      ]
+    },
+    "wildcards": {
+      "label": "Wildcards",
+      "icon": "🃏",
+      "tooltip": "Controversial additions. Proceed with caution.",
+      "items": [
+        {
+          "id": "tomatoes",
+          "name": "Tomatoes",
+          "icon": "🍅",
+          "rarity": "rare",
+          "tags": [
+            "controversial",
+            "jollof-adjacent",
+            "acidic"
+          ],
+          "scores": {
+            "tradition": -25,
+            "creativity": 15,
+            "efficiency": 0,
+            "execution": -5
+          },
+          "onSelect": {
+            "message": "Ah. One of THOSE cooks. The group chat has been notified.",
+            "unlockEvent": "controversy_triggered",
+            "memeReference": "side_eye_1"
+          }
+        },
+        {
+          "id": "carrots",
+          "name": "Carrots",
+          "icon": "🥕",
+          "rarity": "uncommon",
+          "tags": [
+            "sweet",
+            "crunchy",
+            "why"
+          ],
+          "scores": {
+            "tradition": -15,
+            "creativity": 15,
+            "efficiency": 5,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "If you add carrots, we won't stop you. But we will screenshot this.",
+            "unlockEvent": null,
+            "memeReference": "confused_grandma"
+          }
+        },
+        {
+          "id": "coconut_milk",
+          "name": "Coconut Milk",
+          "icon": "🥥",
+          "rarity": "legendary",
+          "tags": [
+            "fusion",
+            "creamy",
+            "risky"
+          ],
+          "scores": {
+            "tradition": -30,
+            "creativity": 25,
+            "efficiency": 0,
+            "execution": -10
+          },
+          "onSelect": {
+            "message": "Is this egusi or a Thai soup? Even we don't know anymore.",
+            "unlockEvent": "identity_crisis"
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "frames": {
+    "frame_000": {
+      "frame": {
+        "x": 57,
+        "y": 20,
+        "w": 363,
+        "h": 373
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 1,
+        "w": 363,
+        "h": 373
+      },
+      "sourceSize": {
+        "w": 363,
+        "h": 374
+      }
+    },
+    "frame_001": {
+      "frame": {
+        "x": 455,
+        "y": 19,
+        "w": 370,
+        "h": 373
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 370,
+        "h": 373
+      },
+      "sourceSize": {
+        "w": 370,
+        "h": 374
+      }
+    },
+    "frame_002": {
+      "frame": {
+        "x": 861,
+        "y": 19,
+        "w": 363,
+        "h": 373
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 363,
+        "h": 373
+      },
+      "sourceSize": {
+        "w": 363,
+        "h": 374
+      }
+    }
+  },
+  "meta": {
+    "app": "atlas-generator",
+    "version": "1.0",
+    "image": "food-blogger-judge-sprite.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1280,
+      "h": 411
+    },
+    "scale": "1"
+  }
+}

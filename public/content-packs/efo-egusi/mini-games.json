@@ -1,0 +1,96 @@
+{
+  "washingArea": {
+    "id": "vegetable_washing",
+    "type": "timer_challenge",
+    "label": "Wash Your Vegetables",
+    "description": "Hold the button to wash. Release at the right moment.",
+    "timer": {
+      "optimalStart": 3.0,
+      "optimalEnd": 5.0,
+      "maxTime": 8.0
+    },
+    "outcomes": [
+      {
+        "id": "perfect",
+        "condition": "timer >= 3.0 AND timer <= 5.0",
+        "message": "Clean vegetables. Your mother would be proud.",
+        "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 10 }
+      },
+      {
+        "id": "too_fast",
+        "condition": "timer < 3.0",
+        "message": "Those vegetables are still dirty. There's literal sand in your egusi now.",
+        "scores": { "tradition": 0, "creativity": 0, "efficiency": 5, "execution": -15 }
+      },
+      {
+        "id": "too_slow",
+        "condition": "timer > 5.0",
+        "message": "Guests are hungry. The children are crying. You wasted water.",
+        "scores": { "tradition": 0, "creativity": 0, "efficiency": -15, "execution": 0 }
+      }
+    ],
+    "decisionPopUp": {
+      "trigger": "beforeMiniGame",
+      "title": "Chop Then Wash, or Wash Then Chop?",
+      "message": "A debate as old as Nigerian cooking itself.",
+      "options": [
+        {
+          "label": "WASH THEN CHOP (The civilized way)",
+          "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 10 },
+          "message": "Order and hygiene. Your kitchen is a place of peace."
+        },
+        {
+          "label": "CHOP THEN WASH (The chaotic way)",
+          "scores": { "tradition": -5, "creativity": 10, "efficiency": 15, "execution": -10 },
+          "message": "You wash nutrients down the drain but save precious seconds. Bold."
+        }
+      ]
+    }
+  },
+  "prepArea": {
+    "id": "ingredient_prep",
+    "type": "quick_time_sequence",
+    "label": "Prep Station",
+    "tasks": [
+      {
+        "id": "slice_vegetables",
+        "type": "button_rhythm",
+        "label": "Slice Vegetables",
+        "targetRhythm": 1.0,
+        "perfectMessage": "Uniform cuts. Masterful knife work.",
+        "failMessage": "Those chunks are... aggressively rustic.",
+        "scores": {
+          "perfect": { "tradition": 0, "creativity": 0, "efficiency": 5, "execution": 10 },
+          "fail": { "tradition": 0, "creativity": 0, "efficiency": -5, "execution": -10 }
+        }
+      },
+      {
+        "id": "grind_egusi",
+        "type": "mash_sequence",
+        "label": "Grind Egusi",
+        "dependsOnTool": {
+          "mortar_pestle": {
+            "difficulty": "hard",
+            "requiredTaps": 15,
+            "perfectMessage": "That egusi is powdered perfection. The mortar did its job.",
+            "failMessage": "Chunky egusi. Some seeds survived the war.",
+            "scores": {
+              "perfect": { "tradition": 10, "creativity": 0, "efficiency": -5, "execution": 15 },
+              "fail": { "tradition": 0, "creativity": 0, "efficiency": -10, "execution": -5 }
+            }
+          },
+          "blender": {
+            "difficulty": "easy",
+            "requiredTaps": 5,
+            "perfectMessage": "Smooth and fast. Technology wins again.",
+            "failMessage": "You over-blended. That's egusi paste, not powder.",
+            "scores": {
+              "perfect": { "tradition": -5, "creativity": 5, "efficiency": 15, "execution": 5 },
+              "fail": { "tradition": -5, "creativity": 0, "efficiency": 5, "execution": -10 }
+            }
+          }
+        }
+      }
+    ]
+  }
+}

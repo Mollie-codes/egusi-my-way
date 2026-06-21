@@ -1,0 +1,86 @@
+{
+  "description": "Valid cooking sequences with their scoring implications. The engine compares player sequence against these templates.",
+  "sequences": [
+    {
+      "id": "traditional_fry_first",
+      "name": "Traditional: Fry First",
+      "description": "Fry egusi in palm oil before adding stock. Classic Yoruba method.",
+      "tags": ["traditional", "textured", "ijebu-style"],
+      "steps": [
+        { "order": 1, "action": "heat_oil", "ingredient": "palm_oil", "label": "Heat Palm Oil" },
+        { "order": 2, "action": "fry_aromatics", "ingredient": "onions", "label": "Fry Onions" },
+        { "order": 3, "action": "fry_aromatics", "ingredient": "pepper", "label": "Add Blended Pepper" },
+        { "order": 4, "action": "fry_egusi", "ingredient": "egusi", "label": "Fry Egusi in Oil" },
+        { "order": 5, "action": "add_stock", "ingredient": "meat_stock", "label": "Pour Meat Stock" },
+        { "order": 6, "action": "add_protein", "ingredient": "cooked_meat", "label": "Add Cooked Meat" },
+        { "order": 7, "action": "simmer", "ingredient": null, "label": "Simmer" },
+        { "order": 8, "action": "add_vegetables", "ingredient": "leafy_greens", "label": "Add Vegetables Last" }
+      ],
+      "scoringWeights": {
+        "tradition": 30,
+        "creativity": -10,
+        "efficiency": 0,
+        "execution": 15
+      }
+    },
+    {
+      "id": "boil_first_method",
+      "name": "Alternative: Boil First",
+      "description": "Cook egusi in stock first, then add palm oil. Controversial but valid.",
+      "tags": ["alternative", "smoother", "calabar-influence"],
+      "steps": [
+        { "order": 1, "action": "boil_meat", "ingredient": "meat", "label": "Boil Meat First" },
+        { "order": 2, "action": "add_egusi_to_stock", "ingredient": "egusi", "label": "Add Egusi to Stock" },
+        { "order": 3, "action": "add_palm_oil", "ingredient": "palm_oil", "label": "Add Palm Oil" },
+        { "order": 4, "action": "fry_aromatics_separate", "ingredient": "onions_pepper", "label": "Add Fried Pepper Mix" },
+        { "order": 5, "action": "simmer", "ingredient": null, "label": "Simmer" },
+        { "order": 6, "action": "add_vegetables", "ingredient": "leafy_greens", "label": "Add Vegetables Last" }
+      ],
+      "scoringWeights": {
+        "tradition": -10,
+        "creativity": 20,
+        "efficiency": 5,
+        "execution": 10
+      }
+    },
+    {
+      "id": "chaotic_neutral",
+      "name": "Chaotic Neutral Method",
+      "description": "No discernible order. Just vibes and hope.",
+      "steps": [],
+      "scoringWeights": {
+        "tradition": -20,
+        "creativity": 25,
+        "efficiency": -15,
+        "execution": -20
+      },
+      "matchCondition": "no_match_found"
+    }
+  ],
+  "criticalRules": [
+    {
+      "id": "vegetables_last",
+      "description": "Adding vegetables before simmering is a culinary crime.",
+      "condition": "vegetables_before_simmer",
+      "penalty": {
+        "tradition": -10,
+        "creativity": 0,
+        "efficiency": 0,
+        "execution": -20
+      },
+      "message": "You added vegetables too early. They are now military green mush. The ancestors weep."
+    },
+    {
+      "id": "no_onions_at_all",
+      "description": "Cooking without onions is... a statement.",
+      "condition": "onions_not_selected",
+      "penalty": {
+        "tradition": -15,
+        "creativity": 5,
+        "efficiency": 0,
+        "execution": -10
+      },
+      "message": "No onions? Are you being punished? Did onions hurt your family?"
+    }
+  ]
+}

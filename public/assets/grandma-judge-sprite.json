@@ -1,0 +1,75 @@
+{
+  "frames": {
+    "NEUTRAL": {
+      "frame": {
+        "x": 0,
+        "y": 8,
+        "w": 265,
+        "h": 287
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 265,
+        "h": 287
+      },
+      "sourceSize": {
+        "w": 265,
+        "h": 287
+      }
+    },
+    "SMILING": {
+      "frame": {
+        "x": 272,
+        "y": 8,
+        "w": 264,
+        "h": 286
+      },
+      "rotated": false,
+      "trimmed": true,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 264,
+        "h": 286
+      },
+      "sourceSize": {
+        "w": 264,
+        "h": 287
+      }
+    },
+    "STERN": {
+      "frame": {
+        "x": 541,
+        "y": 8,
+        "w": 266,
+        "h": 287
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 266,
+        "h": 287
+      },
+      "sourceSize": {
+        "w": 266,
+        "h": 287
+      }
+    }
+  },
+  "meta": {
+    "app": "atlas-generator",
+    "version": "1.0",
+    "image": "grandma-judge-sprite.png",
+    "format": "RGBA8888",
+    "size": {
+      "w": 813,
+      "h": 303
+    },
+    "scale": "1"
+  }
+}

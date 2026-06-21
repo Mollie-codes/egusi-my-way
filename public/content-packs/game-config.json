@@ -1,0 +1,44 @@
+{
+  "gameTitle": "NAIJA KITCHEN: COOKING MY WAY!",
+  "version": "1.0.0",
+  "activeContentPack": "efo-egusi",
+  "scoringCriteria": [
+    {
+      "id": "tradition",
+      "label": "Tradition",
+      "icon": "👵🏾",
+      "weight": 0.25,
+      "description": "Grandma's approval meter"
+    },
+    {
+      "id": "creativity",
+      "label": "Creativity",
+      "icon": "🎨",
+      "weight": 0.20,
+      "description": "How bold are your choices?"
+    },
+    {
+      "id": "efficiency",
+      "label": "Efficiency",
+      "icon": "⏱️",
+      "weight": 0.20,
+      "description": "Time management mastery"
+    },
+    {
+      "id": "execution",
+      "label": "Execution",
+      "icon": "🔪",
+      "weight": 0.35,
+      "description": "Cooking technique precision"
+    }
+  ],
+  "loadingMessages": [
+    "Somebody's grandmother is already judging your ingredient choices.",
+    "If you add carrots, we won't stop you... but we will remember.",
+    "There are 19 tribes and 73 Egusi opinions. You just triggered 12.",
+    "Palm oil detected. Aunty Bose has been notified.",
+    "Loading flavor profiles... and potential family drama.",
+    "Warning: Your method may be screenshotted and sent to family WhatsApp.",
+    "Calibrating the 'Is it soup or is it stew?' detector..."
+  ]
+}
