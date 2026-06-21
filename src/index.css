@@ -141,7 +141,7 @@ h3,
 
 /* ─── Boot Screen ─── */
 .orange-gradient-bg {
-  background: linear-gradient(180deg, #f47d20 0%, #ffb68a 100%);
+  background: linear-gradient(180deg, #F9A134 0%, #F57A27 33%, #F15C22 66%, #ED3A1C 100%);
 }
 
 .dot-pattern {

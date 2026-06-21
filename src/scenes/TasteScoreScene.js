@@ -1,11 +1,10 @@
 // src/scenes/TasteScoreScene.js
-// Screen 5: Tasting animation bridge between ServingScene and Results.
+// Screen 5: Tasting animation bridge between ServingScene and Results - DOM overlay matching grindegusi.html
 import Phaser from 'phaser';
-import { createCharacterStickerSprite } from '../utils/StickerEffect.js';
-import { COLORS, HEX, FONTS, textStyle } from '../ui/theme.js';
+import { showSettingsModal } from '../ui/SettingsModal.js';
 
-function createCookingStateCanvas(scene, frameKey) {
-  const texture = scene.textures.get('cooking-states');
+function createCharacterSpriteCanvas(scene, frameKey) {
+  const texture = scene.textures.get('sprites-cooking');
   if (!texture) return null;
   const frame = texture.get(frameKey);
   if (!frame) return null;
@@ -25,178 +24,267 @@ function createCookingStateCanvas(scene, frameKey) {
 export class TasteScoreScene extends Phaser.Scene {
   constructor() {
     super('TasteScoreScene');
+    this.overlay = null;
+    this._resizeHandler = null;
+    this._messageInterval = null;
   }
 
   create() {
-    const gfx = this.add.graphics();
-    const w = 480, h = 854;
-    const topColor = Phaser.Display.Color.HexStringToColor('#2D1B00');
-    const bottomColor = Phaser.Display.Color.HexStringToColor('#0d0b14');
-    for (let y = 0; y < h; y++) {
-      const t = y / h;
-      const r = Phaser.Math.Linear(topColor.red, bottomColor.red, t);
-      const g = Phaser.Math.Linear(topColor.green, bottomColor.green, t);
-      const b = Phaser.Math.Linear(topColor.blue, bottomColor.blue, t);
-      gfx.fillStyle(Phaser.Display.Color.GetColor(r, g, b), 1);
-      gfx.fillRect(0, y, w, 1);
-    }
+    this.cameras.main.setBackgroundColor('#0d0b14');
 
-    this.cameras.main.fadeIn(300, 0, 0, 0);
+    // ─── CREATE DOM OVERLAY ───
+    this.overlay = document.createElement('div');
+    this.overlay.id = 'taste-score-overlay';
+    this.overlay.className = 'absolute inset-0 z-50 flex flex-col h-full w-full bg-surface-dim text-on-surface font-body-md overflow-hidden select-none pointer-events-auto';
 
-    // ─── BACK BUTTON ───
-    const backBtn = this.add.text(40, 30, '← Back', {
-      fontFamily: FONTS.label,
-      fontSize: '14px',
-      fontWeight: '700',
-      fill: COLORS.onSurfaceVariant,
-    }).setOrigin(0, 0.5).setInteractive({ useHandCursor: true });
+    this.overlay.innerHTML = `
+      <div class="absolute inset-0 egusi-pattern pointer-events-none"></div>
+      <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"></div>
 
-    backBtn.on('pointerdown', () => {
-      this.cameras.main.fadeOut(200, 0, 0, 0);
-      this.cameras.main.once('camerafadeoutcomplete', () => {
-        this.scene.start('ServingScene');
-      });
-    });
+      <!-- Top App Bar -->
+      <header class="bg-surface-container-high shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-lg">
+        <div class="flex items-center gap-sm">
+          <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
+          <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
+        </div>
+        <button id="taste-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+      </header>
 
-    // ─── HEADER ───
-    this.add.text(240, 50, '🍽️ THE MOMENT OF TRUTH', {
-      fontFamily: FONTS.heading,
-      fontSize: '22px',
-      fontWeight: '800',
-      fill: COLORS.primary,
-    }).setOrigin(0.5);
+      <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pt-lg pb-32 no-scrollbar flex flex-col items-center">
+        <!-- Screen Title Section -->
+        <div class="text-center mb-lg">
+          <h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase tracking-wider mb-xs">The Moment of Truth</h2>
+          <p class="font-body-md text-on-surface-variant italic">Time to taste what you've created...</p>
+        </div>
 
-    this.add.text(240, 85, 'Time to taste what you\'ve created...', {
-      fontFamily: FONTS.body,
-      fontSize: '15px',
-      fontStyle: 'italic',
-      fill: COLORS.onSurfaceVariant,
-    }).setOrigin(0.5);
+        <!-- Hero Bowl Area -->
+        <div class="relative w-full max-w-xs aspect-square flex items-center justify-center mb-xl">
+          <!-- Steam effects -->
+          <div class="absolute -top-12 left-1/2 -translate-x-1/2 flex gap-4 pointer-events-none">
+            <span class="material-symbols-outlined text-on-surface-variant text-4xl steam-effect" style="animation-delay: 0.2s;">cloud</span>
+            <span class="material-symbols-outlined text-on-surface-variant text-2xl steam-effect" style="animation-delay: 0.8s;">cloud</span>
+            <span class="material-symbols-outlined text-on-surface-variant text-5xl steam-effect" style="animation-delay: 0.5s;">cloud</span>
+          </div>
 
-    // ─── EGUSI SOUP VISUAL ───
-    const potBg = this.add.graphics();
-    potBg.fillStyle(0x191428, 0.6);
-    potBg.fillRoundedRect(130, 130, 220, 200, 16);
+          <!-- Result Bowl Container -->
+          <div class="w-64 h-64 glass-panel rounded-full flex items-center justify-center shadow-2xl relative">
+            <div class="absolute inset-2 border-2 border-dashed border-primary/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
+            <div class="w-16 h-16 object-contain drop-shadow-[0_20px_50px_rgba(244,125,32,0.4)] flex items-center justify-center" id="bowl-sprite"></div>
+          </div>
+        </div>
 
-    // Render egusi_soup sprite from cooking-states atlas
+        <!-- Character Sprite & Status -->
+        <div class="flex flex-col items-center gap-md">
+          <div class="h-40 overflow-hidden flex items-center justify-center relative">
+            <!-- Character Sprite Clipping -->
+            <div class="relative w-32 h-32 overflow-hidden rounded-xl border border-primary/10 bg-surface-container-low p-2" id="char-sprite-container"></div>
+            <!-- Thinking Bubble -->
+            <div class="absolute -top-4 -right-4 bg-primary-container text-on-primary-container rounded-full w-8 h-8 flex items-center justify-center shadow-lg">
+              <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">restaurant</span>
+            </div>
+          </div>
+
+          <!-- Status Text -->
+          <div class="text-center">
+            <div class="inline-flex items-center gap-sm px-lg py-sm bg-surface-container-highest rounded-full shadow-md border border-outline-variant/30">
+              <span class="material-symbols-outlined text-secondary animate-spin-slow">pending</span>
+              <p class="font-label-bold text-label-bold text-secondary tracking-widest pulsing uppercase" id="status-text">...considering the flavors...</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- CTA Button -->
+      <div class="absolute bottom-20 left-0 w-full px-container-padding z-40 pointer-events-none">
+        <button id="verdict-btn" class="pointer-events-auto w-full h-14 bg-secondary-container text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile rounded-xl shadow-[0_4px_0px_#003822] active:shadow-none active:translate-y-[4px] transition-all duration-75 uppercase tracking-wide cursor-pointer flex items-center justify-center gap-sm hidden opacity-0" style="visibility: hidden;">
+          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>emoji_events</span>
+          SEE THE VERDICT
+        </button>
+      </div>
+
+      <!-- Bottom Navigation -->
+      <nav class="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-md pb-lg pt-sm bg-surface-container-highest shadow-[0_-4px_12px_rgba(0,0,0,0.4)] rounded-t-xl">
+        <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-4 py-1 cursor-pointer">
+          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>skillet</span>
+          <span class="font-label-bold text-[10px]">Kitchen</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+          <span class="material-symbols-outlined">inventory_2</span>
+          <span class="font-label-bold text-[10px]">Pantry</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+          <span class="material-symbols-outlined">storefront</span>
+          <span class="font-label-bold text-[10px]">Market</span>
+        </div>
+        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+          <span class="material-symbols-outlined">emoji_events</span>
+          <span class="font-label-bold text-[10px]">Awards</span>
+        </div>
+      </nav>
+
+      <style>
+        @keyframes steam {
+          0%, 100% { transform: translateY(0) scaleX(1); opacity: 0.3; }
+          50% { transform: translateY(-10px) scaleX(1.1); opacity: 0.6; }
+        }
+        .steam-effect {
+          animation: steam 3s ease-in-out infinite;
+        }
+        .pulsing {
+          animation: pulse-text 1.5s ease-in-out infinite;
+        }
+        @keyframes pulse-text {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.5; }
+        }
+        .glass-panel {
+          background: rgba(37, 33, 49, 0.7);
+          backdrop-filter: blur(12px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+      </style>
+    `;
+
+    document.getElementById('game-container').appendChild(this.overlay);
+
+    // ─── OVERLAY SCALING ───
+    this._resizeHandler = () => {
+      if (!this.overlay) return;
+      const canvas = this.sys.game.canvas;
+      if (!canvas) return;
+      const canvasBounds = canvas.getBoundingClientRect();
+      const containerBounds = document.getElementById('game-container').getBoundingClientRect();
+      const scale = canvasBounds.width / 480;
+      const offsetX = canvasBounds.left - containerBounds.left;
+      const offsetY = canvasBounds.top - containerBounds.top;
+      this.overlay.style.width = '480px';
+      this.overlay.style.height = '854px';
+      this.overlay.style.transform = `scale(${scale})`;
+      this.overlay.style.transformOrigin = 'top left';
+      this.overlay.style.left = `${offsetX}px`;
+      this.overlay.style.top = `${offsetY}px`;
+    };
+    this._resizeHandler();
+    this.sys.game.scale.on('resize', this._resizeHandler);
+
+    // ─── RENDER SOUP BOWL ───
+    const bowlContainer = this.overlay.querySelector('#bowl-sprite');
     if (this.textures.exists('cooking-states')) {
-      const soupCanvas = createCookingStateCanvas(this, 'egusi_soup');
+      const soupCanvas = this.createCookingStateCanvas(this, 'egusi_soup');
       if (soupCanvas) {
-        const soupTex = this.textures.addCanvas('egusi-soup-taste', soupCanvas);
-        const soupSprite = this.add.image(240, 215, 'egusi-soup-taste');
-        soupSprite.setDisplaySize(100, 100);
+        soupCanvas.className = 'w-48 h-48 object-contain';
+        bowlContainer.appendChild(soupCanvas);
       }
     } else {
-      this.add.text(240, 210, '🍲', { fontSize: '80px' }).setOrigin(0.5);
+      bowlContainer.innerHTML = '<span class="text-8xl">🍲</span>';
     }
 
-    // Steam
-    this.time.addEvent({
-      delay: 200,
-      callback: () => {
-        const sx = 240 + (Math.random() * 60 - 30);
-        const sy = 170;
-        const steam = this.add.text(sx, sy, '~', {
-          fontSize: '18px', fill: COLORS.onSurface,
-        }).setOrigin(0.5).setAlpha(0.3);
-        this.tweens.add({
-          targets: steam, y: sy - 60, alpha: 0, scaleX: 1.5,
-          duration: 1200, ease: 'Power1', onComplete: () => steam.destroy(),
-        });
-      },
-      loop: true,
+    // ─── RENDER CHARACTER SPRITE ───
+    const charContainer = this.overlay.querySelector('#char-sprite-container');
+    if (this.textures.exists('sprites-cooking')) {
+      const charCanvas = createCharacterSpriteCanvas(this, 'IDLE');
+      if (charCanvas) {
+        charCanvas.style.width = '100%';
+        charCanvas.style.height = '100%';
+        charCanvas.style.objectFit = 'contain';
+        charContainer.appendChild(charCanvas);
+      }
+    } else {
+      charContainer.innerHTML = '<span class="text-6xl">🧑🏾‍🍳</span>';
+    }
+
+    // ─── SETTINGS BUTTON ───
+    this.overlay.querySelector('#taste-settings-btn').addEventListener('click', () => {
+      showSettingsModal(this);
     });
 
-    // ─── PLAYER CHARACTER ───
-    let playerSprite = null;
-    const emojiMode = this.game.gameState.emojiMode;
-
-    if (!emojiMode && this.textures.exists('sprites-cooking')) {
-      playerSprite = createCharacterStickerSprite(this, 240, 470, 'IDLE', { width: 70, height: 150 });
-      this.tweens.add({ targets: playerSprite, y: 465, duration: 800, yoyo: true, repeat: 2, ease: 'Sine.easeInOut' });
-    } else {
-      playerSprite = this.add.text(240, 470, '🧑🏾‍🍳', { fontSize: '80px' }).setOrigin(0.5);
-      this.tweens.add({ targets: playerSprite, y: 465, duration: 800, yoyo: true, repeat: 2, ease: 'Sine.easeInOut' });
-    }
-
-    // ─── TASTING SEQUENCE ───
-    const tastingMessages = [
-      { text: 'Taking a spoonful...', delay: 0 },
-      { text: '...chewing thoughtfully...', delay: 1500 },
-      { text: '...considering the flavors...', delay: 3000 },
+    // ─── TASTING MESSAGE CYCLE ───
+    const messages = [
+      '...considering the flavors...',
+      '...evaluating seasoning...',
+      '...checking texture...',
+      '...almost ready...'
     ];
+    let msgIndex = 0;
+    const statusEl = this.overlay.querySelector('#status-text');
 
-    const tastingText = this.add.text(240, 580, '', {
-      fontFamily: FONTS.body, fontSize: '15px', fontStyle: 'italic', fill: COLORS.onSurface, align: 'center',
-    }).setOrigin(0.5);
+    this._messageInterval = setInterval(() => {
+      msgIndex = (msgIndex + 1) % messages.length;
+      statusEl.style.opacity = '0';
+      setTimeout(() => {
+        statusEl.textContent = messages[msgIndex];
+        statusEl.style.opacity = '1';
+      }, 300);
+    }, 3000);
 
-    tastingMessages.forEach(msg => {
-      this.time.delayedCall(msg.delay, () => {
-        this.tweens.add({
-          targets: tastingText, alpha: 0, duration: 200,
-          onComplete: () => {
-            tastingText.setText(msg.text);
-            this.tweens.add({ targets: tastingText, alpha: 1, duration: 300 });
-          },
-        });
-      });
-    });
-
-    // ─── SCORE TEASE ───
-    this.time.delayedCall(4500, () => {
-      this.cameras.main.flash(300, 255, 215, 0, 0.15);
-      this.tweens.add({ targets: tastingText, alpha: 0, duration: 200 });
-
-      const verdictTease = this.add.text(240, 580, '🤔 Hmm...', {
-        fontFamily: FONTS.heading, fontSize: '24px', fontWeight: '800', fill: COLORS.primary,
-      }).setOrigin(0.5).setAlpha(0);
-
-      this.tweens.add({
-        targets: verdictTease, alpha: 1, scaleX: 1.1, scaleY: 1.1,
-        duration: 500, yoyo: true, hold: 800, ease: 'Back.easeOut',
-      });
-
-      if (!emojiMode && this.textures.exists('sprites-cooking') && playerSprite.setFrame) {
-        playerSprite.setFrame('IDLE');
-      }
-    });
-
-    // ─── CONTINUE BUTTON ───
+    // ─── VERDICT BUTTON ───
+    const verdictBtn = this.overlay.querySelector('#verdict-btn');
     this.time.delayedCall(6500, () => {
-      const btnBg = this.add.graphics();
-      btnBg.fillStyle(HEX.primary, 1);
-      btnBg.fillRoundedRect(80, 680, 320, 54, 14);
-      btnBg.setAlpha(0);
+      verdictBtn.style.visibility = 'visible';
+      verdictBtn.classList.remove('hidden');
+      verdictBtn.classList.add('flex');
+      verdictBtn.style.opacity = '0';
+      verdictBtn.style.transition = 'opacity 0.5s ease';
+      setTimeout(() => { verdictBtn.style.opacity = '1'; }, 50);
 
-      const btnText = this.add.text(240, 707, '⚖️  SEE THE VERDICT', {
-        fontFamily: FONTS.heading, fontSize: '16px', fontWeight: '800', fill: COLORS.onPrimaryContainer,
-      }).setOrigin(0.5).setAlpha(0);
-
-      this.tweens.add({ targets: [btnBg, btnText], alpha: 1, duration: 500, ease: 'Power2' });
-      this.tweens.add({ targets: btnText, scaleX: 1.04, scaleY: 1.04, duration: 700, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-
-      const btnZone = this.add.zone(240, 707, 320, 54).setInteractive({ useHandCursor: true });
-      btnZone.on('pointerdown', () => {
-        btnZone.disableInteractive();
-        this.cameras.main.fadeOut(300, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => { this.scene.start('ResultsScene'); });
+      verdictBtn.addEventListener('click', () => {
+        verdictBtn.disabled = true;
+        this.overlay.style.transition = 'opacity 0.3s ease';
+        this.overlay.style.opacity = '0';
+        setTimeout(() => {
+          this.scene.start('ResultsScene');
+        }, 300);
       });
     });
 
-    // Auto-advance
+    // ─── AUTO-ADVANCE ───
     this.time.delayedCall(10000, () => {
       if (this.scene.isActive('TasteScoreScene')) {
-        this.cameras.main.fadeOut(300, 0, 0, 0);
-        this.cameras.main.once('camerafadeoutcomplete', () => { this.scene.start('ResultsScene'); });
+        this.overlay.style.transition = 'opacity 0.3s ease';
+        this.overlay.style.opacity = '0';
+        setTimeout(() => {
+          this.scene.start('ResultsScene');
+        }, 300);
       }
     });
 
-    // Floating ingredients
-    ['🧅', '🌶️', '🥬', '🍅', '🧄'].forEach((emoji, i) => {
-      const fx = 40 + Math.random() * 400;
-      const fy = 650 + Math.random() * 150;
-      const floater = this.add.text(fx, fy, emoji, { fontSize: '16px' }).setOrigin(0.5).setAlpha(0.15);
-      this.tweens.add({ targets: floater, y: fy - 30, alpha: 0.08, duration: 3000 + i * 500, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-    });
+    // ─── CLEANUP ───
+    this.events.once('shutdown', () => {
+      this.sys.game.scale.off('resize', this._resizeHandler);
+      this.shutdown();
+    }, this);
+    this.events.once('destroy', () => {
+      this.sys.game.scale.off('resize', this._resizeHandler);
+      this.shutdown();
+    }, this);
+  }
+
+  createCookingStateCanvas(scene, frameKey) {
+    const texture = scene.textures.get('cooking-states');
+    if (!texture) return null;
+    const frame = texture.get(frameKey);
+    if (!frame) return null;
+    const cutX = frame.cutX !== undefined ? frame.cutX : frame.x;
+    const cutY = frame.cutY !== undefined ? frame.cutY : frame.y;
+    const cutWidth = frame.cutWidth || frame.width;
+    const cutHeight = frame.cutHeight || frame.height;
+    if (!cutWidth || !cutHeight) return null;
+    const canvas = document.createElement('canvas');
+    canvas.width = cutWidth;
+    canvas.height = cutHeight;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(frame.source.image, cutX, cutY, cutWidth, cutHeight, 0, 0, cutWidth, cutHeight);
+    return canvas;
+  }
+
+  shutdown() {
+    if (this._messageInterval) {
+      clearInterval(this._messageInterval);
+      this._messageInterval = null;
+    }
+    if (this.overlay) {
+      this.overlay.remove();
+      this.overlay = null;
+    }
   }
 }

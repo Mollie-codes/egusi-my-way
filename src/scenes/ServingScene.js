@@ -47,7 +47,7 @@ export class ServingScene extends Phaser.Scene {
       <div class="absolute inset-0 egusi-pattern pointer-events-none"></div>
       <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-tertiary/5 to-transparent pointer-events-none"></div>
 
-      <header class="bg-surface-container-high shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-sm">
+      <header class="bg-surface-container-high shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-lg">
         <div class="flex items-center gap-sm">
           <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
           <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
@@ -78,7 +78,7 @@ export class ServingScene extends Phaser.Scene {
       </main>
 
       <!-- CTA -->
-      <div class="absolute bottom-16 left-0 w-full px-container-padding z-40 pointer-events-none">
+      <div class="absolute left-0 w-full px-container-padding z-40 pointer-events-none" style="bottom: 46px;">
         <button id="serve-btn" class="pointer-events-auto w-full h-14 bg-secondary-container text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile rounded-xl shadow-[0_4px_0px_#003822] active:shadow-none active:translate-y-[4px] transition-all duration-75 uppercase tracking-wide cursor-pointer flex items-center justify-center gap-sm opacity-50" disabled>
           <span class="material-symbols-outlined">restaurant</span>
           SERVE & JUDGE

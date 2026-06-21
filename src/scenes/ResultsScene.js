@@ -178,7 +178,7 @@ export class ResultsScene extends Phaser.Scene {
       </style>
 
       <!-- App Header -->
-      <header class="bg-surface-container-high shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-sm flex-shrink-0">
+      <header class="bg-surface-container-high shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-lg flex-shrink-0">
         <div class="flex items-center gap-sm">
           <button id="results-back-btn" class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors active:scale-95 cursor-pointer mr-xs">arrow_back</button>
           <span class="material-symbols-outlined text-primary text-2xl" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
@@ -453,7 +453,7 @@ export class ResultsScene extends Phaser.Scene {
     scoreCard.style.animationDelay = '0.15s';
     scoreCard.innerHTML = `
       <div class="z-10 flex flex-col items-center w-full">
-        <div class="animate-float py-12">
+        <div class="animate-float" style="padding: 8px 0;">
           <span id="score-counter" class="font-display-lg text-[80px] leading-none text-primary mb-2 block font-extrabold">0</span>
         </div>
         <div class="bg-primary-container/20 text-primary px-4 py-1 rounded-full flex items-center gap-1.5 mb-md border border-primary/20 shadow-sm text-xs font-bold font-label-bold uppercase">
@@ -702,15 +702,12 @@ export class ResultsScene extends Phaser.Scene {
     headerSec.style.animationDelay = '0.05s';
     headerSec.innerHTML = `
       <h2 class="font-display-lg text-display-lg text-primary uppercase font-extrabold tracking-tight">CHALLENGE ACCEPTED!</h2>
-      <p class="font-body-md text-xs text-on-surface-variant mt-1 leading-normal px-4">
-        Build your own recipe logic with our no-code builder. Here are other simulators built by chefs like you:
-      </p>
     `;
     container.appendChild(headerSec);
 
     // Search bar mock
     const searchBar = document.createElement('div');
-    searchBar.className = 'relative w-full bento-stagger';
+    searchBar.className = 'relative w-full bento-stagger mb-md';
     searchBar.style.animationDelay = '0.15s';
     searchBar.innerHTML = `
       <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
@@ -720,7 +717,7 @@ export class ResultsScene extends Phaser.Scene {
 
     // Category pills mock list
     const filters = document.createElement('div');
-    filters.className = 'flex gap-2 overflow-x-auto w-full recipe-scroll pb-1 bento-stagger';
+    filters.className = 'flex gap-2 overflow-x-auto w-full recipe-scroll pb-1 bento-stagger mb-md';
     filters.style.animationDelay = '0.2s';
     filters.innerHTML = `
       <button class="bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap active:scale-95 transition-transform flex-shrink-0 cursor-pointer">All Recipes</button>
@@ -748,111 +745,116 @@ export class ResultsScene extends Phaser.Scene {
     grid.style.animationDelay = '0.25s';
     grid.innerHTML = `
       <!-- Efo Egusi Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg flex flex-col text-left">
-        <div class="h-28 relative overflow-hidden bg-[#2a233c] flex items-center justify-center">
-          <span class="text-4xl">🍲</span>
-          <div class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container px-2.5 py-0.5 rounded-full text-[9px] font-label-bold shadow-md">
+      <div class="glass-card rounded-xl overflow-hidden shadow-lg group hover:scale-[1.02] transition-transform duration-300 flex flex-col text-left">
+        <div class="h-40 relative overflow-hidden bg-surface-container-high flex items-center justify-center">
+          <span class="text-6xl">🍲</span>
+          <div class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-bold font-label-bold shadow-md">
             Mastered
           </div>
         </div>
-        <div class="p-md flex-grow flex flex-col justify-between space-y-2">
+        <div class="p-md space-y-sm flex-grow flex flex-col justify-between">
           <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-sm text-on-surface font-bold">Efo Egusi</h3>
+            <h3 class="font-headline-lg text-headline-lg text-on-surface">Efo Egusi</h3>
             <div class="flex text-tertiary">
-              <span class="material-symbols-outlined text-sm fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-sm fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-sm">local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
             </div>
           </div>
-          <div class="flex items-center justify-between text-on-surface-variant text-[10px]">
-            <span class="font-label-bold">Best Score: ${totalScore}%</span>
-            <div class="flex items-center gap-0.5 opacity-60">
-              <span class="material-symbols-outlined text-xs">history</span>
-              <span>1 time</span>
+          <div class="flex items-center justify-between text-on-surface-variant text-label-bold font-label-bold">
+            <span class="text-label-bold">Best Score: ${totalScore}%</span>
+            <div class="flex items-center gap-xs">
+              <span class="material-symbols-outlined text-[16px]">history</span>
+              <span class="text-label-bold">1 time</span>
             </div>
           </div>
-          <div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
-            <div class="h-full bg-secondary rounded-full" style="width: ${totalScore}%"></div>
+          <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-secondary w-full"></div>
           </div>
         </div>
-        <div class="bg-secondary/10 px-md py-1.5 border-t border-secondary/20 flex justify-center text-[10px] text-secondary font-label-bold tracking-widest font-bold">
-          CHEF SPECIALTY
+        <div class="bg-secondary/10 px-md py-2 border-t border-secondary/20 flex justify-center">
+          <span class="text-secondary font-label-bold text-label-bold">CHEF SPECIALTY</span>
         </div>
       </div>
 
       <!-- Party Jollof Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg flex flex-col text-left">
-        <div class="h-28 relative overflow-hidden bg-[#2a233c] flex items-center justify-center">
-          <span class="text-4xl">🌾</span>
-          <div class="absolute top-2 right-2 bg-primary-container text-on-primary-container px-2.5 py-0.5 rounded-full text-[9px] font-label-bold shadow-md">
+      <div class="glass-card rounded-xl overflow-hidden shadow-lg group hover:scale-[1.02] transition-transform duration-300 flex flex-col text-left">
+        <div class="h-40 relative overflow-hidden bg-surface-container-high flex items-center justify-center">
+          <span class="text-6xl">🌾</span>
+          <div class="absolute top-2 right-2 bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-bold font-label-bold shadow-md">
             75% Complete
           </div>
         </div>
-        <div class="p-md flex-grow flex flex-col justify-between space-y-2">
+        <div class="p-md space-y-sm flex-grow flex flex-col justify-between">
           <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-sm text-on-surface font-bold">Party Jollof</h3>
+            <h3 class="font-headline-lg text-headline-lg text-on-surface">Party Jollof</h3>
             <div class="flex text-tertiary">
-              <span class="material-symbols-outlined text-sm fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-sm fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-sm fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
             </div>
           </div>
-          <div class="flex items-center justify-between text-on-surface-variant text-[10px]">
-            <span class="font-label-bold">Target: Master smoky flavor</span>
+          <div class="text-on-surface-variant text-label-bold font-label-bold">
+            <span class="text-label-bold">Target: Master smoky flavor</span>
           </div>
-          <div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
-            <div class="h-full bg-primary-container rounded-full" style="width: 75%"></div>
+          <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-primary-container w-3/4"></div>
           </div>
         </div>
-        <div class="bg-primary-container/10 px-md py-1.5 border-t border-primary-container/20 flex justify-center text-[10px] text-primary-container font-label-bold tracking-widest font-bold">
-          CONTINUE COOKING
+        <div class="bg-primary-container/10 px-md py-2 border-t border-primary-container/20 flex justify-center">
+          <span class="text-primary-container font-label-bold text-label-bold">CONTINUE COOKING</span>
         </div>
       </div>
 
-      <!-- Beef Suya Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg flex flex-col text-left opacity-50 grayscale relative">
-        <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[1.5px]">
-          <span class="material-symbols-outlined text-3xl text-white mb-1">lock</span>
-          <p class="font-label-bold text-[10px] text-white uppercase tracking-widest font-bold">Locked</p>
-          <p class="text-[8px] text-on-surface-variant mt-0.5">Unlock at Chef Level 10</p>
+      <!-- Beef Suya Card (Locked) -->
+      <div class="glass-card rounded-xl overflow-hidden shadow-lg flex flex-col text-left opacity-60 grayscale relative">
+        <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
+          <span class="material-symbols-outlined text-display-lg text-white mb-2">lock</span>
+          <p class="font-label-bold text-label-bold text-white uppercase tracking-widest">Locked</p>
+          <p class="text-[12px] text-on-surface-variant mt-1">Unlock at Chef Level 10</p>
         </div>
-        <div class="h-28 bg-[#2a233c] flex items-center justify-center">
-          <span class="text-4xl">🍖</span>
+        <div class="h-40 overflow-hidden bg-surface-container-high flex items-center justify-center">
+          <span class="text-6xl">🍖</span>
         </div>
-        <div class="p-md space-y-2">
+        <div class="p-md space-y-sm">
           <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-sm text-on-surface font-bold">Beef Suya</h3>
+            <h3 class="font-headline-lg text-headline-lg text-on-surface">Beef Suya</h3>
+            <div class="flex text-tertiary opacity-30">
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+            </div>
           </div>
-          <div class="w-full h-1.5 bg-surface-variant rounded-full"></div>
+          <div class="w-full h-2 bg-surface-variant rounded-full"></div>
         </div>
       </div>
 
       <!-- Puff Puff Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg flex flex-col text-left">
-        <div class="h-28 relative overflow-hidden bg-[#2a233c] flex items-center justify-center">
-          <span class="text-4xl">🥯</span>
-          <div class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container px-2.5 py-0.5 rounded-full text-[9px] font-label-bold shadow-md">
+      <div class="glass-card rounded-xl overflow-hidden shadow-lg group hover:scale-[1.02] transition-transform duration-300 flex flex-col text-left">
+        <div class="h-40 relative overflow-hidden bg-surface-container-high flex items-center justify-center">
+          <span class="text-6xl">🥯</span>
+          <div class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-bold font-label-bold shadow-md">
             Mastered
           </div>
         </div>
-        <div class="p-md flex-grow flex flex-col justify-between space-y-2">
+        <div class="p-md space-y-sm flex-grow flex flex-col justify-between">
           <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-sm text-on-surface font-bold">Puff Puff</h3>
+            <h3 class="font-headline-lg text-headline-lg text-on-surface">Puff Puff</h3>
             <div class="flex text-tertiary">
-              <span class="material-symbols-outlined text-sm fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-sm">local_fire_department</span>
-              <span class="material-symbols-outlined text-sm">local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
+              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
             </div>
           </div>
-          <div class="flex items-center justify-between text-on-surface-variant text-[10px]">
-            <span class="font-label-bold">Best Score: 100%</span>
+          <div class="flex items-center justify-between text-on-surface-variant text-label-bold font-label-bold">
+            <span class="text-label-bold">Best Score: 100%</span>
           </div>
-          <div class="w-full h-1.5 bg-surface-variant rounded-full overflow-hidden">
-            <div class="h-full bg-secondary rounded-full" style="width: 100%"></div>
+          <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
+            <div class="h-full bg-secondary w-full"></div>
           </div>
         </div>
-        <div class="bg-secondary/10 px-md py-1.5 border-t border-secondary/20 flex justify-center text-[10px] text-secondary font-label-bold tracking-widest font-bold">
-          PERFECT 100
+        <div class="bg-secondary/10 px-md py-2 border-t border-secondary/20 flex justify-center">
+          <span class="text-secondary font-label-bold text-label-bold">PERFECT 100</span>
         </div>
       </div>
     `;
