@@ -84,16 +84,17 @@ export class ResultsScene extends Phaser.Scene {
     super('ResultsScene');
     this.scoringEngine = null;
     this.overlay = null;
-    this.activeSubScreen = 'judges'; // 'judges' | 'scorecard' | 'remix' | 'builder'
+    this.activeSubScreen = 'judges'; // 'recipeBook' | 'judges' | 'scorecard' | 'remix' | 'builder'
     this.resizeOverlayRef = null;
-    
+
     // Cached score calculation
     this.scoreCalculation = null;
+
+    // Recipe tracking
+    this.recipeStates = {}; // recipe id -> { status: 'mastered'|'inProgress'|'locked', score: number, attempts: number }
   }
 
   create() {
-    this.activeSubScreen = 'judges';
-
     // Calculate final scores
     this.runScoringEngine();
     this.scoreCalculation = this.scoringEngine.calculateFinalScore();
@@ -142,30 +143,9 @@ export class ResultsScene extends Phaser.Scene {
             transform: translateY(2px);
             box-shadow: 0 2px 0 0 rgba(0, 0, 0, 0.35);
         }
-        .pressed-3d-green {
-            box-shadow: 0 4px 0 #003822;
-        }
-        .pressed-3d-green:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #003822;
-        }
-        .pressed-3d-red {
-            box-shadow: 0 4px 0 #690005;
-        }
-        .pressed-3d-red:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #690005;
-        }
         .egusi-pattern {
             background-image: radial-gradient(#373244 1px, transparent 1px);
             background-size: 16px 16px;
-        }
-        .recipe-scroll::-webkit-scrollbar {
-            display: none;
-        }
-        .recipe-scroll {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
         }
         .bento-stagger {
             animation: slideUp 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
@@ -190,29 +170,9 @@ export class ResultsScene extends Phaser.Scene {
       </header>
 
       <!-- Scrollable Main View -->
-      <main id="results-content" class="flex-grow flex flex-col items-center px-container-padding pt-lg pb-[120px] max-w-lg mx-auto w-full overflow-y-auto no-scrollbar z-10 egusi-pattern">
+      <main id="results-content" class="flex-grow flex flex-col items-center px-container-padding pt-lg pb-32 max-w-lg mx-auto w-full overflow-y-auto no-scrollbar z-10 egusi-pattern">
         <!-- Inner panels loaded dynamically -->
       </main>
-
-      <!-- Fixed Navigation Footer Decoration -->
-      <nav class="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-md pb-lg pt-sm bg-surface-container-highest shadow-[0_-4px_12px_rgba(0,0,0,0.4)] rounded-t-xl select-none">
-        <div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
-          <span class="material-symbols-outlined">skillet</span>
-          <span class="font-label-bold text-label-bold mt-1">Kitchen</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
-          <span class="material-symbols-outlined">inventory_2</span>
-          <span class="font-label-bold text-label-bold mt-1">Pantry</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant opacity-60">
-          <span class="material-symbols-outlined">storefront</span>
-          <span class="font-label-bold text-label-bold mt-1">Market</span>
-        </div>
-        <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-4 py-1.5">
-          <span class="material-symbols-outlined fill-icon" style='font-variation-settings: "FILL" 1;'>emoji_events</span>
-          <span class="font-label-bold text-label-bold mt-1">Scoring</span>
-        </div>
-      </nav>
     `;
 
     document.getElementById('game-container').appendChild(this.overlay);
@@ -249,8 +209,8 @@ export class ResultsScene extends Phaser.Scene {
     });
     this.overlay.querySelector('#results-settings-btn').addEventListener('click', () => showSettingsModal(this));
 
-    // Load first screen
-    this.showSubScreen(this.activeSubScreen);
+    // Load unified results screen
+    this.renderUnifiedResults();
 
     // Unmount safe events
     this.events.once('shutdown', this.shutdown, this);
@@ -316,30 +276,22 @@ export class ResultsScene extends Phaser.Scene {
     });
   }
 
-  showSubScreen(screenName) {
-    this.activeSubScreen = screenName;
-    const content = this.overlay.querySelector('#results-content');
-    if (!content) return;
+  renderUnifiedResults() {
+    const container = this.overlay.querySelector('#results-content');
+    if (!container) return;
 
-    content.innerHTML = '';
-    content.scrollTop = 0;
+    container.innerHTML = '';
+    container.scrollTop = 0;
 
-    if (screenName === 'judges') {
-      this.renderJudgesScreen(content);
-    } else if (screenName === 'scorecard') {
-      this.renderScorecardScreen(content);
-    } else if (screenName === 'remix') {
-      this.renderRemixScreen(content);
-    } else if (screenName === 'builder') {
-      this.renderBuilderScreen(content);
-    }
-  }
-
-  // ─── SCREEN 1: JUDGES FEEDBACK ───
-  renderJudgesScreen(container) {
     const judgeResults = this.scoringEngine.applyJudgeMultipliers();
+    const totalScore = this.scoreCalculation.weightedTotal;
+    const verdictText = this.scoreCalculation.verdict;
+    const traditionScore = this.scoreCalculation.breakdown.tradition || 0;
+    const creativityScore = this.scoreCalculation.breakdown.creativity || 0;
+    const efficiencyScore = this.scoreCalculation.breakdown.efficiency || 0;
+    const executionScore = this.scoreCalculation.breakdown.execution || 0;
 
-    // Page title layout
+    // Page title
     const headerSec = document.createElement('header');
     headerSec.className = 'text-center space-y-1 mb-md bento-stagger w-full';
     headerSec.style.animationDelay = '0.05s';
@@ -349,7 +301,7 @@ export class ResultsScene extends Phaser.Scene {
     `;
     container.appendChild(headerSec);
 
-    // Bento cards deck
+    // Judges feedback cards
     const deck = document.createElement('div');
     deck.className = 'grid grid-cols-1 gap-md w-full';
     container.appendChild(deck);
@@ -360,7 +312,6 @@ export class ResultsScene extends Phaser.Scene {
       const scoreVal = res.score;
       const rating = (scoreVal / 10).toFixed(1);
 
-      // Determine color themes for scorecard rating badge
       let badgeBg = 'bg-primary-container text-on-primary-container';
       if (scoreVal >= 90) badgeBg = 'bg-tertiary text-on-tertiary font-bold';
       else if (scoreVal >= 70) badgeBg = 'bg-secondary-container text-on-secondary-container';
@@ -371,7 +322,7 @@ export class ResultsScene extends Phaser.Scene {
       card.style.animationDelay = `${0.1 + idx * 0.1}s`;
       card.innerHTML = `
         <div class="judge-avatar-box w-20 h-20 bg-surface-variant rounded-lg overflow-hidden flex-shrink-0 flex items-center justify-center border border-outline-variant/30">
-          <!-- Sliced canvas will be appended here -->
+          <!-- Canvas appended here -->
         </div>
         <div class="flex-grow space-y-1">
           <div class="flex justify-between items-start">
@@ -389,7 +340,6 @@ export class ResultsScene extends Phaser.Scene {
 
       deck.appendChild(card);
 
-      // Render sliced judge canvas avatar
       const avatarBox = card.querySelector('.judge-avatar-box');
       const judgeCanvas = createJudgeCanvas(this, judgeId, scoreVal);
       if (judgeCanvas && avatarBox) {
@@ -398,99 +348,13 @@ export class ResultsScene extends Phaser.Scene {
       }
     });
 
-    // Continue CTA action button
-    const btnBox = document.createElement('div');
-    btnBox.className = 'mt-lg bento-stagger w-full';
-    btnBox.style.animationDelay = `${0.1 + judgeResults.length * 0.1}s`;
-    btnBox.innerHTML = `
-      <button class="w-full bg-tertiary text-on-tertiary font-label-bold text-label-bold py-lg rounded-full flex items-center justify-center gap-sm button-3d uppercase tracking-wider cursor-pointer">
-        SEE FINAL SCORECARD 
-        <span class="material-symbols-outlined font-bold">arrow_forward</span>
-      </button>
-    `;
-    container.appendChild(btnBox);
-
-    btnBox.querySelector('button').addEventListener('click', () => {
-      this.showSubScreen('scorecard');
-    });
-  }
-
-  // ─── SCREEN 2: FINAL SCORECARD ───
-  renderScorecardScreen(container) {
-    const totalScore = this.scoreCalculation.weightedTotal;
-    const verdictText = this.scoreCalculation.verdict;
-    const violatedRules = this.scoreCalculation.violatedRules;
-    const meme = this.scoreCalculation.meme || 'confident_wrong';
-
-    // Map rank configurations
-    const badgeMap = {
-      approving_grandma_smirk: { emoji: '😏', label: 'approving_grandma' },
-      side_eye_confusion: { emoji: '😒', label: 'side_eye_confusion' },
-      whatsapp_war: { emoji: '📱', label: 'whatsapp_war' },
-      confident_wrong: { emoji: '🤔', label: 'confident_wrong' }
-    };
-    const badge = badgeMap[meme] || { emoji: '🍲', label: meme };
-
-    // Breakdown metrics
-    const traditionScore = this.scoreCalculation.breakdown.tradition || 0;
-    const creativityScore = this.scoreCalculation.breakdown.creativity || 0;
-    const efficiencyScore = this.scoreCalculation.breakdown.efficiency || 0;
-    const executionScore = this.scoreCalculation.breakdown.execution || 0;
-
-    // Header Title
-    const headerSec = document.createElement('section');
-    headerSec.className = 'text-center w-full mb-md bento-stagger';
-    headerSec.style.animationDelay = '0.05s';
-    headerSec.innerHTML = `
-      <h2 class="font-display-lg text-display-lg text-primary tracking-tight">THE VERDICT</h2>
-      <p class="font-body-md text-xs text-on-surface-variant mt-1">Hear what the table has to say about your pot...</p>
-    `;
-    container.appendChild(headerSec);
-
-    // Main Score Card Bento Panel
-    const scoreCard = document.createElement('div');
-    scoreCard.className = 'bento-card rounded-2xl p-lg relative overflow-hidden flex flex-col items-center text-center w-full bento-stagger';
-    scoreCard.style.animationDelay = '0.15s';
-    scoreCard.innerHTML = `
-      <div class="z-10 flex flex-col items-center w-full">
-        <div class="animate-float" style="padding: 8px 0;">
-          <span id="score-counter" class="font-display-lg text-[80px] leading-none text-primary mb-2 block font-extrabold">0</span>
-        </div>
-        <div class="bg-primary-container/20 text-primary px-4 py-1 rounded-full flex items-center gap-1.5 mb-md border border-primary/20 shadow-sm text-xs font-bold font-label-bold uppercase">
-          <span class="text-sm">${badge.emoji}</span>
-          <span>${badge.label}</span>
-        </div>
-        <p class="font-body-md text-xs italic text-on-surface leading-relaxed max-w-[280px]">
-          "${verdictText}"
-        </p>
-      </div>
-    `;
-    container.appendChild(scoreCard);
-
-    // Count-up overall score animation
-    const scoreCounter = scoreCard.querySelector('#score-counter');
-    let currentCount = 0;
-    const stepVal = Math.ceil(totalScore / 40);
-    const countTimer = this.time.addEvent({
-      delay: 20,
-      callback: () => {
-        currentCount += stepVal;
-        if (currentCount >= totalScore) {
-          currentCount = totalScore;
-          countTimer.destroy();
-        }
-        if (scoreCounter) scoreCounter.textContent = `${currentCount}`;
-      },
-      loop: true
-    });
-
-    // Breakdown Bento Card
+    // Ingredient breakdown card
     const breakdownCard = document.createElement('div');
     breakdownCard.className = 'bento-card rounded-2xl p-md flex flex-col gap-md w-full bento-stagger mt-md';
     breakdownCard.style.animationDelay = '0.25s';
     breakdownCard.innerHTML = `
       <h3 class="font-label-bold text-[10px] text-primary tracking-widest uppercase font-bold text-left">Ingredient Breakdown</h3>
-      
+
       <!-- Tradition -->
       <div class="flex flex-col gap-1 w-full text-left">
         <div class="flex justify-between items-center text-xs">
@@ -549,45 +413,24 @@ export class ResultsScene extends Phaser.Scene {
     `;
     container.appendChild(breakdownCard);
 
-    // Rule penalties boxes
-    if (violatedRules && violatedRules.length > 0) {
-      const penaltyBox = document.createElement('div');
-      penaltyBox.className = 'w-full flex flex-col gap-2 mt-md bento-stagger';
-      penaltyBox.style.animationDelay = '0.35s';
-      violatedRules.forEach(rule => {
-        penaltyBox.innerHTML += `
-          <div class="bg-error-container/20 border-l-4 border-error p-md rounded-xl flex gap-md items-start text-left">
-            <span class="text-xl">⚠️</span>
-            <div>
-              <p class="font-body-md text-xs text-on-error-container leading-relaxed">
-                ${rule}
-              </p>
-            </div>
-          </div>
-        `;
-      });
-      container.appendChild(penaltyBox);
-    }
-
-    // CTA buttons
+    // Action buttons
     const actions = document.createElement('div');
     actions.className = 'flex flex-col gap-md pt-md w-full bento-stagger';
-    actions.style.animationDelay = '0.45s';
+    actions.style.animationDelay = '0.35s';
     actions.innerHTML = `
-      <button id="share-card-btn" class="w-full bg-[#3f51b5] text-white font-label-bold text-label-bold py-lg rounded-xl button-shadow flex items-center justify-center gap-sm active:translate-y-1 transition-all cursor-pointer button-3d">
+      <button id="share-card-btn" class="w-full bg-[#E56A1F] text-white font-label-bold text-label-bold py-lg rounded-xl button-shadow flex items-center justify-center gap-sm active:translate-y-1 transition-all cursor-pointer button-3d">
         <span class="material-symbols-outlined">share</span>
         COPY SCORECARD TO SHARE
       </button>
-      <button id="proceed-remix-btn" class="w-full bg-tertiary text-on-tertiary-fixed font-label-bold text-label-bold py-lg rounded-xl button-shadow flex items-center justify-center gap-sm active:translate-y-1 transition-all cursor-pointer button-3d">
-        IS THIS YOUR KIND OF EGUSI? 
+      <button id="egusi-style-btn" class="w-full bg-tertiary text-on-tertiary-fixed font-label-bold text-label-bold py-lg rounded-xl button-shadow flex items-center justify-center gap-sm active:translate-y-1 transition-all cursor-pointer button-3d">
+        IS THIS YOUR KIND OF EGUSI?
         <span class="material-symbols-outlined font-bold">arrow_forward</span>
       </button>
     `;
     container.appendChild(actions);
 
     actions.querySelector('#share-card-btn').addEventListener('click', () => {
-      // Formulate shared content scorecard text
-      const shareText = `🍲 Efo Egusi: Cooking My Way! Scorecard 🍲\nOverall Remix Quality: ${totalScore}/100 (${badge.emoji} ${badge.label})\n"${verdictText}"\n\n- Tradition: ${traditionScore}%\n- Creativity: ${creativityScore}%\n- Efficiency: ${efficiencyScore}%\n- Execution: ${executionScore}%\n\nCan you beat my recipe? http://localhost:8083/`;
+      const shareText = `🍲 Efo Egusi: Cooking My Way! Scorecard 🍲\nOverall Quality: ${totalScore}/100\n"${verdictText}"\n\n- Tradition: ${traditionScore}%\n- Creativity: ${creativityScore}%\n- Efficiency: ${efficiencyScore}%\n- Execution: ${executionScore}%\n\nCan you beat my recipe? http://localhost:8083/`;
       navigator.clipboard.writeText(shareText).then(() => {
         this.showToast('📋 Scorecard copied to clipboard!');
       }).catch(() => {
@@ -595,14 +438,19 @@ export class ResultsScene extends Phaser.Scene {
       });
     });
 
-    actions.querySelector('#proceed-remix-btn').addEventListener('click', () => {
-      this.showSubScreen('remix');
+    actions.querySelector('#egusi-style-btn').addEventListener('click', () => {
+      // Show "Is this your kind of egusi" screen
+      this.showEgusiStyleScreen();
     });
   }
 
-  // ─── SCREEN 3: REMIX CTA ───
-  renderRemixScreen(container) {
-    const totalScore = this.scoreCalculation.weightedTotal;
+  showEgusiStyleScreen() {
+    const container = this.overlay.querySelector('#results-content');
+    if (!container) return;
+
+    container.innerHTML = '';
+    container.scrollTop = 0;
+
     const verdictText = this.scoreCalculation.verdict;
     const traditionScore = this.scoreCalculation.breakdown.tradition || 0;
     const creativityScore = this.scoreCalculation.breakdown.creativity || 0;
@@ -651,7 +499,7 @@ export class ResultsScene extends Phaser.Scene {
     `;
     container.appendChild(glassCard);
 
-    // Append Chef Avatar Head Canvas
+    // Append Chef Avatar
     const chefContainer = glassCard.querySelector('.chef-avatar-container');
     const chefCanvas = createChefAvatarCanvas(this);
     if (chefCanvas && chefContainer) {
@@ -664,11 +512,11 @@ export class ResultsScene extends Phaser.Scene {
     actions.className = 'flex flex-col gap-md w-full mb-lg bento-stagger';
     actions.style.animationDelay = '0.25s';
     actions.innerHTML = `
-      <button id="yes-soup-btn" class="bg-secondary-fixed text-on-secondary-fixed font-headline-lg-mobile text-headline-lg-mobile py-lg rounded-full w-full pressed-3d-green transition-all hover:brightness-110 flex items-center justify-center gap-sm cursor-pointer button-3d">
+      <button id="yes-soup-btn" class="bg-secondary-fixed text-on-secondary-fixed font-headline-lg-mobile text-headline-lg-mobile py-lg rounded-full w-full transition-all hover:brightness-110 flex items-center justify-center gap-sm cursor-pointer button-3d">
         <span class="material-symbols-outlined fill-icon" style='font-variation-settings: "FILL" 1;'>check_circle</span>
         YES. THIS IS SOUP PERFECTION.
       </button>
-      <button id="no-style-btn" class="bg-error-container text-on-error-container font-headline-lg-mobile text-headline-lg-mobile py-lg rounded-full w-full pressed-3d-red transition-all hover:brightness-110 flex items-center justify-center gap-sm cursor-pointer button-3d">
+      <button id="no-style-btn" class="bg-error-container text-on-error-container font-headline-lg-mobile text-headline-lg-mobile py-lg rounded-full w-full transition-all hover:brightness-110 flex items-center justify-center gap-sm cursor-pointer button-3d">
         <span class="material-symbols-outlined fill-icon" style='font-variation-settings: "FILL" 1;'>cancel</span>
         NO. THIS IS NOT MY STYLE.
       </button>
@@ -684,7 +532,7 @@ export class ResultsScene extends Phaser.Scene {
     });
 
     actions.querySelector('#no-style-btn').addEventListener('click', () => {
-      this.showSubScreen('builder');
+      this.showToast('Challenge accepted! Building your perfect recipe...');
     });
 
     actions.querySelector('#replay-btn').addEventListener('click', () => {
@@ -692,193 +540,6 @@ export class ResultsScene extends Phaser.Scene {
     });
   }
 
-  // ─── SCREEN 4: BUILDER FUNNEL ───
-  renderBuilderScreen(container) {
-    const totalScore = this.scoreCalculation.weightedTotal;
-
-    // Header Title
-    const headerSec = document.createElement('section');
-    headerSec.className = 'text-center w-full mb-md bento-stagger';
-    headerSec.style.animationDelay = '0.05s';
-    headerSec.innerHTML = `
-      <h2 class="font-display-lg text-display-lg text-primary uppercase font-extrabold tracking-tight">CHALLENGE ACCEPTED!</h2>
-    `;
-    container.appendChild(headerSec);
-
-    // Search bar mock
-    const searchBar = document.createElement('div');
-    searchBar.className = 'relative w-full bento-stagger mb-md';
-    searchBar.style.animationDelay = '0.15s';
-    searchBar.innerHTML = `
-      <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-      <input class="w-full bg-surface-container text-on-surface pl-12 pr-4 py-3 rounded-full border-none focus:outline-none text-xs font-body-md shadow-inner pointer-events-none" placeholder="Find a dish..." type="text"/>
-    `;
-    container.appendChild(searchBar);
-
-    // Category pills mock list
-    const filters = document.createElement('div');
-    filters.className = 'flex gap-2 overflow-x-auto w-full recipe-scroll pb-1 bento-stagger mb-md';
-    filters.style.animationDelay = '0.2s';
-    filters.innerHTML = `
-      <button class="bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap active:scale-95 transition-transform flex-shrink-0 cursor-pointer">All Recipes</button>
-      <button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap hover:bg-surface-variant transition-colors flex-shrink-0 cursor-pointer">Soups</button>
-      <button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap hover:bg-surface-variant transition-colors flex-shrink-0 cursor-pointer">Rice Dishes</button>
-      <button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap hover:bg-surface-variant transition-colors flex-shrink-0 cursor-pointer">Snacks</button>
-      <button class="bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap hover:bg-surface-variant transition-colors flex-shrink-0 cursor-pointer">Grilled</button>
-    `;
-    container.appendChild(filters);
-
-    // Add category click highlight handler
-    const filterBtns = filters.querySelectorAll('button');
-    filterBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        filterBtns.forEach(b => {
-          b.className = 'bg-surface-container text-on-surface-variant px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap hover:bg-surface-variant transition-colors flex-shrink-0 cursor-pointer';
-        });
-        btn.className = 'bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full font-label-bold text-xs whitespace-nowrap active:scale-95 transition-transform flex-shrink-0 cursor-pointer';
-      });
-    });
-
-    // Recipes Showcase Grid Panel
-    const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-md w-full pb-md bento-stagger';
-    grid.style.animationDelay = '0.25s';
-    grid.innerHTML = `
-      <!-- Efo Egusi Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg group hover:scale-[1.02] transition-transform duration-300 flex flex-col text-left">
-        <div class="h-40 relative overflow-hidden bg-surface-container-high flex items-center justify-center">
-          <span class="text-6xl">🍲</span>
-          <div class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-bold font-label-bold shadow-md">
-            Mastered
-          </div>
-        </div>
-        <div class="p-md space-y-sm flex-grow flex flex-col justify-between">
-          <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-headline-lg text-on-surface">Efo Egusi</h3>
-            <div class="flex text-tertiary">
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
-            </div>
-          </div>
-          <div class="flex items-center justify-between text-on-surface-variant text-label-bold font-label-bold">
-            <span class="text-label-bold">Best Score: ${totalScore}%</span>
-            <div class="flex items-center gap-xs">
-              <span class="material-symbols-outlined text-[16px]">history</span>
-              <span class="text-label-bold">1 time</span>
-            </div>
-          </div>
-          <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
-            <div class="h-full bg-secondary w-full"></div>
-          </div>
-        </div>
-        <div class="bg-secondary/10 px-md py-2 border-t border-secondary/20 flex justify-center">
-          <span class="text-secondary font-label-bold text-label-bold">CHEF SPECIALTY</span>
-        </div>
-      </div>
-
-      <!-- Party Jollof Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg group hover:scale-[1.02] transition-transform duration-300 flex flex-col text-left">
-        <div class="h-40 relative overflow-hidden bg-surface-container-high flex items-center justify-center">
-          <span class="text-6xl">🌾</span>
-          <div class="absolute top-2 right-2 bg-primary-container text-on-primary-container px-3 py-1 rounded-full text-label-bold font-label-bold shadow-md">
-            75% Complete
-          </div>
-        </div>
-        <div class="p-md space-y-sm flex-grow flex flex-col justify-between">
-          <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-headline-lg text-on-surface">Party Jollof</h3>
-            <div class="flex text-tertiary">
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-            </div>
-          </div>
-          <div class="text-on-surface-variant text-label-bold font-label-bold">
-            <span class="text-label-bold">Target: Master smoky flavor</span>
-          </div>
-          <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
-            <div class="h-full bg-primary-container w-3/4"></div>
-          </div>
-        </div>
-        <div class="bg-primary-container/10 px-md py-2 border-t border-primary-container/20 flex justify-center">
-          <span class="text-primary-container font-label-bold text-label-bold">CONTINUE COOKING</span>
-        </div>
-      </div>
-
-      <!-- Beef Suya Card (Locked) -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg flex flex-col text-left opacity-60 grayscale relative">
-        <div class="absolute inset-0 z-10 flex flex-col items-center justify-center bg-black/40 backdrop-blur-[2px]">
-          <span class="material-symbols-outlined text-display-lg text-white mb-2">lock</span>
-          <p class="font-label-bold text-label-bold text-white uppercase tracking-widest">Locked</p>
-          <p class="text-[12px] text-on-surface-variant mt-1">Unlock at Chef Level 10</p>
-        </div>
-        <div class="h-40 overflow-hidden bg-surface-container-high flex items-center justify-center">
-          <span class="text-6xl">🍖</span>
-        </div>
-        <div class="p-md space-y-sm">
-          <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-headline-lg text-on-surface">Beef Suya</h3>
-            <div class="flex text-tertiary opacity-30">
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
-            </div>
-          </div>
-          <div class="w-full h-2 bg-surface-variant rounded-full"></div>
-        </div>
-      </div>
-
-      <!-- Puff Puff Card -->
-      <div class="glass-card rounded-xl overflow-hidden shadow-lg group hover:scale-[1.02] transition-transform duration-300 flex flex-col text-left">
-        <div class="h-40 relative overflow-hidden bg-surface-container-high flex items-center justify-center">
-          <span class="text-6xl">🥯</span>
-          <div class="absolute top-2 right-2 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-label-bold font-label-bold shadow-md">
-            Mastered
-          </div>
-        </div>
-        <div class="p-md space-y-sm flex-grow flex flex-col justify-between">
-          <div class="flex justify-between items-start">
-            <h3 class="font-headline-lg text-headline-lg text-on-surface">Puff Puff</h3>
-            <div class="flex text-tertiary">
-              <span class="material-symbols-outlined text-[18px] fill-icon" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
-              <span class="material-symbols-outlined text-[18px]">local_fire_department</span>
-            </div>
-          </div>
-          <div class="flex items-center justify-between text-on-surface-variant text-label-bold font-label-bold">
-            <span class="text-label-bold">Best Score: 100%</span>
-          </div>
-          <div class="w-full h-2 bg-surface-variant rounded-full overflow-hidden">
-            <div class="h-full bg-secondary w-full"></div>
-          </div>
-        </div>
-        <div class="bg-secondary/10 px-md py-2 border-t border-secondary/20 flex justify-center">
-          <span class="text-secondary font-label-bold text-label-bold">PERFECT 100</span>
-        </div>
-      </div>
-    `;
-    container.appendChild(grid);
-
-    // Launch Builder button at bottom
-    const ctaSec = document.createElement('div');
-    ctaSec.className = 'w-full pt-sm bento-stagger';
-    ctaSec.style.animationDelay = '0.35s';
-    ctaSec.innerHTML = `
-      <button class="w-full bg-secondary-fixed text-on-secondary-fixed font-headline-lg-mobile text-headline-lg-mobile py-lg rounded-full flex items-center justify-center gap-sm button-3d cursor-pointer uppercase tracking-wider font-bold">
-        LAUNCH RECIPE BUILDER (FREE)
-        <span class="material-symbols-outlined font-bold">rocket_launch</span>
-      </button>
-    `;
-    container.appendChild(ctaSec);
-
-    ctaSec.querySelector('button').addEventListener('click', () => {
-      this.showToast('🚀 Launching no-code builder onboarding. Get ready to cook!');
-      this.time.delayedCall(2000, () => {
-        this.handleReplay();
-      });
-    });
-  }
 
   // ─── UTILITY HELPERS ───
   showToast(message) {

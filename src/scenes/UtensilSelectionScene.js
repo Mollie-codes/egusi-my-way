@@ -2,7 +2,7 @@
 // Screen 3: Utensil Selection — Choose grinding tool and heat source
 import Phaser from 'phaser';
 import { resolveFrame } from '../utils/ItemData.js';
-import { showSettingsModal } from '../ui/SettingsModal.js';
+import { showSettingsModal, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 const UTENSIL_FRAME_MAP = {
   pot: 'POT_LARGE',
@@ -105,7 +105,10 @@ export class UtensilSelectionScene extends Phaser.Scene {
           <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
           <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
         </div>
-        <button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        <div class="flex items-center gap-xs">
+          <button id="utensil-music-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">music_note</button>
+          <button id="utensil-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        </div>
       </header>
 
       <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pt-lg pb-32 no-scrollbar">
@@ -140,25 +143,6 @@ export class UtensilSelectionScene extends Phaser.Scene {
         <div id="utensil-summary-bar" class="bg-surface-container-lowest/80 backdrop-blur-sm border border-outline-variant/30 rounded-lg p-sm flex items-center justify-center gap-md mt-lg"></div>
       </main>
 
-      <!-- Bottom Navigation Bar -->
-      <nav class="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-md pb-lg pt-sm bg-surface-container-lowest rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.4)]">
-        <div class="flex flex-col items-center justify-center text-on-surface-variant">
-          <span class="material-symbols-outlined">storefront</span>
-          <span class="font-label-bold text-label-bold">Market</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant">
-          <span class="material-symbols-outlined">inventory_2</span>
-          <span class="font-label-bold text-label-bold">Pantry</span>
-        </div>
-        <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-4 py-1">
-          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>skillet</span>
-          <span class="font-label-bold text-label-bold">Kitchen</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant">
-          <span class="material-symbols-outlined">emoji_events</span>
-          <span class="font-label-bold text-label-bold">Scoring</span>
-        </div>
-      </nav>
 
       <!-- CTA Button -->
       <div class="absolute bottom-24 left-0 w-full px-container-padding z-40 pointer-events-none">
@@ -202,7 +186,19 @@ export class UtensilSelectionScene extends Phaser.Scene {
       this.validateAndProceed();
     });
 
-    this.overlay.querySelector('header button').addEventListener('click', () => {
+    // Music Toggle
+    const musicBtn = this.overlay.querySelector('#utensil-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
+    });
+
+    this.overlay.querySelector('#utensil-settings-btn').addEventListener('click', () => {
       showSettingsModal(this);
     });
 
@@ -385,10 +381,9 @@ export class UtensilSelectionScene extends Phaser.Scene {
         </div>
 
         <div class="flex items-center justify-center py-xs">
-          <span class="font-headline-lg text-xl text-error font-extrabold animate-pulse">VS</span>
         </div>
 
-        <div class="px-md pb-sm flex flex-col gap-sm" id="team-popup-options"></div>
+        <div class="px-md pb-sm flex flex-col gap-sm" style="margin-top: -5px;" id="team-popup-options"></div>
 
         ${quoteText ? `<p class="text-center text-on-surface-variant italic text-sm px-md pb-sm">${quoteText}</p>` : ''}
 
@@ -417,6 +412,7 @@ export class UtensilSelectionScene extends Phaser.Scene {
       optBtn.style.flexDirection = 'row';
       optBtn.style.padding = '12px 16px';
       optBtn.style.textAlign = 'left';
+      optBtn.style.marginTop = '-5px';
 
       optBtn.innerHTML = `
         <span class="material-symbols-outlined text-2xl ${optIconColor}" style='font-variation-settings: "FILL" 1;'>${optIcon}</span>

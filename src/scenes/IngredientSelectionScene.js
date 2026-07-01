@@ -1,7 +1,7 @@
 // src/scenes/IngredientSelectionScene.js
 import Phaser from 'phaser';
 import { resolveFrame } from '../utils/ItemData.js';
-import { showSettingsModal } from '../ui/SettingsModal.js';
+import { showSettingsModal, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 /**
  * Content-pack ingredient IDs → items atlas frame keys.
@@ -116,7 +116,7 @@ const RARITY_THEMES = {
   }
 };
 
-const CATEGORY_TABS_ORDER = ['proteins', 'vegetables', 'bases', 'wildcards'];
+const CATEGORY_TABS_ORDER = ['bases', 'proteins', 'vegetables', 'wildcards'];
 
 const CATEGORY_TAB_INFO = {
   proteins: { label: 'Proteins', icon: 'flatware' },
@@ -222,7 +222,10 @@ export class IngredientSelectionScene extends Phaser.Scene {
           <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
           <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
         </div>
-        <button id="ingredient-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        <div class="flex items-center gap-xs">
+          <button id="ingredient-music-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">music_note</button>
+          <button id="ingredient-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        </div>
       </header>
 
       <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pt-lg pb-32 no-scrollbar">
@@ -242,25 +245,6 @@ export class IngredientSelectionScene extends Phaser.Scene {
         <div class="grid grid-cols-3 gap-sm mt-md" id="ingredient-grid"></div>
       </main>
 
-      <!-- Bottom Navigation Bar -->
-      <nav class="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-md pb-lg pt-sm bg-surface-container-lowest dark:bg-surface-container-lowest rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.4)]">
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined">storefront</span>
-          <span class="font-label-bold text-label-bold">Market</span>
-        </div>
-        <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-4 py-1 active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>inventory_2</span>
-          <span class="font-label-bold text-label-bold">Pantry</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined">skillet</span>
-          <span class="font-label-bold text-label-bold">Kitchen</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined">emoji_events</span>
-          <span class="font-label-bold text-label-bold">Scoring</span>
-        </div>
-      </nav>
 
       <!-- CTA Button Area -->
       <div class="absolute bottom-24 left-0 w-full px-container-padding z-40 pointer-events-none">
@@ -310,6 +294,18 @@ export class IngredientSelectionScene extends Phaser.Scene {
       this.validateAndProceed();
     });
 
+    // Music Toggle
+    const musicBtn = this.overlay.querySelector('#ingredient-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
+    });
+
     // Settings
     this.overlay.querySelector('#ingredient-settings-btn').addEventListener('click', () => {
       showSettingsModal(this);
@@ -318,6 +314,7 @@ export class IngredientSelectionScene extends Phaser.Scene {
     // Render components
     this.renderCategoryTabs();
     this.renderIngredientGrid();
+    this.updateNextButtonState();
 
     // Register safe cleanup
     this.events.once('shutdown', () => {
@@ -432,6 +429,9 @@ export class IngredientSelectionScene extends Phaser.Scene {
 
   toggleSelection(item) {
     const index = this.selectedIds.indexOf(item.id);
+    const requiredIngredients = ['egusi', 'salt', 'onions', 'pepper'];
+    const isRequired = requiredIngredients.includes(item.id);
+
     if (index === -1) {
       this.selectedIds.push(item.id);
 
@@ -441,6 +441,11 @@ export class IngredientSelectionScene extends Phaser.Scene {
       }
     } else {
       this.selectedIds.splice(index, 1);
+
+      // Show onSkip message when unselecting required ingredients
+      if (isRequired && item.onSkip) {
+        this.showDetailModal(item, item.onSkip.message);
+      }
     }
 
     this.renderIngredientGrid();
@@ -541,62 +546,43 @@ export class IngredientSelectionScene extends Phaser.Scene {
 
   validateAndProceed() {
     const ingredientsData = this.game.gameState.contentPack.ingredients;
+    const requiredIngredients = ['egusi', 'salt', 'onions', 'pepper'];
 
-    // Check if Egusi is selected
-    const hasEgusi = this.selectedIds.includes('egusi');
-    if (!hasEgusi) {
-      const egusiItem = ingredientsData.categories.bases.items.find(i => i.id === 'egusi');
-      const errorMsg = egusiItem ? egusiItem.requiredMessage : 'Egusi is required!';
-      this.showDetailModal(egusiItem, errorMsg);
-      return;
-    }
-
-    // Collect warnings dynamically to show in sequence
-    const warnings = [];
-
-    // Check if Palm Oil is selected
-    const hasOil = this.selectedIds.includes('palm_oil');
-    if (!hasOil) {
-      const oilItem = ingredientsData.categories.bases.items.find(i => i.id === 'palm_oil');
-      warnings.push({
-        item: oilItem,
-        msg: 'Egusi cooked without Palm Oil is a kitchen felony. Continue at your own risk!'
-      });
-    }
-
-    // Check if Onions are selected
-    const hasOnions = this.selectedIds.includes('onions');
-    if (!hasOnions) {
-      const onionsItem = ingredientsData.categories.bases.items.find(i => i.id === 'onions');
-      if (onionsItem && onionsItem.onSkip) {
-        warnings.push({
-          item: onionsItem,
-          msg: onionsItem.onSkip.message
-        });
-      }
-    }
+    // Collect missing required ingredients to show onSkip messages one at a time
+    const missingRequired = requiredIngredients.filter(id => !this.selectedIds.includes(id));
 
     const goToNext = () => {
       this.game.gameState.selectedIngredients = this.selectedIds;
       this.scene.start('UtensilSelectionScene');
     };
 
-    // Chain warning modals sequentially
-    if (warnings.length > 0) {
+    // Chain onSkip modals sequentially for missing required ingredients
+    if (missingRequired.length > 0) {
       const showNextWarning = (index) => {
-        if (index >= warnings.length) {
+        if (index >= missingRequired.length) {
           goToNext();
           return;
         }
-        const w = warnings[index];
-        this.showDetailModal(w.item, w.msg, () => {
+
+        const ingredientId = missingRequired[index];
+        const ingredient = ingredientsData.categories.bases.items.find(i => i.id === ingredientId);
+
+        if (ingredient && ingredient.onSkip) {
+          this.showDetailModal(ingredient, ingredient.onSkip.message, () => {
+            showNextWarning(index + 1);
+          });
+        } else {
           showNextWarning(index + 1);
-        });
+        }
       };
       showNextWarning(0);
     } else {
       goToNext();
     }
+  }
+
+  updateNextButtonState() {
+    // Button is always enabled now, so no need to disable it
   }
 
   shutdown() {

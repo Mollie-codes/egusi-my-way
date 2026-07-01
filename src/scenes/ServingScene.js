@@ -1,7 +1,7 @@
 // src/scenes/ServingScene.js
 // Accompaniment selection screen — choose eba, iyan, or amala to serve with egusi soup
 import Phaser from 'phaser';
-import { showSettingsModal } from '../ui/SettingsModal.js';
+import { showSettingsModal, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 const ACCOMPANIMENTS = [
   { id: 'eba', name: 'Eba', frame: 'eba', description: 'Cassava flour swallow. The everyday champion.' },
@@ -52,7 +52,10 @@ export class ServingScene extends Phaser.Scene {
           <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
           <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
         </div>
-        <button id="serving-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        <div class="flex items-center gap-xs">
+          <button id="serving-music-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">music_note</button>
+          <button id="serving-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        </div>
       </header>
 
       <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pt-lg pb-32 no-scrollbar flex flex-col items-center">
@@ -63,7 +66,7 @@ export class ServingScene extends Phaser.Scene {
         </section>
 
         <!-- Soup Display -->
-        <div class="relative w-48 h-48 flex items-center justify-center mb-lg">
+        <div class="relative w-32 h-32 flex items-center justify-center mb-lg">
           <div class="absolute inset-0 bg-primary/10 blur-3xl rounded-full"></div>
           <div class="relative z-10 animate-float-boot" id="soup-sprite-container"></div>
         </div>
@@ -79,30 +82,12 @@ export class ServingScene extends Phaser.Scene {
 
       <!-- CTA -->
       <div class="absolute left-0 w-full px-container-padding z-40 pointer-events-none" style="bottom: 46px;">
-        <button id="serve-btn" class="pointer-events-auto w-full h-14 bg-secondary-container text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile rounded-xl shadow-[0_4px_0px_#003822] active:shadow-none active:translate-y-[4px] transition-all duration-75 uppercase tracking-wide cursor-pointer flex items-center justify-center gap-sm opacity-50" disabled>
+        <button id="serve-btn" class="pointer-events-auto w-full h-14 bg-secondary-container text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile rounded-xl shadow-[0_4px_0px_#003822] active:shadow-none active:translate-y-[4px] transition-all duration-75 uppercase tracking-wide cursor-pointer flex items-center justify-center gap-sm opacity-50" style="margin-bottom: 60px;" disabled>
           <span class="material-symbols-outlined">restaurant</span>
           SERVE & JUDGE
         </button>
       </div>
 
-      <nav class="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-md pb-lg pt-sm bg-surface-container-lowest rounded-t-xl shadow-[0_-4px_12px_rgba(0,0,0,0.4)]">
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined">storefront</span>
-          <span class="font-label-bold text-label-bold">Market</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined">inventory_2</span>
-          <span class="font-label-bold text-label-bold">Pantry</span>
-        </div>
-        <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-4 py-1 active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>skillet</span>
-          <span class="font-label-bold text-label-bold">Kitchen</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors active:scale-90 duration-200 cursor-pointer">
-          <span class="material-symbols-outlined">emoji_events</span>
-          <span class="font-label-bold text-label-bold">Scoring</span>
-        </div>
-      </nav>
     `;
 
     document.getElementById('game-container').appendChild(this.overlay);
@@ -130,7 +115,7 @@ export class ServingScene extends Phaser.Scene {
     if (this.textures.exists('cooking-states')) {
       const canvas = createCookingStateCanvas(this, 'egusi_soup');
       if (canvas) {
-        canvas.className = 'w-24 h-24 object-contain drop-shadow-2xl';
+        canvas.className = 'w-14 h-14 object-contain drop-shadow-2xl';
         soupContainer.appendChild(canvas);
       }
     } else {
@@ -141,6 +126,18 @@ export class ServingScene extends Phaser.Scene {
     this.renderAccompaniments();
 
     // ─── EVENTS ───
+    // Music Toggle
+    const musicBtn = this.overlay.querySelector('#serving-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
+    });
+
     this.overlay.querySelector('#serving-settings-btn').addEventListener('click', () => showSettingsModal(this));
 
     this.overlay.querySelector('#serve-btn').addEventListener('click', () => {
@@ -179,7 +176,7 @@ export class ServingScene extends Phaser.Scene {
       if (this.textures.exists('cooking-states')) {
         const canvas = createCookingStateCanvas(this, acc.frame);
         if (canvas) {
-          canvas.className = 'w-14 h-14 object-contain drop-shadow-lg';
+          canvas.className = 'w-8 h-8 object-contain drop-shadow-lg';
           imgC.appendChild(canvas);
         }
       } else {

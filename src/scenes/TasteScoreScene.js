@@ -1,7 +1,7 @@
 // src/scenes/TasteScoreScene.js
 // Screen 5: Tasting animation bridge between ServingScene and Results - DOM overlay matching grindegusi.html
 import Phaser from 'phaser';
-import { showSettingsModal } from '../ui/SettingsModal.js';
+import { showSettingsModal, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 function createCharacterSpriteCanvas(scene, frameKey) {
   const texture = scene.textures.get('sprites-cooking');
@@ -47,7 +47,10 @@ export class TasteScoreScene extends Phaser.Scene {
           <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
           <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
         </div>
-        <button id="taste-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        <div class="flex items-center gap-xs">
+          <button id="taste-music-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">music_note</button>
+          <button id="taste-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        </div>
       </header>
 
       <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pt-lg pb-32 no-scrollbar flex flex-col items-center">
@@ -67,9 +70,9 @@ export class TasteScoreScene extends Phaser.Scene {
           </div>
 
           <!-- Result Bowl Container -->
-          <div class="w-64 h-64 glass-panel rounded-full flex items-center justify-center shadow-2xl relative">
+          <div class="w-32 h-32 glass-panel rounded-full flex items-center justify-center shadow-2xl relative">
             <div class="absolute inset-2 border-2 border-dashed border-primary/20 rounded-full animate-[spin_10s_linear_infinite]"></div>
-            <div class="w-16 h-16 object-contain drop-shadow-[0_20px_50px_rgba(244,125,32,0.4)] flex items-center justify-center" id="bowl-sprite"></div>
+            <div class="w-8 h-8 object-contain drop-shadow-[0_20px_50px_rgba(244,125,32,0.4)] flex items-center justify-center" id="bowl-sprite"></div>
           </div>
         </div>
 
@@ -102,25 +105,6 @@ export class TasteScoreScene extends Phaser.Scene {
         </button>
       </div>
 
-      <!-- Bottom Navigation -->
-      <nav class="absolute bottom-0 left-0 w-full z-50 flex justify-around items-center px-md pb-lg pt-sm bg-surface-container-highest shadow-[0_-4px_12px_rgba(0,0,0,0.4)] rounded-t-xl">
-        <div class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-lg px-4 py-1 cursor-pointer">
-          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1;'>skillet</span>
-          <span class="font-label-bold text-[10px]">Kitchen</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-          <span class="material-symbols-outlined">inventory_2</span>
-          <span class="font-label-bold text-[10px]">Pantry</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-          <span class="material-symbols-outlined">storefront</span>
-          <span class="font-label-bold text-[10px]">Market</span>
-        </div>
-        <div class="flex flex-col items-center justify-center text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
-          <span class="material-symbols-outlined">emoji_events</span>
-          <span class="font-label-bold text-[10px]">Awards</span>
-        </div>
-      </nav>
 
       <style>
         @keyframes steam {
@@ -192,6 +176,18 @@ export class TasteScoreScene extends Phaser.Scene {
     } else {
       charContainer.innerHTML = '<span class="text-6xl">🧑🏾‍🍳</span>';
     }
+
+    // ─── MUSIC TOGGLE ───
+    const musicBtn = this.overlay.querySelector('#taste-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
+    });
 
     // ─── SETTINGS BUTTON ───
     this.overlay.querySelector('#taste-settings-btn').addEventListener('click', () => {
