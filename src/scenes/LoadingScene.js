@@ -2,7 +2,7 @@
 // Dark-themed loading & title screen — DOM overlay with global card styling
 import Phaser from 'phaser';
 import { COLORS, HEX, FONTS, CANVAS } from '../ui/theme.js';
-import { showSettingsModal, initMusic } from '../ui/SettingsModal.js';
+import { showSettingsModal, initMusic, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 export class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -41,7 +41,7 @@ export class LoadingScene extends Phaser.Scene {
       messages: this.cache.json.get('messages'),
     };
 
-    this.cameras.main.setBackgroundColor('#0d0b14');
+    this.cameras.main.setBackgroundColor('#E56A1F');
 
     const originLabel = manifest?.culturalContext?.origin || 'Yoruba, SW Nigeria';
     const diff = manifest?.culturalContext?.difficulty || 3;
@@ -53,25 +53,23 @@ export class LoadingScene extends Phaser.Scene {
     // Scoring criteria
     const criteria = gameConfig.scoringCriteria || [];
     const criteriaIcons = { tradition: 'history_edu', creativity: 'palette', efficiency: 'timer', execution: 'construction' };
-    const criteriaColors = { tradition: 'text-secondary', creativity: 'text-tertiary', efficiency: 'text-error', execution: 'text-primary' };
-    const criteriaBgColors = { tradition: 'bg-secondary', creativity: 'bg-tertiary', efficiency: 'bg-error', execution: 'bg-primary' };
+    const criteriaColors = { tradition: '#B64A14', creativity: '#E56A1F', efficiency: '#E56A1F', execution: '#4CAF50' };
 
     let criteriaHTML = criteria.map(c => {
       const icon = criteriaIcons[c.id] || 'star';
-      const color = criteriaColors[c.id] || 'text-primary';
-      const barBg = criteriaBgColors[c.id] || 'bg-primary';
+      const color = criteriaColors[c.id] || '#4CAF50';
       const pct = Math.round(c.weight * 100);
       return `
         <div class="flex flex-col gap-1">
           <div class="flex justify-between items-center">
             <div class="flex items-center gap-1">
-              <span class="material-symbols-outlined text-sm ${color}" style='font-variation-settings: "FILL" 1;'>${icon}</span>
-              <span class="font-label-bold text-[11px] ${color}">${c.label}</span>
+              <span class="material-symbols-outlined text-sm" style='font-variation-settings: "FILL" 1; color: ${color};'>${icon}</span>
+              <span class="font-label-bold text-[11px]" style="color: ${color};">${c.label}</span>
             </div>
-            <span class="font-stats-number text-[11px] ${color}">${pct}%</span>
+            <span class="font-stats-number text-[11px]" style="color: ${color};">${pct}%</span>
           </div>
-          <div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden">
-            <div class="h-full ${barBg} rounded-full" style="width: ${pct}%"></div>
+          <div class="h-1.5 w-full rounded-full overflow-hidden" style="background-color: rgba(76, 175, 80, 0.15);">
+            <div class="h-full rounded-full" style="width: ${pct}%; background-color: #4CAF50;"></div>
           </div>
         </div>
       `;
@@ -80,19 +78,32 @@ export class LoadingScene extends Phaser.Scene {
     // ─── CREATE DOM OVERLAY ───
     this.overlay = document.createElement('div');
     this.overlay.id = 'loading-scene-overlay';
-    this.overlay.className = 'absolute inset-0 z-50 flex flex-col h-full w-full bg-surface-dim text-on-surface font-body-md overflow-hidden select-none pointer-events-auto';
+    this.overlay.className = 'absolute inset-0 z-50 flex flex-col h-full w-full font-body-md overflow-hidden select-none pointer-events-auto';
+    this.overlay.style.backgroundColor = '#E56A1F';
+    this.overlay.style.color = '#3A1F0F';
 
     this.overlay.innerHTML = `
-      <div class="absolute inset-0 egusi-pattern pointer-events-none"></div>
-      <div class="absolute top-0 left-0 w-full h-64 bg-gradient-to-b from-primary/10 to-transparent pointer-events-none"></div>
+      <div class="absolute inset-0 egusi-pattern pointer-events-none" style="background-image: radial-gradient(rgba(0, 0, 0, 0.08) 1px, transparent 1px); background-size: 20px 20px;"></div>
+      <div class="absolute top-0 left-0 w-full h-64 pointer-events-none" style="background: linear-gradient(to bottom, rgba(181, 74, 20, 0.4), transparent);"></div>
 
       <!-- Top App Bar -->
-      <header class="bg-surface-container-high shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-lg">
+      <header class="shadow-sm w-full top-0 sticky z-50 flex justify-between items-center px-container-padding py-lg" style="background-color: #B64A14;">
         <div class="flex items-center gap-sm">
-          <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
-          <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight">Efo Egusi: <span class="text-on-surface-variant">Cooking My Way!</span></h1>
+          <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1; color: #4CAF50;'>restaurant_menu</span>
+          <h1 class="font-headline-lg-mobile text-headline-lg-mobile tracking-tight" style="color: #FFF1DC;">Efo Egusi: <span style="color: #3A1F0F;">Cooking My Way!</span></h1>
         </div>
-        <button id="loading-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        <div class="flex items-center gap-xs">
+          <!-- Music Toggle Button -->
+          <button id="loading-music-btn" class="material-symbols-outlined transition-all active:scale-90 duration-150 cursor-pointer text-xl relative group" style="color: #3A1F0F; padding: 6px; border-radius: 8px;">
+            music_note
+            <span class="absolute -top-8 left-1/2 -translate-x-1/2 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="background-color: #FFF1DC; color: #3A1F0F; border: 1px solid rgba(58, 31, 15, 0.2);">Toggle Music</span>
+          </button>
+          <!-- Settings Button with Glow -->
+          <button id="loading-settings-btn" class="material-symbols-outlined transition-all active:scale-90 duration-150 cursor-pointer text-xl relative group" style="color: #3A1F0F; padding: 6px; border-radius: 8px;">
+            settings
+            <span class="absolute -top-8 left-1/2 -translate-x-1/2 text-[10px] px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap" style="background-color: #FFF1DC; color: #3A1F0F; border: 1px solid rgba(58, 31, 15, 0.2);">Settings</span>
+          </button>
+        </div>
       </header>
 
       <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pt-md pb-32 no-scrollbar flex flex-col items-center">
@@ -103,27 +114,27 @@ export class LoadingScene extends Phaser.Scene {
 
         <!-- Origin + Difficulty Pills -->
         <div class="flex gap-sm w-full mb-md">
-          <div class="game-card flex-1 flex-row gap-sm" style="flex-direction: row; padding: 10px 12px; text-align: left;">
-            <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>public</span>
+          <div class="flex-1 flex-row gap-sm flex items-start" style="flex-direction: row; padding: 10px 12px; text-align: left; background-color: #FFF1DC; border-radius: 12px; border: 1px solid rgba(181, 74, 20, 0.2);">
+            <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1; color: #4CAF50;'>public</span>
             <div class="flex flex-col">
-              <span class="font-label-bold text-[9px] text-on-surface-variant uppercase tracking-wider">Origin</span>
-              <span class="font-label-bold text-[12px] text-on-surface">${originLabel}</span>
+              <span class="font-label-bold text-[9px] uppercase tracking-wider" style="color: #B64A14;">Origin</span>
+              <span class="font-label-bold text-[12px]" style="color: #3A1F0F;">${originLabel}</span>
             </div>
           </div>
-          <div class="game-card flex-1 flex-row gap-sm" style="flex-direction: row; padding: 10px 12px; text-align: left;">
-            <span class="material-symbols-outlined text-error" style='font-variation-settings: "FILL" 1;'>local_fire_department</span>
+          <div class="flex-1 flex-row gap-sm flex items-start" style="flex-direction: row; padding: 10px 12px; text-align: left; background-color: #FFF1DC; border-radius: 12px; border: 1px solid rgba(181, 74, 20, 0.2);">
+            <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1; color: #E56A1F;'>local_fire_department</span>
             <div class="flex flex-col">
-              <span class="font-label-bold text-[9px] text-on-surface-variant uppercase tracking-wider">Difficulty</span>
-              <span class="text-[12px]">${stars}</span>
+              <span class="font-label-bold text-[9px] uppercase tracking-wider" style="color: #B64A14;">Difficulty</span>
+              <span class="text-[12px]" style="color: #3A1F0F;">${stars}</span>
             </div>
           </div>
         </div>
 
         <!-- Scoring Criteria Card -->
-        <div class="game-card w-full mb-md" style="text-align: left; align-items: stretch;">
+        <div class="w-full mb-md" style="text-align: left; align-items: stretch; background-color: #FFF1DC; padding: 16px; border-radius: 12px; border: 1px solid rgba(181, 74, 20, 0.2);">
           <div class="flex items-center gap-xs mb-sm">
-            <span class="material-symbols-outlined text-secondary text-[16px]" style='font-variation-settings: "FILL" 1;'>emoji_events</span>
-            <span class="font-label-bold text-[11px] text-secondary uppercase tracking-wider">Scoring Criteria</span>
+            <span class="material-symbols-outlined text-[16px]" style='font-variation-settings: "FILL" 1; color: #4CAF50;'>emoji_events</span>
+            <span class="font-label-bold text-[11px] uppercase tracking-wider" style="color: #B64A14;">Scoring Criteria</span>
           </div>
           <div class="grid grid-cols-2 gap-sm">
             ${criteriaHTML}
@@ -131,42 +142,42 @@ export class LoadingScene extends Phaser.Scene {
         </div>
 
         <!-- Cultural Context Card -->
-        <div class="game-card w-full mb-md" style="text-align: left; align-items: stretch;">
+        <div class="w-full mb-md" style="text-align: left; align-items: stretch; background-color: #FFF1DC; padding: 16px; border-radius: 12px; border: 1px solid rgba(181, 74, 20, 0.2);">
           <div class="flex items-center gap-xs mb-xs">
-            <span class="material-symbols-outlined text-tertiary text-[16px]" style='font-variation-settings: "FILL" 1;'>lightbulb</span>
-            <span class="font-label-bold text-[9px] text-on-surface-variant uppercase tracking-wider">Cultural Context</span>
+            <span class="material-symbols-outlined text-[16px]" style='font-variation-settings: "FILL" 1; color: #E56A1F;'>lightbulb</span>
+            <span class="font-label-bold text-[9px] uppercase tracking-wider" style="color: #B64A14;">Cultural Context</span>
           </div>
-          <p class="text-[13px] text-on-surface leading-relaxed">${fact}</p>
+          <p class="text-[13px] leading-relaxed" style="color: #3A1F0F;">${fact}</p>
         </div>
 
         <!-- Low-Bandwidth Toggle -->
-        <div class="game-card w-full mb-md flex-row justify-between" style="flex-direction: row; padding: 12px 16px;">
+        <div class="w-full mb-md flex-row justify-between flex" style="flex-direction: row; padding: 12px 16px; background-color: #FFF1DC; border-radius: 12px; border: 1px solid rgba(181, 74, 20, 0.2);">
           <div class="flex items-center gap-sm">
-            <span class="material-symbols-outlined text-tertiary" style='font-variation-settings: "FILL" 1;'>bolt</span>
+            <span class="material-symbols-outlined" style='font-variation-settings: "FILL" 1; color: #E56A1F;'>bolt</span>
             <div class="flex flex-col">
-              <span class="font-label-bold text-[13px] text-on-surface">Low-Bandwidth Mode</span>
-              <span class="text-[11px] text-on-surface-variant">Emoji-only UI, instant loading</span>
+              <span class="font-label-bold text-[13px]" style="color: #3A1F0F;">Low-Bandwidth Mode</span>
+              <span class="text-[11px]" style="color: #B64A14;">Emoji-only UI, instant loading</span>
             </div>
           </div>
-          <button id="emoji-toggle" class="w-11 h-6 rounded-full bg-surface-variant flex items-center px-0.5 transition-colors cursor-pointer">
-            <div id="emoji-knob" class="w-5 h-5 rounded-full bg-white shadow transition-transform translate-x-0"></div>
+          <button id="emoji-toggle" class="w-11 h-6 rounded-full flex items-center px-0.5 transition-colors cursor-pointer" style="background-color: #E5E0D5;">
+            <div id="emoji-knob" class="w-5 h-5 rounded-full shadow transition-transform translate-x-0" style="background-color: #4CAF50;"></div>
           </button>
         </div>
       </main>
 
       <!-- Progress / Start Button Area -->
-      <div class="absolute bottom-0 left-0 w-full z-40 px-container-padding pb-lg pt-md bg-gradient-to-t from-surface-dim via-surface-dim to-transparent flex flex-col items-center gap-sm">
+      <div class="absolute bottom-0 left-0 w-full z-40 px-container-padding pb-lg pt-md flex flex-col items-center gap-sm" style="background: linear-gradient(to top, rgba(229, 106, 31, 0.8), transparent);">
         <div id="progress-area" class="w-full flex flex-col items-center gap-xs">
-          <span id="progress-label" class="font-label-bold text-[11px] text-on-surface-variant uppercase tracking-wider">Loading...</span>
-          <div class="h-3 w-full max-w-sm bg-surface-container-highest rounded-full overflow-hidden border border-outline-variant">
-            <div id="progress-bar" class="h-full bg-secondary rounded-full transition-all duration-200" style="width: 0%;"></div>
+          <span id="progress-label" class="font-label-bold text-[11px] uppercase tracking-wider" style="color: #FFF1DC;">Loading...</span>
+          <div class="h-3 w-full max-w-sm rounded-full overflow-hidden border" style="background-color: rgba(255, 241, 220, 0.2); border-color: rgba(58, 31, 15, 0.2);">
+            <div id="progress-bar" class="h-full rounded-full transition-all duration-200" style="width: 0%; background-color: #4CAF50;"></div>
           </div>
         </div>
-        <button id="start-btn" class="hidden w-full max-w-sm h-14 bg-secondary-container text-on-secondary-container font-headline-lg-mobile text-headline-lg-mobile rounded-xl shadow-[0_4px_0px_#003822] active:shadow-none active:translate-y-[4px] transition-all duration-75 uppercase tracking-wide cursor-pointer flex items-center justify-center gap-sm">
+        <button id="start-btn" class="hidden w-full max-w-sm h-14 font-headline-lg-mobile text-headline-lg-mobile rounded-xl active:translate-y-[4px] transition-all duration-75 uppercase tracking-wide cursor-pointer flex items-center justify-center gap-sm" style="background-color: #4CAF50; color: #FFF1DC; box-shadow: 0 4px 0px #358838;">
           <span class="material-symbols-outlined">skillet</span>
           START COOKING
         </button>
-        <p class="text-on-surface-variant font-body-md text-[13px] opacity-60 text-center">A tribute to Nigerian culinary traditions 🇳🇬</p>
+        <p class="font-body-md text-[13px] text-center" style="color: rgba(255, 241, 220, 0.7);">A tribute to Nigerian culinary traditions 🇳🇬</p>
       </div>
     `;
 
@@ -212,13 +223,11 @@ export class LoadingScene extends Phaser.Scene {
     const knob = this.overlay.querySelector('#emoji-knob');
     const updateToggle = () => {
       if (emojiMode) {
-        toggle.classList.replace('bg-surface-variant', 'bg-secondary');
-        knob.classList.add('translate-x-5');
-        knob.classList.remove('translate-x-0');
+        toggle.style.backgroundColor = '#4CAF50';
+        knob.style.transform = 'translateX(20px)';
       } else {
-        toggle.classList.replace('bg-secondary', 'bg-surface-variant');
-        knob.classList.add('translate-x-0');
-        knob.classList.remove('translate-x-5');
+        toggle.style.backgroundColor = '#E5E0D5';
+        knob.style.transform = 'translateX(0)';
       }
     };
     updateToggle();
@@ -226,6 +235,18 @@ export class LoadingScene extends Phaser.Scene {
       emojiMode = !emojiMode;
       this.game.gameState.emojiMode = emojiMode;
       updateToggle();
+    });
+
+    // ─── MUSIC TOGGLE ───
+    const musicBtn = this.overlay.querySelector('#loading-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
     });
 
     // ─── SETTINGS ───

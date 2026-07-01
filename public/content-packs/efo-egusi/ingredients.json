@@ -18,7 +18,7 @@
           "scores": {
             "tradition": 15,
             "creativity": 0,
-            "efficiency": -5,
+            "efficiency": 15,
             "execution": 0
           },
           "onSelect": {
@@ -43,7 +43,7 @@
             "execution": 5
           },
           "onSelect": {
-            "message": "The default Nigerian party meat. Nobody will complain. Suspicious.",
+            "message": "The default Nigerian party meat. Nobody will complain.",
             "unlockEvent": null
           }
         },
@@ -64,7 +64,7 @@
             "execution": 10
           },
           "onSelect": {
-            "message": "Ah! The smell that announces 'something serious is cooking.'",
+            "message": "Panla! The smell that announces 'something serious is cooking.'",
             "unlockEvent": "soaking_required"
           }
         },
@@ -87,6 +87,69 @@
           "onSelect": {
             "message": "Oga! We see you! This is not just cooking, this is a flex.",
             "unlockEvent": "guest_impressed"
+          }
+        },
+        {
+          "id": "fresh_fish",
+          "name": "Fresh Fish",
+          "icon": "🐟",
+          "rarity": "common",
+          "tags": [
+            "fresh",
+            "delicate",
+            "quick-cook"
+          ],
+          "scores": {
+            "tradition": 10,
+            "creativity": 5,
+            "efficiency": -5,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Fresh fish? In egusi? What's the slime and bones supposed to do for the soup??",
+            "unlockEvent": "bone_alert"
+          }
+        },
+        {
+          "id": "chicken",
+          "name": "Chicken Pieces",
+          "icon": "🍗",
+          "rarity": "common",
+          "tags": [
+            "reliable",
+            "quick-cook",
+            "crowd-pleaser"
+          ],
+          "scores": {
+            "tradition": 5,
+            "creativity": 0,
+            "efficiency": 10,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Chicken in egusi? Not traditional, but nobody has ever complained about chicken. Ever.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "turkey",
+          "name": "Turkey",
+          "icon": "🦃",
+          "rarity": "uncommon",
+          "tags": [
+            "festive",
+            "diaspora",
+            "statement-piece"
+          ],
+          "scores": {
+            "tradition": 0,
+            "creativity": 15,
+            "efficiency": -5,
+            "execution": 10
+          },
+          "onSelect": {
+            "message": "Turkey in egusi? Somebody just got paid. Or it's Christmas. Possibly both.",
+            "unlockEvent": "festive_mode"
           }
         }
       ]
@@ -129,7 +192,7 @@
           ],
           "scores": {
             "tradition": -10,
-            "creativity": 0,
+            "creativity": 5,
             "efficiency": 10,
             "execution": -5
           },
@@ -152,11 +215,53 @@
             "tradition": 20,
             "creativity": 10,
             "efficiency": -15,
-            "execution": 0
+            "execution": 5
           },
           "onSelect": {
             "message": "You've chosen pain. Literally. Hope you washed it 27 times.",
             "unlockEvent": "washing_minigame_hard"
+          }
+        },
+        {
+          "id": "water_leaf",
+          "name": "Water Leaf",
+          "icon": "💧",
+          "rarity": "common",
+          "tags": [
+            "succulent",
+            "mild",
+            "quick-wilt"
+          ],
+          "scores": {
+            "tradition": 5,
+            "creativity": 5,
+            "efficiency": 10,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "Water leaf! Adds moisture and bulk. Your soup will be... wetter. In a good way.",
+            "unlockEvent": null
+          }
+        },
+        {
+          "id": "scent_leaf",
+          "name": "Scent Leaf (Efirin)",
+          "icon": "🌿",
+          "rarity": "uncommon",
+          "tags": [
+            "aromatic",
+            "medicinal",
+            "distinctive"
+          ],
+          "scores": {
+            "tradition": 15,
+            "creativity": 10,
+            "efficiency": 10,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Efirin! We asked for egusi soup, you have chosen to give us that medicinal pepper-soup effect.",
+            "unlockEvent": "aroma_divide"
           }
         }
       ]
@@ -176,8 +281,8 @@
             "non-negotiable"
           ],
           "scores": {
-            "tradition": 25,
-            "creativity": -5,
+            "tradition": 15,
+            "creativity": 0,
             "efficiency": 0,
             "execution": 0
           },
@@ -199,8 +304,8 @@
             "flavor-base"
           ],
           "scores": {
-            "tradition": 20,
-            "creativity": -10,
+            "tradition": 10,
+            "creativity": -5,
             "efficiency": 0,
             "execution": 5
           },
@@ -229,7 +334,7 @@
             "unlockEvent": null
           },
           "onSkip": {
-            "message": "Interesting decision. Very interesting. The ancestors are... confused.",
+            "message": "No onions? Interesting decision. Hope you like blandness.",
             "scores": {
               "tradition": -20,
               "creativity": 10,
@@ -249,7 +354,7 @@
             "flavor-bomb"
           ],
           "scores": {
-            "tradition": 20,
+            "tradition": 10,
             "creativity": 0,
             "efficiency": 5,
             "execution": 5
@@ -264,7 +369,7 @@
               "tradition": -15,
               "creativity": 5,
               "efficiency": 0,
-              "execution": -10
+              "execution": 0
             }
           }
         },
@@ -312,9 +417,9 @@
             "unlockEvent": "fermented_aroma_alert"
           },
           "onSkip": {
-            "message": "Iru is not for the faint-hearted. We understand. But the ancestors are judging.",
+            "message": "Iru is not for the faint-hearted. We understand. But this isn't ancestrally compliant.",
             "scores": {
-              "tradition": -10,
+              "tradition": -5,
               "creativity": 5,
               "efficiency": 5,
               "execution": 0
@@ -338,16 +443,99 @@
             "execution": 15
           },
           "onSelect": {
-            "message": "The great Nigerian illusion. Adds bulk, chews for 45 minutes, delivers 0.2g of protein. Essential.",
+            "message": "The great Nigerian illusion. Adds bulk, you chew for 10 minutes, you get 0.2g of protein.",
             "unlockEvent": "chewing_marathon"
           },
           "onSkip": {
             "message": "No ponmo? Your pot looks less authentic. But your jaw will thank you.",
             "scores": {
-              "tradition": -10,
+              "tradition": -5,
               "creativity": 5,
               "efficiency": 10,
               "execution": 5
+            }
+          }
+        },
+        {
+          "id": "seasoning_cubes",
+          "name": "Seasoning Cubes (Maggi/Knorr)",
+          "icon": "🧊",
+          "rarity": "common",
+          "tags": [
+            "flavor-shortcut",
+            "umami",
+            "controversial-among-purists"
+          ],
+          "scores": {
+            "tradition": -5,
+            "creativity": 0,
+            "efficiency": 15,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Maggi! The great equalizer. Grandma will side-eye but the flavor doesn't lie.",
+            "unlockEvent": null
+          },
+          "onSkip": {
+            "message": "No seasoning cubes? Brave. You must really trust your natural flavors. Or you forgot.",
+            "scores": {
+              "tradition": 10,
+              "creativity": 5,
+              "efficiency": -10,
+              "execution": -5
+            }
+          }
+        },
+        {
+          "id": "salt",
+          "name": "Salt",
+          "icon": "🧂",
+          "rarity": "essential",
+          "tags": [
+            "fundamental",
+            "non-negotiable",
+            "flavor-awakened"
+          ],
+          "scores": {
+            "tradition": 0,
+            "creativity": 0,
+            "efficiency": 5,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Salt. The quiet MVP of every dish. Without it, you're just making colorful hot water.",
+            "unlockEvent": null
+          },
+          "required": true,
+          "requiredMessage": "No salt? Are you... are you okay? Add salt. Please."
+        },
+        {
+          "id": "meat_stock",
+          "name": "Meat Stock/Broth",
+          "icon": "🍖",
+          "rarity": "common",
+          "tags": [
+            "liquid-gold",
+            "flavor-depth",
+            "from-the-meat"
+          ],
+          "scores": {
+            "tradition": 15,
+            "creativity": 0,
+            "efficiency": 5,
+            "execution": 10
+          },
+          "onSelect": {
+            "message": "Meat stock! The water your meat boiled in. Zero waste, maximum flavor.",
+            "unlockEvent": null
+          },
+          "onSkip": {
+            "message": "Throwing away meat stock? That's a crime in 36 states and the FCT. But go on.",
+            "scores": {
+              "tradition": -15,
+              "creativity": 0,
+              "efficiency": -10,
+              "execution": -5
             }
           }
         }
@@ -370,7 +558,7 @@
           ],
           "scores": {
             "tradition": -25,
-            "creativity": 15,
+            "creativity": 10,
             "efficiency": 0,
             "execution": -5
           },
@@ -414,13 +602,140 @@
           ],
           "scores": {
             "tradition": -30,
-            "creativity": 25,
+            "creativity": 10,
             "efficiency": 0,
             "execution": -10
           },
           "onSelect": {
             "message": "Is this egusi or a Thai soup? Even we don't know anymore.",
             "unlockEvent": "identity_crisis"
+          }
+        },
+        {
+          "id": "nutmeg",
+          "name": "Nutmeg",
+          "icon": "🟤",
+          "rarity": "uncommon",
+          "tags": [
+            "aromatic",
+            "warm",
+            "unexpected"
+          ],
+          "scores": {
+            "tradition": -10,
+            "creativity": 10,
+            "efficiency": 0,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Nutmeg in egusi? You've been watching those fusion cooking shows.",
+            "unlockEvent": null,
+            "memeReference": "raised_eyebrow"
+          }
+        },
+        {
+          "id": "okra",
+          "name": "Okra",
+          "icon": "🟢",
+          "rarity": "uncommon",
+          "tags": [
+            "slimy",
+            "draw-soup-adjacent",
+            "texture-modifier"
+          ],
+          "scores": {
+            "tradition": -5,
+            "creativity": 15,
+            "efficiency": 0,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "Okra in egusi? Double trouble. You want DRAW in your draw? Hian.",
+            "unlockEvent": "slippery_situation"
+          }
+        },
+        {
+          "id": "groundnut_oil",
+          "name": "Groundnut Oil",
+          "icon": "🥜",
+          "rarity": "uncommon",
+          "tags": [
+            "nutty",
+            "alternative",
+            "non-traditional-fat"
+          ],
+          "scores": {
+            "tradition": -15,
+            "creativity": 10,
+            "efficiency": 5,
+            "execution": -5
+          },
+          "onSelect": {
+            "message": "Groundnut oil instead of palm oil? Your egusi will be... beige. Tasty, but beige. The ancestors are squinting.",
+            "unlockEvent": "color_crisis"
+          }
+        },
+        {
+          "id": "sweet_corn",
+          "name": "Sweet Corn",
+          "icon": "🌽",
+          "rarity": "uncommon",
+          "tags": [
+            "sweet",
+            "crunchy",
+            "diaspora-energy"
+          ],
+          "scores": {
+            "tradition": -20,
+            "creativity": 15,
+            "efficiency": 10,
+            "execution": 0
+          },
+          "onSelect": {
+            "message": "Sweet corn in egusi? This is giving... Thanksgiving fusion. Your Nigerian-American cousins would approve.",
+            "unlockEvent": "diaspora_approved"
+          }
+        },
+        {
+          "id": "mushrooms",
+          "name": "Mushrooms",
+          "icon": "🍄",
+          "rarity": "rare",
+          "tags": [
+            "umami",
+            "earthy",
+            "gourmet-aspirations"
+          ],
+          "scores": {
+            "tradition": -15,
+            "creativity": 25,
+            "efficiency": 5,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Mushrooms?! This is not a European stew! ...Actually, that umami might work. We're watching you.",
+            "unlockEvent": "gourmet_alert"
+          }
+        },
+        {
+          "id": "curry_powder",
+          "name": "Curry Powder",
+          "icon": "🟡",
+          "rarity": "uncommon",
+          "tags": [
+            "aromatic",
+            "golden",
+            "indian-influence"
+          ],
+          "scores": {
+            "tradition": -10,
+            "creativity": 15,
+            "efficiency": 5,
+            "execution": 5
+          },
+          "onSelect": {
+            "message": "Curry powder in egusi? Colonial influence detected. Your pot will be golden and confused.",
+            "unlockEvent": "colonial_flashback"
           }
         }
       ]

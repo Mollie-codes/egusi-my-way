@@ -2,7 +2,7 @@
 // Screen 4: Kitchen Hub — Top-down navigation to stations
 import Phaser from 'phaser';
 import { resolveFrame } from '../utils/ItemData.js';
-import { showSettingsModal } from '../ui/SettingsModal.js';
+import { showSettingsModal, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 const INGREDIENT_FRAME_MAP = {
   egusi: 'EGUSI_SEEDS', egusi_seeds: 'EGUSI_SEEDS', ground_egusi: 'GROUND_EGUSI',
@@ -139,7 +139,10 @@ export class KitchenMapScene extends Phaser.Scene {
           <span class="material-symbols-outlined text-primary" style='font-variation-settings: "FILL" 1;'>restaurant_menu</span>
           <h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight uppercase">Kitchen Area</h1>
         </div>
-        <button class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        <div class="flex items-center gap-xs">
+          <button id="kitchen-music-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">music_note</button>
+          <button id="kitchen-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 duration-150 cursor-pointer">settings</button>
+        </div>
       </header>
 
       <main class="relative z-10 flex-1 overflow-y-auto px-container-padding pb-32 no-scrollbar">
@@ -187,7 +190,7 @@ export class KitchenMapScene extends Phaser.Scene {
             <!-- Interactive Zones rendered dynamically -->
             <div id="kitchen-zones"></div>
             <!-- Chef Sprite -->
-            <div id="chef-sprite" class="absolute z-20 pointer-events-none transition-all duration-[600ms] ease-out" style="left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 96px;"></div>
+            <div id="chef-sprite" class="absolute z-20 pointer-events-none transition-all duration-[1200ms] ease-out" style="left: 50%; top: 50%; transform: translate(-50%, -50%); width: 48px; height: 96px;"></div>
           </div>
         </div>
 
@@ -262,7 +265,19 @@ export class KitchenMapScene extends Phaser.Scene {
       setTimeout(() => this.scene.start('IngredientSelectionScene'), 300);
     });
 
-    this.overlay.querySelector('header button').addEventListener('click', () => {
+    // Music Toggle
+    const musicBtn = this.overlay.querySelector('#kitchen-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
+    });
+
+    this.overlay.querySelector('#kitchen-settings-btn').addEventListener('click', () => {
       showSettingsModal(this);
     });
 
@@ -391,7 +406,7 @@ export class KitchenMapScene extends Phaser.Scene {
       this.isMoving = false;
       this.updateChefFrame('IDLE');
       if (onComplete) onComplete();
-    }, 600);
+    }, 1200);
   }
 
   renderBasket() {

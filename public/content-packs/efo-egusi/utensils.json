@@ -54,7 +54,7 @@
             "execution": -5
           },
           "onSelect": {
-            "message": "Team Blender! NEPA better not betray you today.",
+            "message": "Team Blender! PHCN better not betray you today.",
             "unlockEvent": "power_dependent"
           }
         }

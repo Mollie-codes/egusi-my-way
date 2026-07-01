@@ -1,0 +1,2764 @@
+{
+  "recipeEngine": {
+    "version": "1.0.0",
+    "lastUpdated": "2026-06-18",
+    "totalRecipes": 20,
+    "sharedInventory": true,
+    "description": "Master recipe database. Creators can use these as templates or pull individual ingredients/utensils into their custom games."
+  },
+
+  "globalInventory": {
+    "description": "All unique ingredients across all recipes. Creators can browse and add any of these to their custom game.",
+    "totalUniqueIngredients": 68,
+    "totalUniqueUtensils": 18,
+    "categories": {
+      "proteins": {
+        "label": "Proteins",
+        "icon": "🥩",
+        "items": [
+          { "id": "goat_meat", "name": "Goat Meat", "icon": "🐐", "rarity": "common" },
+          { "id": "cow_meat", "name": "Cow Meat (Beef)", "icon": "🐄", "rarity": "common" },
+          { "id": "chicken", "name": "Chicken", "icon": "🍗", "rarity": "common" },
+          { "id": "turkey", "name": "Turkey", "icon": "🦃", "rarity": "uncommon" },
+          { "id": "fresh_fish", "name": "Fresh Fish (Tilapia)", "icon": "🐟", "rarity": "common" },
+          { "id": "stockfish", "name": "Stockfish", "icon": "🐟", "rarity": "rare" },
+          { "id": "dried_fish", "name": "Dried Fish (Panla)", "icon": "🐟", "rarity": "uncommon" },
+          { "id": "cow_skin", "name": "Cow Skin (Ponmo)", "icon": "🟫", "rarity": "common" },
+          { "id": "snail", "name": "Giant Snail", "icon": "🐌", "rarity": "legendary" },
+          { "id": "shaki", "name": "Shaki (Tripe)", "icon": "🟫", "rarity": "common" },
+          { "id": "smoked_fish", "name": "Smoked Fish", "icon": "🐟", "rarity": "common" },
+          { "id": "corned_beef", "name": "Corned Beef", "icon": "🥫", "rarity": "common" },
+          { "id": "eggs", "name": "Eggs", "icon": "🥚", "rarity": "common" },
+          { "id": "shrimp_prawns", "name": "Shrimp / Prawns", "icon": "🦐", "rarity": "uncommon" }
+        ]
+      },
+      "vegetables": {
+        "label": "Vegetables & Leafy Greens",
+        "icon": "🥬",
+        "items": [
+          { "id": "efo_shoko", "name": "Efo Shoko (Lagos Spinach)", "icon": "🌿", "rarity": "common" },
+          { "id": "spinach", "name": "Foreign Spinach", "icon": "🥬", "rarity": "common" },
+          { "id": "bitter_leaf", "name": "Bitter Leaf", "icon": "🌱", "rarity": "rare" },
+          { "id": "ugwu", "name": "Ugwu (Pumpkin Leaves)", "icon": "🍃", "rarity": "common" },
+          { "id": "water_leaf", "name": "Water Leaf", "icon": "💧", "rarity": "common" },
+          { "id": "scent_leaf", "name": "Scent Leaf (Efirin)", "icon": "🌿", "rarity": "uncommon" },
+          { "id": "okra", "name": "Okra", "icon": "🟢", "rarity": "common" },
+          { "id": "bell_pepper", "name": "Bell Pepper (Tatashe)", "icon": "🫑", "rarity": "common" },
+          { "id": "carrots", "name": "Carrots", "icon": "🥕", "rarity": "common" },
+          { "id": "green_beans", "name": "Green Beans", "icon": "🫘", "rarity": "common" },
+          { "id": "cabbage", "name": "Cabbage", "icon": "🥬", "rarity": "common" },
+          { "id": "tomatoes_fresh", "name": "Fresh Tomatoes", "icon": "🍅", "rarity": "common" },
+          { "id": "onions", "name": "Onions", "icon": "🧅", "rarity": "essential" },
+          { "id": "scotch_bonnet", "name": "Scotch Bonnet Pepper", "icon": "🌶️", "rarity": "essential" },
+          { "id": "bell_pepper_red", "name": "Red Bell Pepper", "icon": "🫑", "rarity": "common" }
+        ]
+      },
+      "bases_grains": {
+        "label": "Bases & Grains",
+        "icon": "🍚",
+        "items": [
+          { "id": "rice_long_grain", "name": "Long Grain Rice", "icon": "🍚", "rarity": "essential" },
+          { "id": "ofada_rice", "name": "Ofada Rice (Local)", "icon": "🍚", "rarity": "rare" },
+          { "id": "yam", "name": "Yam", "icon": "🟤", "rarity": "common" },
+          { "id": "yam_flour", "name": "Yam Flour (Amala)", "icon": "🟫", "rarity": "common" },
+          { "id": "garri", "name": "Garri (Eba)", "icon": "🟡", "rarity": "common" },
+          { "id": "cassava_flour", "name": "Cassava Flour (Fufu)", "icon": "⚪", "rarity": "common" },
+          { "id": "black_eyed_peas", "name": "Black-Eyed Peas", "icon": "🫘", "rarity": "common" },
+          { "id": "egusi_seeds", "name": "Egusi (Melon Seeds)", "icon": "🟡", "rarity": "essential" },
+          { "id": "ogbono_seeds", "name": "Ogbono (Wild Mango Seeds)", "icon": "🟤", "rarity": "rare" },
+          { "id": "flour", "name": "All-Purpose Flour", "icon": "🌾", "rarity": "common" },
+          { "id": "semolina", "name": "Semolina", "icon": "🟡", "rarity": "uncommon" },
+          { "id": "wheat_flour", "name": "Wheat Flour", "icon": "🌾", "rarity": "common" },
+          { "id": "corn_flour", "name": "Corn Flour", "icon": "🌽", "rarity": "uncommon" },
+          { "id": "spaghetti", "name": "Spaghetti", "icon": "🍝", "rarity": "common" }
+        ]
+      },
+      "oils_fats": {
+        "label": "Oils & Fats",
+        "icon": "🛢️",
+        "items": [
+          { "id": "palm_oil", "name": "Red Palm Oil", "icon": "🛢️", "rarity": "essential" },
+          { "id": "vegetable_oil", "name": "Vegetable Oil", "icon": "🛢️", "rarity": "common" },
+          { "id": "groundnut_oil", "name": "Groundnut Oil", "icon": "🥜", "rarity": "common" },
+          { "id": "coconut_oil", "name": "Coconut Oil", "icon": "🥥", "rarity": "uncommon" },
+          { "id": "butter", "name": "Butter", "icon": "🧈", "rarity": "uncommon" }
+        ]
+      },
+      "seasonings": {
+        "label": "Seasonings & Herbs",
+        "icon": "🧂",
+        "items": [
+          { "id": "salt", "name": "Salt", "icon": "🧂", "rarity": "essential" },
+          { "id": "seasoning_cubes", "name": "Seasoning Cubes (Maggi/Knorr)", "icon": "🧊", "rarity": "common" },
+          { "id": "crayfish_ground", "name": "Ground Crayfish", "icon": "🦐", "rarity": "common" },
+          { "id": "locust_beans", "name": "Locust Beans (Iru)", "icon": "🫘", "rarity": "rare" },
+          { "id": "ogiri", "name": "Ogiri (Fermented Paste)", "icon": "🟤", "rarity": "rare" },
+          { "id": "curry_powder", "name": "Curry Powder", "icon": "🟡", "rarity": "common" },
+          { "id": "thyme", "name": "Thyme", "icon": "🌿", "rarity": "common" },
+          { "id": "nutmeg", "name": "Nutmeg", "icon": "🟤", "rarity": "uncommon" },
+          { "id": "ginger", "name": "Fresh Ginger", "icon": "🟡", "rarity": "common" },
+          { "id": "garlic", "name": "Garlic", "icon": "🧄", "rarity": "common" },
+          { "id": "bay_leaf", "name": "Bay Leaves", "icon": "🍃", "rarity": "common" },
+          { "id": "suya_spice", "name": "Suya Spice (Yaji)", "icon": "🟤", "rarity": "rare" },
+          { "id": "sugar", "name": "Sugar", "icon": "🟡", "rarity": "common" },
+          { "id": "honey", "name": "Honey", "icon": "🍯", "rarity": "uncommon" }
+        ]
+      },
+      "wildcards": {
+        "label": "Wildcards & Controversial",
+        "icon": "🃏",
+        "items": [
+          { "id": "mushrooms", "name": "Button Mushrooms", "icon": "🍄", "rarity": "uncommon" },
+          { "id": "sweet_corn", "name": "Sweet Corn", "icon": "🌽", "rarity": "common" },
+          { "id": "green_peas", "name": "Green Peas", "icon": "🟢", "rarity": "common" },
+          { "id": "potatoes", "name": "Irish Potatoes", "icon": "🥔", "rarity": "common" },
+          { "id": "plantain", "name": "Ripe Plantain", "icon": "🍌", "rarity": "common" },
+          { "id": "cheese", "name": "Cheese", "icon": "🧀", "rarity": "rare" },
+          { "id": "coconut_milk", "name": "Coconut Milk", "icon": "🥥", "rarity": "uncommon" },
+          { "id": "tomato_paste", "name": "Tomato Paste", "icon": "🥫", "rarity": "common" }
+        ]
+      }
+    }
+  },
+
+  "globalUtensils": {
+    "description": "All unique utensils across all recipes.",
+    "totalUnique": 18,
+    "items": [
+      { "id": "pot_large", "name": "Large Cooking Pot", "icon": "🍲", "essential": true },
+      { "id": "frying_pan", "name": "Frying Pan", "icon": "🍳", "essential": false },
+      { "id": "wooden_spoon", "name": "Wooden Spoon (Omorogun)", "icon": "🥄", "essential": true },
+      { "id": "knife", "name": "Kitchen Knife", "icon": "🔪", "essential": true },
+      { "id": "cutting_board", "name": "Cutting Board", "icon": "🪵", "essential": true },
+      { "id": "mixing_bowl", "name": "Mixing Bowl", "icon": "🥣", "essential": false },
+      { "id": "sieve", "name": "Sieve / Strainer", "icon": "🫗", "essential": false },
+      { "id": "mortar", "name": "Mortar (Odo)", "icon": "🪨", "essential": false },
+      { "id": "pestle", "name": "Pestle (Omo Odo)", "icon": "🪨", "essential": false },
+      { "id": "blender", "name": "Electric Blender", "icon": "⚡", "essential": false },
+      { "id": "gas_cooker", "name": "Gas Cooker", "icon": "🔵", "essential": false },
+      { "id": "charcoal_stove", "name": "Charcoal Stove", "icon": "🪵", "essential": false },
+      { "id": "oven", "name": "Oven", "icon": "🔥", "essential": false },
+      { "id": "grill_rack", "name": "Grill Rack", "icon": "🥅", "essential": false },
+      { "id": "deep_fryer", "name": "Deep Fryer / Oil Pot", "icon": "🫕", "essential": false },
+      { "id": "steamer", "name": "Steamer / Steaming Rack", "icon": "♨️", "essential": false },
+      { "id": "rolling_pin", "name": "Rolling Pin", "icon": "🪵", "essential": false },
+      { "id": "skewers", "name": "Grilling Skewers", "icon": "📌", "essential": false }
+    ]
+  },
+
+  "recipes": [
+    {
+      "id": "efo_egusi",
+      "name": "Efo Egusi Soup",
+      "category": "soup_stew",
+      "origin": "Yoruba, Southwestern Nigeria",
+      "difficulty": "intermediate",
+      "description": "Rich melon seed soup with leafy greens. The dish that started this game.",
+      "alternateTitle": "Who Put Tomatoes In My Egusi?",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "egusi_seeds",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 0 },
+            "onSelect": "Congratulations. You are officially making Egusi. The bar is on the floor.",
+            "onSkip": "Without egusi, this is just... stew with identity issues. Pick the egusi."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -5, "execution": 0 },
+            "onSelect": "Solid choice. The goat has given its consent... retroactively."
+          },
+          {
+            "id": "cow_meat",
+            "scores": { "tradition": 10, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "The default Nigerian party meat. Nobody will complain. Suspicious."
+          },
+          {
+            "id": "stockfish",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 5, "efficiency": -10, "execution": 10 },
+            "onSelect": "Ah! The smell that announces 'something serious is cooking.'"
+          },
+          {
+            "id": "snail",
+            "scores": { "tradition": 5, "creativity": 20, "efficiency": -5, "execution": -5 },
+            "onSelect": "Oga! We see you! This is not just cooking, this is a flex."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "efo_shoko",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "The people's champion. Safe. Respected. Expected.",
+            "controversial": false
+          },
+          {
+            "id": "spinach",
+            "scores": { "tradition": -10, "creativity": 0, "efficiency": 10, "execution": -5 },
+            "onSelect": "Diaspora detected. Your aunty in Ibadan just felt a disturbance.",
+            "controversial": true
+          },
+          {
+            "id": "bitter_leaf",
+            "scores": { "tradition": 20, "creativity": 10, "efficiency": -15, "execution": 0 },
+            "onSelect": "You've chosen pain. Literally. Hope you washed it 47 times.",
+            "controversial": false
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -10, "efficiency": 0, "execution": 5 },
+            "onSelect": "Red gold. Your pot will now have that legitimate Nigerian glow."
+          },
+          {
+            "id": "groundnut_oil",
+            "scores": { "tradition": -10, "creativity": 5, "efficiency": 0, "execution": 0 },
+            "onSelect": "Groundnut oil for egusi? You like to live dangerously.",
+            "controversial": true
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "The foundation of flavor. Grandma approves this specific choice.",
+            "onSkip": "Interesting decision. Very interesting. The ancestors are... confused.",
+            "skipScores": { "tradition": -20, "creativity": 10, "efficiency": 5, "execution": -10 }
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Fresh pepper. The foundation of heat. Your pot will have DEPTH."
+          },
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish! The umami of the gods! Your soup will have DEPTH."
+          },
+          {
+            "id": "locust_beans",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Iru! The secret weapon. You know the real recipe."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": -5, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Seasoning cubes. Grandma will side-eye but the flavor doesn't lie.",
+            "controversial": true
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. The quiet MVP of every dish."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "tomatoes_fresh",
+            "scores": { "tradition": -25, "creativity": 15, "efficiency": 0, "execution": -5 },
+            "onSelect": "Ah. One of THOSE cooks. The group chat has been notified.",
+            "controversial": true
+          },
+          {
+            "id": "carrots",
+            "scores": { "tradition": -15, "creativity": 15, "efficiency": 5, "execution": 0 },
+            "onSelect": "If you add carrots, we won't stop you. But we will screenshot this.",
+            "controversial": true
+          },
+          {
+            "id": "mushrooms",
+            "scores": { "tradition": -10, "creativity": 20, "efficiency": 0, "execution": 0 },
+            "onSelect": "Experimental chef detected. Even the mushrooms are confused.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Mortar or Team Blender?",
+          "teamA": {
+            "id": "mortar",
+            "companionId": "pestle",
+            "name": "Mortar & Pestle",
+            "icon": "🪨",
+            "tagline": "Respect the old ways",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -15, "execution": 15 }
+          },
+          "teamB": {
+            "id": "blender",
+            "name": "Electric Blender",
+            "icon": "⚡",
+            "tagline": "We're in 2026!",
+            "scores": { "tradition": -10, "creativity": 5, "efficiency": 20, "execution": -5 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          },
+          {
+            "id": "charcoal_stove",
+            "name": "Charcoal Stove",
+            "icon": "🪵",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -10, "execution": 10 },
+            "onSelect": "Smoky flavor incoming. Your clothes will smell like commitment."
+          }
+        ],
+        "optional": [
+          {
+            "id": "sieve",
+            "name": "Sieve (for Egusi)",
+            "icon": "🫗",
+            "scores": { "tradition": 0, "creativity": 10, "efficiency": -5, "execution": 10 },
+            "onSelect": "Perfect, fluffy egusi grains await. This is pro-level."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "jollof_rice",
+      "name": "Jollof Rice",
+      "category": "rice_dish",
+      "origin": "West Africa (Hotly Contested)",
+      "difficulty": "intermediate",
+      "description": "The legendary party rice. Your method will either unite or divide nations.",
+      "alternateTitle": "Ghana Started It, Nigeria Perfected It",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "rice_long_grain",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -5, "efficiency": 5, "execution": 10 },
+            "onSelect": "Long grain parboiled rice. The only acceptable choice. Fight me.",
+            "onSkip": "No rice? Are you making jollof stew or jollof... nothing?"
+          }
+        ],
+        "proteins": [
+          {
+            "id": "chicken",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Chicken and jollof. Name a more iconic duo. I'll wait."
+          },
+          {
+            "id": "goat_meat",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat jollof? You're cooking for owambe!"
+          },
+          {
+            "id": "turkey",
+            "scores": { "tradition": 5, "creativity": 10, "efficiency": 0, "execution": 0 },
+            "onSelect": "Turkey in jollof? Diaspora Christmas energy. We respect it."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "tomatoes_fresh",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh tomatoes. Non-negotiable. This is the red in your red rice."
+          },
+          {
+            "id": "bell_pepper_red",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Tatashe! The pepper that gives jollof its signature redness."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Fresh scotch bonnet. Heat that builds character."
+          },
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The base of the base of the base."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 0 },
+            "onSelect": "Vegetable oil. Neutral, reliable, won't steal the show."
+          },
+          {
+            "id": "butter",
+            "scores": { "tradition": -5, "creativity": 15, "efficiency": 0, "execution": 5 },
+            "onSelect": "Butter in jollof? You've been watching those fusion chefs on YouTube.",
+            "controversial": true
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "tomato_paste",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Tomato paste. Concentrated umami. The depth charge."
+          },
+          {
+            "id": "seasoning_cubes",
+            "recommended": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi cubes. Don't let anyone shame you. Flavor is flavor."
+          },
+          {
+            "id": "thyme",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Thyme. The herb that whispers 'party rice.'"
+          },
+          {
+            "id": "curry_powder",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Curry powder. Golden color. Golden flavor. Golden everything."
+          },
+          {
+            "id": "bay_leaf",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Bay leaves. The silent flavor ninjas of jollof."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Because unsalted jollof is a war crime."
+          },
+          {
+            "id": "garlic",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Garlic. Because we're not animals."
+          },
+          {
+            "id": "ginger",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ginger. The warmth that makes people ask 'what's your secret?'"
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "coconut_milk",
+            "scores": { "tradition": -20, "creativity": 20, "efficiency": 0, "execution": -5 },
+            "onSelect": "Coconut jollof? You've started an international incident. Ghana is watching.",
+            "controversial": true
+          },
+          {
+            "id": "green_peas",
+            "scores": { "tradition": -10, "creativity": 10, "efficiency": 0, "execution": 0 },
+            "onSelect": "Green peas for color. Your presentation will be questioned but not convicted.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Blender or Team Hand-Chop?",
+          "teamA": {
+            "id": "blender",
+            "name": "Electric Blender",
+            "icon": "⚡",
+            "tagline": "Smooth pepper, smooth life",
+            "scores": { "tradition": -5, "creativity": 5, "efficiency": 20, "execution": 0 }
+          },
+          "teamB": {
+            "id": "knife",
+            "name": "Hand-Chopped (No Blender)",
+            "icon": "🔪",
+            "tagline": "Texture over convenience",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -15, "execution": 10 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          },
+          {
+            "id": "charcoal_stove",
+            "name": "Charcoal Stove",
+            "icon": "🪵",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -10, "execution": 5 },
+            "onSelect": "Party jollof on firewood? You understand the assignment!"
+          }
+        ],
+        "optional": [
+          {
+            "id": "sieve",
+            "name": "Sieve (Wash Rice)",
+            "icon": "🫗",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Washed rice is happy rice. No starch drama."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "amala_ewedu",
+      "name": "Amala & Ewedu with Gbegiri",
+      "category": "swallow",
+      "origin": "Yoruba, Southwestern Nigeria (Oyo/Ibadan)",
+      "difficulty": "hard",
+      "description": "Dark yam flour swallow with jute leaves soup and bean soup. The Ibadan special.",
+      "alternateTitle": "Are You Even Yoruba If You Haven't Tried This?",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "yam_flour",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Yam flour for amala. Dark, smooth, and deeply traditional."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat in your gbegiri. The Ibadan way."
+          },
+          {
+            "id": "cow_skin",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "Ponmo! Chewy, delicious, and essential for the full experience."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "water_leaf",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 5, "execution": 0 },
+            "onSelect": "Water leaf for ewedu? Some do it. You're bold.",
+            "controversial": true
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Palm oil in your gbegiri. The red that makes it right."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "locust_beans",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Iru! Without it, your ewedu is just... green water. Sorry."
+          },
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish in ewedu. Flavor that whispers rather than shouts."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Pepper. Because bland ewedu is a personal attack on Yoruba culture."
+          },
+          {
+            "id": "onions",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions for the gbegiri base. Foundation flavor."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Even the most traditional food needs it."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Turning Stick or Team Whisk?",
+          "teamA": {
+            "id": "wooden_spoon",
+            "name": "Wooden Turning Stick",
+            "icon": "🥄",
+            "tagline": "The traditional amala turner",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -5, "execution": 10 }
+          },
+          "teamB": {
+            "id": "mixing_bowl",
+            "name": "Wire Whisk",
+            "icon": "🥣",
+            "tagline": "Lump-free in half the time",
+            "scores": { "tradition": -10, "creativity": 10, "efficiency": 15, "execution": 0 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": [
+          {
+            "id": "sieve",
+            "name": "Sieve (Smooth Ewedu)",
+            "icon": "🫗",
+            "scores": { "tradition": 0, "creativity": 5, "efficiency": -5, "execution": 15 },
+            "onSelect": "Smooth ewedu is a flex. Your arms will hurt but your soul will smile."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "suya",
+      "name": "Suya (Spiced Grilled Meat)",
+      "category": "grill",
+      "origin": "Hausa, Northern Nigeria",
+      "difficulty": "easy",
+      "description": "Spicy, peanut-crusted grilled meat on skewers. Street food royalty.",
+      "alternateTitle": "Mallam's Secret Spice Mix",
+
+      "ingredients": {
+        "bases_grains": [],
+        "proteins": [
+          {
+            "id": "cow_meat",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Beef suya. The classic. The standard. The reason people go out at 9pm."
+          },
+          {
+            "id": "chicken",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 10, "execution": 5 },
+            "onSelect": "Chicken suya. For those who want the flavor without the chew."
+          },
+          {
+            "id": "turkey",
+            "scores": { "tradition": 0, "creativity": 15, "efficiency": 5, "execution": 5 },
+            "onSelect": "Turkey suya? Diaspora detected. We approve."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Raw sliced onions on the side. Non-negotiable. The crunch is part of the experience."
+          },
+          {
+            "id": "tomatoes_fresh",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh tomatoes on the side. Balance for the heat."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "groundnut_oil",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Groundnut oil for brushing. The peanut theme continues."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "suya_spice",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": 0, "efficiency": 0, "execution": 15 },
+            "onSelect": "Yaji! The secret blend. Ground peanut, cayenne, ginger, garlic, and mystery. This IS suya."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Even Mallam uses salt. Don't overthink this."
+          },
+          {
+            "id": "ginger",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh ginger in the marinade. The warmth behind the fire."
+          },
+          {
+            "id": "garlic",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Garlic. Because meat without garlic is just... sadness."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "honey",
+            "scores": { "tradition": -15, "creativity": 15, "efficiency": 0, "execution": 5 },
+            "onSelect": "Honey glaze suya? Sweet and spicy. Mallam is raising an eyebrow but he's intrigued.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["knife", "cutting_board", "skewers"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "grill_rack",
+            "name": "Charcoal Grill",
+            "icon": "🥅",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -5, "execution": 15 },
+            "onSelect": "Charcoal grill. The smoke, the flame, the Mallam energy. This is it."
+          },
+          {
+            "id": "oven",
+            "name": "Oven Broiler",
+            "icon": "🔥",
+            "scores": { "tradition": -10, "creativity": 5, "efficiency": 10, "execution": 0 },
+            "onSelect": "Oven suya? It works. It's just... not the same. You know it. I know it."
+          }
+        ],
+        "optional": [
+          {
+            "id": "frying_pan",
+            "name": "Cast Iron Pan",
+            "icon": "🍳",
+            "scores": { "tradition": 0, "creativity": 10, "efficiency": 10, "execution": 5 },
+            "onSelect": "Pan-seared suya. For when you can't grill outside. Respect the hustle."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "akara",
+      "name": "Akara (Bean Cakes)",
+      "category": "breakfast",
+      "origin": "Yoruba, Southwestern Nigeria",
+      "difficulty": "intermediate",
+      "description": "Deep-fried bean cakes. Crispy outside, fluffy inside. Breakfast of champions.",
+      "alternateTitle": "The Sound of Morning in Lagos",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "black_eyed_peas",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Black-eyed peas. Peeled by hand or by machine. The soul of akara."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "eggs",
+            "scores": { "tradition": -15, "creativity": 10, "efficiency": 0, "execution": 5 },
+            "onSelect": "Eggs in akara batter? Some swear by it. Others will fight you. Choose your fighter.",
+            "controversial": true
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Onions in akara. The crunch. The sweetness. Non-negotiable."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh pepper. Akara without pepper is just... fried bean sadness."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Vegetable oil, deep and hot. The bath that transforms beans into gold."
+          },
+          {
+            "id": "palm_oil",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 0, "execution": 0 },
+            "onSelect": "Palm oil akara? Old school. Your grandmother just smiled somewhere.",
+            "controversial": false
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Salt. The difference between akara and bean-flavored cardboard."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": -5, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "A little Maggi in the batter? Your secret is safe with us.",
+            "controversial": true
+          },
+          {
+            "id": "crayfish_ground",
+            "scores": { "tradition": 5, "creativity": 5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish in akara? Coastal influence. Adds depth."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["deep_fryer", "wooden_spoon", "mixing_bowl", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Blender or Team Grinding Stone?",
+          "teamA": {
+            "id": "blender",
+            "name": "Electric Blender",
+            "icon": "⚡",
+            "tagline": "Smooth batter in seconds",
+            "scores": { "tradition": -10, "creativity": 5, "efficiency": 20, "execution": -5 }
+          },
+          "teamB": {
+            "id": "mortar",
+            "companionId": "pestle",
+            "name": "Grinding Stone / Mortar",
+            "icon": "🪨",
+            "tagline": "Texture you can feel",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -15, "execution": 15 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          },
+          {
+            "id": "charcoal_stove",
+            "name": "Charcoal Stove",
+            "icon": "🪵",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -10, "execution": 5 },
+            "onSelect": "Firewood akara. The authentic street vendor taste."
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "moi_moi",
+      "name": "Moi Moi (Steamed Bean Pudding)",
+      "category": "breakfast",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "intermediate",
+      "description": "Steamed savory bean pudding. Party staple. Jollof's silent partner.",
+      "alternateTitle": "The Unsung Hero of Every Nigerian Party",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "black_eyed_peas",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Peeled beans. The canvas for your moi moi masterpiece."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "eggs",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Whole boiled egg in the center. The treasure at the heart of moi moi."
+          },
+          {
+            "id": "corned_beef",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Corned beef moi moi. Rich, savory, and deeply satisfying."
+          },
+          {
+            "id": "fresh_fish",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fish in moi moi. Coastal elegance."
+          },
+          {
+            "id": "shrimp_prawns",
+            "scores": { "tradition": 5, "creativity": 15, "efficiency": 5, "execution": 10 },
+            "onSelect": "Prawn moi moi? Oga! This is not just breakfast, this is a statement."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions blended into the batter. Flavor you can't see but can't miss."
+          },
+          {
+            "id": "bell_pepper_red",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Tatashe! The pepper that gives moi moi its beautiful color."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Scotch bonnet. Gentle heat that builds."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Oil in the batter. The difference between moi moi and bean brick."
+          },
+          {
+            "id": "palm_oil",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Palm oil moi moi. Redder. Richer. More traditional."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "crayfish_ground",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. The umami background vocal that makes the song."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi. Flavor shortcut. No judgment here."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Under-salted moi moi is a tragedy in a leaf."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "butter",
+            "scores": { "tradition": -10, "creativity": 15, "efficiency": 0, "execution": 10 },
+            "onSelect": "Butter in moi moi? Rich. Creamy. Your aunty will ask for the recipe. Secretly.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "steamer", "mixing_bowl", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Blender or Team Grinding Stone?",
+          "teamA": {
+            "id": "blender",
+            "name": "Electric Blender",
+            "icon": "⚡",
+            "tagline": "Smooth batter, fast",
+            "scores": { "tradition": -10, "creativity": 5, "efficiency": 20, "execution": -5 }
+          },
+          "teamB": {
+            "id": "mortar",
+            "companionId": "pestle",
+            "name": "Grinding Stone / Mortar",
+            "icon": "🪨",
+            "tagline": "Authentic texture",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -15, "execution": 15 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "pounded_yam_egusi",
+      "name": "Pounded Yam & Egusi Soup",
+      "category": "swallow",
+      "origin": "Yoruba/Igbo, Nigeria",
+      "difficulty": "hard",
+      "description": "Smooth, stretchy yam swallow with rich egusi soup. The heavyweight champion combo.",
+      "alternateTitle": "The Sunday Special That Tests Your Stamina",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "yam",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 30, "creativity": -10, "efficiency": -15, "execution": 15 },
+            "onSelect": "Fresh yam for pounding. You've chosen... effort. Respect."
+          },
+          {
+            "id": "egusi_seeds",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 0 },
+            "onSelect": "Egusi for the soup. The perfect partner to pounded yam."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat. The classic. The champion's protein."
+          },
+          {
+            "id": "stockfish",
+            "scores": { "tradition": 20, "creativity": 5, "efficiency": -10, "execution": 10 },
+            "onSelect": "Stockfish. The aroma of Sunday afternoon."
+          },
+          {
+            "id": "cow_skin",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "Ponmo in egusi. Chewy, delicious, traditional."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "efo_shoko",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Efo shoko. The traditional leaf for traditional egusi."
+          },
+          {
+            "id": "ugwu",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ugwu in egusi? Igbo influence. Delicious crossover."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -10, "efficiency": 0, "execution": 5 },
+            "onSelect": "Palm oil. The red that makes it right. Non-negotiable."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The foundation."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Fresh pepper. Heat that makes the swallow worthwhile."
+          },
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. Depth. Character. Soul."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Because even tradition needs seasoning."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board", "mortar", "pestle"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Pound-By-Hand or Team Pounder-Machine?",
+          "teamA": {
+            "id": "mortar",
+            "companionId": "pestle",
+            "name": "Mortar & Pestle (By Hand)",
+            "icon": "🪨",
+            "tagline": "The sweat is part of the flavor",
+            "scores": { "tradition": 25, "creativity": 0, "efficiency": -20, "execution": 20 }
+          },
+          "teamB": {
+            "id": "blender",
+            "name": "Electric Yam Pounder",
+            "icon": "⚡",
+            "tagline": "Smooth pounded yam, no gym required",
+            "scores": { "tradition": -15, "creativity": 15, "efficiency": 20, "execution": 0 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "ogbono_soup",
+      "name": "Ogbono Soup (Draw Soup)",
+      "category": "soup_stew",
+      "origin": "Igbo, Southeastern Nigeria",
+      "difficulty": "intermediate",
+      "description": "Slippery, viscous wild mango seed soup. The 'draw soup' that divides opinions.",
+      "alternateTitle": "The Slip That Grips",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "ogbono_seeds",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Ogbono seeds. Ground fine. The source of the legendary 'draw.'"
+          }
+        ],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat ogbono. A classic combination."
+          },
+          {
+            "id": "stockfish",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -10, "execution": 5 },
+            "onSelect": "Stockfish. The flavor anchor in the slippery sea."
+          },
+          {
+            "id": "cow_skin",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "Ponmo! Essential for the full ogbono experience."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "ugwu",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ugwu in ogbono. The Igbo way. Green, slightly bitter, perfect."
+          },
+          {
+            "id": "bitter_leaf",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 0, "execution": 0 },
+            "onSelect": "Bitter leaf ogbono? Bold. Your ancestors are intrigued."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Palm oil. The red that makes ogbono glow."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The base."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Pepper. Heat that cuts through the richness."
+          },
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. The flavor booster."
+          },
+          {
+            "id": "ogiri",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ogiri! The fermented secret. Smells challenging, tastes divine."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. The difference maker."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "okra",
+            "scores": { "tradition": -5, "creativity": 10, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ogbono AND okra? Double draw. Double trouble. The slip is REAL.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Grind-Your-Own or Team Pre-Ground?",
+          "teamA": {
+            "id": "mortar",
+            "companionId": "pestle",
+            "name": "Grind My Own Ogbono",
+            "icon": "🪨",
+            "tagline": "I trust no one with my draw",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -10, "execution": 15 }
+          },
+          "teamB": {
+            "id": "blender",
+            "name": "Pre-Ground Ogbono",
+            "icon": "⚡",
+            "tagline": "The market woman already did the work",
+            "scores": { "tradition": -5, "creativity": 0, "efficiency": 15, "execution": 0 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "pepper_soup",
+      "name": "Pepper Soup",
+      "category": "soup_stew",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "easy",
+      "description": "Spicy, aromatic, thin broth. The cure for cold nights, hangovers, and sadness.",
+      "alternateTitle": "Liquid Fire. Emotional Support Soup.",
+
+      "ingredients": {
+        "bases_grains": [],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Goat meat pepper soup. The classic. The standard. The 'I've arrived at the party' order."
+          },
+          {
+            "id": "fresh_fish",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 10, "execution": 10 },
+            "onSelect": "Catfish pepper soup. From the rivers to your bowl. Elegant."
+          },
+          {
+            "id": "chicken",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 10, "execution": 5 },
+            "onSelect": "Chicken pepper soup. Light. Comforting. The entry-level choice."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The aromatic base of the broth."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh pepper. Lots of it. This is PEPPER soup, not 'mildly spiced water.'"
+          }
+        ],
+        "oils_fats": [],
+        "seasonings": [
+          {
+            "id": "ginger",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Fresh ginger. The warmth. The kick. The 'I'm being healed' feeling."
+          },
+          {
+            "id": "garlic",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Garlic. Because pepper soup without garlic is just sadness water."
+          },
+          {
+            "id": "scent_leaf",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Scent leaf (efirin). The authentic pepper soup herb. Aroma that travels."
+          },
+          {
+            "id": "crayfish_ground",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. Optional but recommended depth."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": -5, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Seasoning cube. The shortcut. It works."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Season your healing."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "potatoes",
+            "scores": { "tradition": -15, "creativity": 15, "efficiency": 0, "execution": 5 },
+            "onSelect": "Irish potatoes in pepper soup? Unorthodox. But it WORKS. Thickens the broth naturally.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "efo_riro",
+      "name": "Efo Riro (Vegetable Soup)",
+      "category": "soup_stew",
+      "origin": "Yoruba, Southwestern Nigeria",
+      "difficulty": "intermediate",
+      "description": "Rich, heavily-seasoned vegetable soup. The name literally means 'stirred vegetables.'",
+      "alternateTitle": "When Vegetables Refuse to Be Boring",
+
+      "ingredients": {
+        "bases_grains": [],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat efo riro. The king of protein choices."
+          },
+          {
+            "id": "stockfish",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -10, "execution": 5 },
+            "onSelect": "Stockfish. The aroma of serious cooking."
+          },
+          {
+            "id": "cow_skin",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "Ponmo. Chewy goodness."
+          },
+          {
+            "id": "shaki",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -10, "execution": 0 },
+            "onSelect": "Shaki! The texture king. Takes forever to cook but worth every minute."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "efo_shoko",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Efo shoko. The traditional leaf. The reason 'riro' is in the name."
+          },
+          {
+            "id": "bell_pepper_red",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Tatashe. The red pepper that gives efo riro its signature look."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Scotch bonnet. Because efo riro should have attitude."
+          },
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. Generous amounts. The base of the base."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Palm oil. Abundant. Red. Glorious."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "locust_beans",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Iru! The fermented secret. Don't skip this. Your ancestors will frown."
+          },
+          {
+            "id": "crayfish_ground",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. Flavor reinforcement."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi. Because we're not here to suffer."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Season every layer."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Fry-First or Team Boil-First?",
+          "teamA": {
+            "id": "frying_pan",
+            "name": "Fry the Pepper Base First",
+            "icon": "🍳",
+            "tagline": "Flavor before liquid",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 10 }
+          },
+          "teamB": {
+            "id": "pot_large",
+            "name": "Boil Everything Together",
+            "icon": "🍲",
+            "tagline": "One pot, one love",
+            "scores": { "tradition": -5, "creativity": 10, "efficiency": 15, "execution": -5 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "chin_chin",
+      "name": "Chin Chin",
+      "category": "snack",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "easy",
+      "description": "Crunchy, sweet, fried dough cubes. The snack that disappears faster than you can make it.",
+      "alternateTitle": "One Batch = Zero Leftovers. Every Time.",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "flour",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "All-purpose flour. The canvas for crunchy perfection."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "eggs",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Eggs for richness. Optional but recommended."
+          }
+        ],
+        "vegetables": [],
+        "oils_fats": [
+          {
+            "id": "butter",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Butter. The richness that makes chin chin melt in your mouth."
+          },
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Oil for deep frying. Hot and plentiful."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "sugar",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Sugar. The sweetness. The reason chin chin is a snack, not a cracker."
+          },
+          {
+            "id": "nutmeg",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Grated nutmeg. The secret flavor that makes people ask 'what IS that?'"
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "A pinch of salt. Balances the sweet."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "coconut_milk",
+            "scores": { "tradition": -10, "creativity": 20, "efficiency": 0, "execution": 10 },
+            "onSelect": "Coconut chin chin? Tropical. Crunchy. Vacation in a bowl.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["deep_fryer", "mixing_bowl", "knife", "cutting_board", "rolling_pin"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": [
+          {
+            "id": "oven",
+            "name": "Oven (Baked Chin Chin)",
+            "icon": "🔥",
+            "scores": { "tradition": -5, "creativity": 15, "efficiency": 0, "execution": 5 },
+            "onSelect": "Baked chin chin? Healthier. Still crunchy. The gym crew approves."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "puff_puff",
+      "name": "Puff Puff (Fried Dough Balls)",
+      "category": "snack",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "easy",
+      "description": "Golden, fluffy, deep-fried dough balls. The people's snack. Party essential.",
+      "alternateTitle": "The Ball That Unites Nigeria",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "flour",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "All-purpose flour. The foundation of fluffiness."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "eggs",
+            "scores": { "tradition": -5, "creativity": 5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Eggs in puff puff? Some do it. Richer, denser. Controversial in certain aunty circles.",
+            "controversial": true
+          }
+        ],
+        "vegetables": [],
+        "oils_fats": [
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Oil for deep frying. Enough to let the puff puffs SWIM."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "sugar",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Sugar. Just enough to make them irresistible."
+          },
+          {
+            "id": "nutmeg",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Nutmeg. The aroma that announces 'puff puff is coming.'"
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Pinch of salt. Balances the sweet. Essential."
+          },
+          {
+            "id": "yeast",
+            "name": "Yeast",
+            "icon": "🟤",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": -5, "execution": 10 },
+            "onSelect": "Yeast. The leavening agent. The difference between puff puff and fried sadness.",
+            "note": "Custom ingredient creator can add"
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "honey",
+            "scores": { "tradition": -5, "creativity": 15, "efficiency": 0, "execution": 5 },
+            "onSelect": "Honey drizzle on puff puff? Sweet on sweet. You're dangerous.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["deep_fryer", "mixing_bowl", "wooden_spoon"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "fried_rice",
+      "name": "Nigerian Fried Rice",
+      "category": "rice_dish",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "intermediate",
+      "description": "Colorful, vegetable-studded fried rice. Jollof's lighter, more colorful sibling.",
+      "alternateTitle": "Jollof's Colorful Cousin That Everyone Loves",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "rice_long_grain",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Long grain parboiled rice. Pre-cooked and cooled. No sticky rice allowed."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "chicken",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Chicken fried rice. The classic pairing."
+          },
+          {
+            "id": "shrimp_prawns",
+            "scores": { "tradition": 5, "creativity": 15, "efficiency": 10, "execution": 10 },
+            "onSelect": "Prawn fried rice! Special occasion energy."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "carrots",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Diced carrots. The orange pop of color. Non-negotiable."
+          },
+          {
+            "id": "green_beans",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Green beans. The green crunch."
+          },
+          {
+            "id": "green_peas",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Green peas. Little green pearls of sweetness."
+          },
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The aromatic base."
+          },
+          {
+            "id": "bell_pepper",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Mixed bell peppers. Color, crunch, sweetness."
+          },
+          {
+            "id": "sweet_corn",
+            "scores": { "tradition": 5, "creativity": 5, "efficiency": 5, "execution": 5 },
+            "onSelect": "Sweet corn. Golden bursts of sweetness."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 0 },
+            "onSelect": "Vegetable oil for stir-frying. Hot wok, fast hands."
+          },
+          {
+            "id": "butter",
+            "scores": { "tradition": 0, "creativity": 10, "efficiency": 0, "execution": 10 },
+            "onSelect": "Butter finish. Richness that makes it restaurant-quality."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi. Flavor shortcut. No shame."
+          },
+          {
+            "id": "curry_powder",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Curry powder. The golden spice that defines Nigerian fried rice."
+          },
+          {
+            "id": "thyme",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Thyme. Subtle herb note."
+          },
+          {
+            "id": "garlic",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Garlic. Because flavor."
+          },
+          {
+            "id": "ginger",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ginger. Warmth and zing."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Season every layer."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["frying_pan", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 10 }
+          }
+        ],
+        "optional": [
+          {
+            "id": "pot_large",
+            "name": "Large Pot (Parboil Rice)",
+            "icon": "🍲",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Dedicated rice pot. Parboil perfectly, fry later."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "coconut_rice",
+      "name": "Coconut Rice",
+      "category": "rice_dish",
+      "origin": "Coastal Nigeria (Lagos/Delta)",
+      "difficulty": "intermediate",
+      "description": "Rice cooked in coconut milk. Rich, creamy, aromatic. Coastal elegance.",
+      "alternateTitle": "When Rice Goes on a Beach Vacation",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "rice_long_grain",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Long grain rice. The vessel for coconut goodness."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "shrimp_prawns",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 10, "efficiency": 10, "execution": 10 },
+            "onSelect": "Prawns! The coastal protein. Perfect pairing."
+          },
+          {
+            "id": "chicken",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Chicken coconut rice. Safe and satisfying."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The base."
+          },
+          {
+            "id": "bell_pepper",
+            "scores": { "tradition": 5, "creativity": 5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Bell peppers. Color and sweetness."
+          },
+          {
+            "id": "scotch_bonnet",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Scotch bonnet. Gentle heat through the creaminess."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "coconut_milk",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Coconut milk! Fresh or canned. The STAR of this dish."
+          },
+          {
+            "id": "coconut_oil",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Coconut oil for toasting the rice. Double coconut. Double flavor."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi. Savory balance to the sweetness."
+          },
+          {
+            "id": "curry_powder",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Curry powder. Color and warmth."
+          },
+          {
+            "id": "thyme",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Thyme. Subtle herb layer."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Balance the sweet and savory."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "asaro",
+      "name": "Asaro (Yam Porridge)",
+      "category": "soup_stew",
+      "origin": "Yoruba, Southwestern Nigeria",
+      "difficulty": "easy",
+      "description": "One-pot yam porridge. Comforting, filling, and surprisingly elegant.",
+      "alternateTitle": "The Dish That Makes Yam the Main Character",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "yam",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 5, "execution": 10 },
+            "onSelect": "Fresh yam. Cut into chunks. The star of this one-pot wonder."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "smoked_fish",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Smoked fish. The smoky depth that defines asaro."
+          },
+          {
+            "id": "dried_fish",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Dried fish. Umami punch."
+          },
+          {
+            "id": "shrimp_prawns",
+            "scores": { "tradition": 5, "creativity": 10, "efficiency": 5, "execution": 10 },
+            "onSelect": "Prawns in asaro? Elevated. Your guests will be impressed."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The base."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh pepper. Blended. The heat that makes asaro wake up."
+          },
+          {
+            "id": "bell_pepper_red",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Tatashe. For color and sweetness."
+          },
+          {
+            "id": "ugwu",
+            "scores": { "tradition": 5, "creativity": 5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ugwu leaves added at the end. Green freshness."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -5, "efficiency": 0, "execution": 10 },
+            "onSelect": "Palm oil. Generous. The red that makes it asaro, not boiled yam."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. Flavor depth."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Seasoning cube. One is enough."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Season the pot."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "nigerian_spaghetti",
+      "name": "Nigerian Spaghetti (Spag)",
+      "category": "other",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "easy",
+      "description": "Spaghetti cooked Nigerian-style — in a peppery, seasoned tomato stew. Student favorite.",
+      "alternateTitle": "When Italian Meets Naija. And Naija Wins.",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "spaghetti",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 10, "execution": 5 },
+            "onSelect": "Spaghetti. The pasta that surrendered to Nigerian seasoning."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "corned_beef",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 10, "execution": 5 },
+            "onSelect": "Corned beef spaghetti. The student special. Budget-friendly royalty."
+          },
+          {
+            "id": "chicken",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Chicken spag. Elevated student meal."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "tomatoes_fresh",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Fresh tomatoes. Blended. The base of the stew."
+          },
+          {
+            "id": "bell_pepper_red",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Tatashe. Color and sweetness."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Scotch bonnet. Nigerian spag should have KICK."
+          },
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. Generous amounts."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "vegetable_oil",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 0 },
+            "onSelect": "Vegetable oil for frying the stew base."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "tomato_paste",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 10, "execution": 5 },
+            "onSelect": "Tomato paste. Concentrated richness. Deep red color."
+          },
+          {
+            "id": "seasoning_cubes",
+            "recommended": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi. The student's secret weapon."
+          },
+          {
+            "id": "curry_powder",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Curry powder. Golden color. Nigerian spag must glow."
+          },
+          {
+            "id": "thyme",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Thyme. Subtle herb."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt. Season the stew, season the pasta water."
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "carrots",
+            "scores": { "tradition": -5, "creativity": 10, "efficiency": 5, "execution": 5 },
+            "onSelect": "Diced carrots in spag? Color. Crunch. Your aunty is side-eyeing but your mates approve.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": [
+          {
+            "id": "sieve",
+            "name": "Colander (Drain Spag)",
+            "icon": "🫗",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 5 },
+            "onSelect": "Proper draining. No soggy spag allowed."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "ogbono_okra_combo",
+      "name": "Ogbono & Okra Soup (Combo Draw)",
+      "category": "soup_stew",
+      "origin": "Igbo/Delta, Southern Nigeria",
+      "difficulty": "intermediate",
+      "description": "The ultimate draw soup combo. Ogbono AND okra together. Slippery luxury.",
+      "alternateTitle": "Double Draw. Double Trouble. Zero Regrets.",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "ogbono_seeds",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Ogbono. The primary draw. Ground fine."
+          },
+          {
+            "id": "okra",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 5, "efficiency": 5, "execution": 10 },
+            "onSelect": "Okra. The secondary draw. Sliced or grated. The combo is legendary."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat. Classic."
+          },
+          {
+            "id": "stockfish",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -10, "execution": 5 },
+            "onSelect": "Stockfish. The flavor anchor."
+          },
+          {
+            "id": "cow_skin",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "Ponmo. Essential chew."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "ugwu",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ugwu. The finishing green."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Palm oil. The red that makes it glow."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. Base."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Pepper. Heat through the slip."
+          },
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. Depth."
+          },
+          {
+            "id": "ogiri",
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ogiri. The fermented secret weapon."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Grated Okra or Team Sliced Okra?",
+          "teamA": {
+            "id": "knife",
+            "name": "Sliced Okra (Rounds)",
+            "icon": "🔪",
+            "tagline": "Visible okra, visible pride",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 5, "execution": 10 }
+          },
+          "teamB": {
+            "id": "blender",
+            "name": "Grated Okra (Smooth)",
+            "icon": "⚡",
+            "tagline": "Maximum draw, invisible vegetable",
+            "scores": { "tradition": 5, "creativity": 10, "efficiency": 10, "execution": 10 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "banga_soup",
+      "name": "Banga Soup (Palm Nut Soup)",
+      "category": "soup_stew",
+      "origin": "Urhobo/Isoko, Delta State, Southern Nigeria",
+      "difficulty": "hard",
+      "description": "Rich, creamy soup extracted from palm nuts. Served with starch or swallow. Delta royalty.",
+      "alternateTitle": "The Soup That Makes Palm Trees Proud",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "palm_oil",
+            "name": "Palm Nut Extract",
+            "icon": "🛢️",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 30, "creativity": -5, "efficiency": -15, "execution": 15 },
+            "onSelect": "Palm nut extract. The soul of banga. Extracted with effort and love.",
+            "note": "Custom ingredient - different from regular palm oil"
+          }
+        ],
+        "proteins": [
+          {
+            "id": "fresh_fish",
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Fresh catfish. The Delta classic. River-to-pot freshness."
+          },
+          {
+            "id": "cow_meat",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 5, "execution": 5 },
+            "onSelect": "Beef in banga. Hearty."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions. The base."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Scotch bonnet. Heat."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "name": "Extra Palm Oil (Optional)",
+            "icon": "🛢️",
+            "scores": { "tradition": 5, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "A little extra palm oil for richness. The Delta way."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "crayfish_ground",
+            "recommended": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish. Depth."
+          },
+          {
+            "id": "ogiri",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Ogiri. The fermented flavor base."
+          },
+          {
+            "id": "seasoning_cubes",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 0 },
+            "onSelect": "Maggi. Quick flavor."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt."
+          },
+          {
+            "id": "scent_leaf",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Scent leaf (efirin). The aromatic finish."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board", "sieve"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Extract-Your-Own or Team Canned Banga?",
+          "teamA": {
+            "id": "sieve",
+            "name": "Extract from Fresh Palm Nuts",
+            "icon": "🫗",
+            "tagline": "The authentic, labor-intensive way",
+            "scores": { "tradition": 25, "creativity": 0, "efficiency": -20, "execution": 20 }
+          },
+          "teamB": {
+            "id": "blender",
+            "name": "Canned Banga Extract",
+            "icon": "⚡",
+            "tagline": "Modern convenience, same soup",
+            "scores": { "tradition": -10, "creativity": 15, "efficiency": 20, "execution": 0 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    },
+
+    {
+      "id": "zobo",
+      "name": "Zobo (Hibiscus Drink)",
+      "category": "drink",
+      "origin": "Hausa, Northern Nigeria",
+      "difficulty": "easy",
+      "description": "Deep red, tangy-sweet hibiscus drink. Nigeria's unofficial national beverage.",
+      "alternateTitle": "The Red Drink That Quenches Nations",
+
+      "ingredients": {
+        "bases_grains": [],
+        "proteins": [],
+        "vegetables": [
+          {
+            "id": "zobo_leaves",
+            "name": "Dried Hibiscus Leaves (Zobo)",
+            "icon": "🌺",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 30, "creativity": 0, "efficiency": 5, "execution": 10 },
+            "onSelect": "Dried hibiscus. The deep red soul of zobo. Without this, you're making... water."
+          }
+        ],
+        "oils_fats": [],
+        "seasonings": [
+          {
+            "id": "ginger",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 0, "execution": 10 },
+            "onSelect": "Fresh ginger. Generous amounts. The kick that makes zobo ZOBO."
+          },
+          {
+            "id": "garlic",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Garlic in zobo? Yes. The secret savory note. Trust the process.",
+            "controversial": true
+          },
+          {
+            "id": "sugar",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Sugar. Balance the tang. Sweet but not cloying."
+          },
+          {
+            "id": "honey",
+            "scores": { "tradition": -5, "creativity": 10, "efficiency": 0, "execution": 5 },
+            "onSelect": "Honey instead of sugar? Healthier. Elegant. Your body thanks you.",
+            "controversial": true
+          }
+        ],
+        "wildcards": [
+          {
+            "id": "sweet_corn",
+            "name": "Pineapple Peel",
+            "icon": "🍍",
+            "scores": { "tradition": -5, "creativity": 15, "efficiency": 0, "execution": 10 },
+            "onSelect": "Pineapple peel in your zobo brew? Tropical depth. Your guests will wonder what your secret is.",
+            "controversial": true
+          }
+        ]
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "sieve", "wooden_spoon"],
+        "grindingDebate": {
+          "enabled": false
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": [
+          {
+            "id": "blender",
+            "name": "Blender (Smooth Ginger/Garlic)",
+            "icon": "⚡",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 10, "execution": 5 },
+            "onSelect": "Blend the ginger and garlic for maximum flavor extraction."
+          }
+        ]
+      }
+    },
+
+    {
+      "id": "eba_egusi",
+      "name": "Eba (Garri) & Egusi Soup",
+      "category": "swallow",
+      "origin": "Nigeria (Nationwide)",
+      "difficulty": "easy",
+      "description": "The everyday champion. Quick garri swallow with rich egusi. The people's choice.",
+      "alternateTitle": "The Combo That Runs Nigeria",
+
+      "ingredients": {
+        "bases_grains": [
+          {
+            "id": "garri",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": 0, "efficiency": 15, "execution": 5 },
+            "onSelect": "Garri. Fine or coarse. The 5-minute swallow. Nigeria's true staple."
+          },
+          {
+            "id": "egusi_seeds",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 25, "creativity": -5, "efficiency": 0, "execution": 0 },
+            "onSelect": "Egusi. Ground. The soup that makes eba feel like a feast."
+          }
+        ],
+        "proteins": [
+          {
+            "id": "goat_meat",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -5, "execution": 5 },
+            "onSelect": "Goat meat. The classic."
+          },
+          {
+            "id": "cow_skin",
+            "scores": { "tradition": 10, "creativity": 5, "efficiency": 5, "execution": 0 },
+            "onSelect": "Ponmo. Chewy satisfaction."
+          }
+        ],
+        "vegetables": [
+          {
+            "id": "efo_shoko",
+            "recommended": true,
+            "scores": { "tradition": 15, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Efo shoko. The people's leaf."
+          }
+        ],
+        "oils_fats": [
+          {
+            "id": "palm_oil",
+            "required": true,
+            "recommended": true,
+            "scores": { "tradition": 20, "creativity": -5, "efficiency": 0, "execution": 5 },
+            "onSelect": "Palm oil. Red. Rich. Essential."
+          }
+        ],
+        "seasonings": [
+          {
+            "id": "onions",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Onions."
+          },
+          {
+            "id": "scotch_bonnet",
+            "required": true,
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 0 },
+            "onSelect": "Pepper."
+          },
+          {
+            "id": "crayfish_ground",
+            "scores": { "tradition": 10, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Crayfish."
+          },
+          {
+            "id": "salt",
+            "required": true,
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 0, "execution": 5 },
+            "onSelect": "Salt."
+          }
+        ],
+        "wildcards": []
+      },
+
+      "utensils": {
+        "essential": ["pot_large", "wooden_spoon", "knife", "cutting_board", "mixing_bowl"],
+        "grindingDebate": {
+          "enabled": true,
+          "question": "Team Hot Water Eba or Team Cooked Eba?",
+          "teamA": {
+            "id": "mixing_bowl",
+            "name": "Hot Water Pour Method",
+            "icon": "🥣",
+            "tagline": "Quick, smooth, no lumps",
+            "scores": { "tradition": -5, "creativity": 5, "efficiency": 20, "execution": 5 }
+          },
+          "teamB": {
+            "id": "pot_large",
+            "name": "Cook on Stove Method",
+            "icon": "🍲",
+            "tagline": "Traditional, stretchy, authentic",
+            "scores": { "tradition": 15, "creativity": 0, "efficiency": -5, "execution": 10 }
+          }
+        },
+        "heatSources": [
+          {
+            "id": "gas_cooker",
+            "name": "Gas Cooker",
+            "icon": "🔵",
+            "scores": { "tradition": 0, "creativity": 0, "efficiency": 15, "execution": 5 }
+          }
+        ],
+        "optional": []
+      }
+    }
+  ],
+
+  "presetJudges": {
+    "description": "Pre-built judges that creators can use or customize.",
+    "judges": [
+      {
+        "id": "grandma_traditionalist",
+        "name": "Grandma Adebayo",
+        "title": "The Traditionalist",
+        "emoji": "👵🏾",
+        "personality": "warm_but_judgmental",
+        "primaryCriteria": "tradition",
+        "weights": { "tradition": 2.0, "creativity": 0.5, "efficiency": 1.0, "execution": 1.5 },
+        "verdicts": {
+          "90-100": "You cooked with the ancestors' blessing. I will give you my secret recipe.",
+          "70-89": "Good, but you took shortcuts. I saw that blender. Next time use the mortar.",
+          "50-69": "Is this what they teach you on YouTube? Come, let me show you properly.",
+          "0-49": "Who taught you to cook? Give me their phone number. I just want to talk."
+        }
+      },
+      {
+        "id": "food_blogger",
+        "name": "Chef Fola",
+        "title": "The Food Blogger",
+        "emoji": "📸",
+        "personality": "trendy_encouraging",
+        "primaryCriteria": "creativity",
+        "weights": { "tradition": 0.5, "creativity": 2.0, "efficiency": 1.0, "execution": 1.0 },
+        "verdicts": {
+          "90-100": "This is CONTENT! I'm posting this everywhere. #FoodieRevolution!",
+          "70-89": "Interesting twist! A bit safe, but your presentation is giving.",
+          "50-69": "Needs more fusion. Have you considered truffle oil? No? Okay...",
+          "0-49": "This is aggressively traditional. Where's the creativity? The pizzazz?"
+        }
+      },
+      {
+        "id": "hungry_student",
+        "name": "Tunde",
+        "title": "The Hungry Student",
+        "emoji": "🤤",
+        "personality": "desperate_grateful",
+        "primaryCriteria": "efficiency",
+        "weights": { "tradition": 0.5, "creativity": 0.5, "efficiency": 2.5, "execution": 0.5 },
+        "verdicts": {
+          "90-100": "Boss! This food is plenty AND fast? You're a lifesaver. Do you cater?",
+          "70-89": "Good portions. Could be faster, but I'm not complaining with a full stomach.",
+          "50-69": "Small portions, but the taste is there. I'll just eat more eba.",
+          "0-49": "I waited HOW long for this small thing? Omo, this is wickedness."
+        }
+      },
+      {
+        "id": "restaurant_owner",
+        "name": "Madam Chidi",
+        "title": "The Restaurant Owner",
+        "emoji": "👩🏾‍🍳",
+        "personality": "pragmatic_professional",
+        "primaryCriteria": "execution",
+        "weights": { "tradition": 1.0, "creativity": 0.75, "efficiency": 1.5, "execution": 2.0 },
+        "verdicts": {
+          "90-100": "Consistent, balanced, profitable. You're hired. When can you start?",
+          "70-89": "Good technique. With better time management, you could run a kitchen.",
+          "50-69": "This kitchen is chaos, but the food is edible. I've seen worse on opening night.",
+          "0-49": "My customers would demand a refund. And they'd be right."
+        }
+      }
+    ]
+  },
+
+  "presetMessages": {
+    "loadingMessages": [
+      "Somebody's grandmother is already judging your ingredient choices.",
+      "If you add unconventional ingredients, we won't stop you... but we will remember.",
+      "There are 371 tribes and countless food opinions. You're about to trigger several.",
+      "Palm oil detected. The ancestors have been notified.",
+      "Calibrating the 'Is this authentic?' detection algorithm...",
+      "Remember: Every dish has a story. Some stories are just more controversial.",
+      "Your cooking method is being pre-judged by aunties across the diaspora.",
+      "Warning: Screenshots of this meal may appear in family WhatsApp groups.",
+      "The secret ingredient is always confidence. And Maggi. Mostly Maggi.",
+      "Cooking time is directly proportional to how hungry your guests are."
+    ],
+    "finalVerdicts": {
+      "75-100": "Your dish will be remembered. Fondly. By everyone.",
+      "50-74": "Not traditional. Not wrong. Just... conversation-starting.",
+      "25-49": "The group chat has started arguing. Screenshots are circulating.",
+      "0-24": "You cooked with confidence. Accuracy remains under active investigation."
+    }
+  }
+}

@@ -2,7 +2,7 @@
 // Screen 4c: Cooking Stove — Tap ingredients into pot in order, track cooking method
 import Phaser from 'phaser';
 import { resolveFrame } from '../utils/ItemData.js';
-import { showSettingsModal } from '../ui/SettingsModal.js';
+import { showSettingsModal, toggleMusic, isMusicEnabled } from '../ui/SettingsModal.js';
 
 const INGREDIENT_FRAME_MAP = {
   egusi: 'EGUSI_SEEDS', egusi_seeds: 'EGUSI_SEEDS', palm_oil: 'PALM_OIL_BOTTLE',
@@ -76,6 +76,7 @@ export class CookingStoveScene extends Phaser.Scene {
               <span class="material-symbols-outlined text-tertiary text-[18px]" style='font-variation-settings: "FILL" 1;'>timer</span>
               <span class="font-stats-number text-stats-number text-on-surface" id="cook-timer">0:00</span>
             </div>
+            <button id="cook-music-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 cursor-pointer">music_note</button>
             <button id="cook-settings-btn" class="material-symbols-outlined text-on-surface-variant hover:opacity-80 transition-opacity active:scale-95 cursor-pointer">settings</button>
           </div>
         </div>
@@ -133,7 +134,7 @@ export class CookingStoveScene extends Phaser.Scene {
       <footer class="px-container-padding pt-sm pb-lg bg-surface-container-highest/80 backdrop-blur-md rounded-t-2xl border-t border-outline-variant shadow-[0_-8px_24px_rgba(0,0,0,0.4)] z-30">
         <div class="flex flex-col gap-sm">
           <span class="font-label-bold text-label-bold text-on-surface-variant text-[11px] uppercase tracking-widest">Ingredient Tray</span>
-          <div class="flex gap-sm overflow-x-auto pb-xs no-scrollbar" id="ingredient-tray"></div>
+          <div class="flex gap-sm overflow-x-auto pb-xs" id="ingredient-tray"></div>
           <div class="flex items-center gap-sm">
             <button id="reset-btn" class="flex-1 py-sm rounded-xl bg-error-container text-on-error-container font-label-bold flex items-center justify-center gap-xs shadow-[0_3px_0_rgba(147,0,10,1)] active:shadow-none active:translate-y-[3px] transition-all cursor-pointer text-xs">
               <span class="material-symbols-outlined text-sm">refresh</span> RESET
@@ -179,6 +180,18 @@ export class CookingStoveScene extends Phaser.Scene {
     }, 1000);
 
     // ─── BIND EVENTS ───
+    // Music Toggle
+    const musicBtn = this.overlay.querySelector('#cook-music-btn');
+    const updateMusicButton = () => {
+      const enabled = isMusicEnabled();
+      musicBtn.textContent = enabled ? 'music_note' : 'music_off';
+    };
+    updateMusicButton();
+    musicBtn.addEventListener('click', () => {
+      toggleMusic(this);
+      updateMusicButton();
+    });
+
     this.overlay.querySelector('#cook-settings-btn').addEventListener('click', () => showSettingsModal(this));
     this.overlay.querySelector('#cook-btn').addEventListener('click', () => this.startCooking());
     this.overlay.querySelector('#reset-btn').addEventListener('click', () => this.resetSequence());

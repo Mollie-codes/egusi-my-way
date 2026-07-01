@@ -29,7 +29,7 @@ export class BootScene extends Phaser.Scene {
   }
 
   preload() {
-    this.cameras.main.setBackgroundColor('#f47d20');
+    this.cameras.main.setBackgroundColor('#E56A1F');
 
     this.load.json('game-config', 'content-packs/game-config.json');
     this.load.image('title-logo', 'assets/title-logo.png');
@@ -63,9 +63,9 @@ export class BootScene extends Phaser.Scene {
     this.overlay.className = 'absolute inset-0 z-50 flex flex-col h-full w-full overflow-hidden select-none pointer-events-auto';
 
     this.overlay.innerHTML = `
-      <main class="relative h-full w-full orange-gradient-bg flex flex-col items-center justify-between py-xl px-container-padding">
+      <main class="relative h-full w-full flex flex-col items-center justify-between py-xl px-container-padding" style="background: linear-gradient(180deg, #E56A1F 0%, #B64A14 100%);">
         <!-- Dot texture -->
-        <div class="absolute inset-0 dot-pattern pointer-events-none opacity-40"></div>
+        <div class="absolute inset-0 dot-pattern pointer-events-none opacity-40" style="background-image: radial-gradient(rgba(0, 0, 0, 0.1) 2px, transparent 2px); background-size: 24px 24px;"></div>
 
         <!-- Top spacing -->
         <div class="w-full pt-md"></div>
@@ -82,8 +82,8 @@ export class BootScene extends Phaser.Scene {
 
           <!-- Speech bubble -->
           <div class="mt-lg w-full relative">
-            <div class="speech-bubble bg-[#fff9f5] border-2 border-primary-container/20 rounded-3xl p-md shadow-xl text-center">
-              <p id="boot-message" class="text-primary-container font-body-md font-bold italic opacity-90 leading-snug text-sm">
+            <div class="speech-bubble rounded-3xl p-md shadow-xl text-center" style="background-color: #FFF1DC; border: 2px solid rgba(58, 31, 15, 0.1);">
+              <p id="boot-message" class="font-body-md font-bold italic opacity-90 leading-snug text-sm" style="color: #3A1F0F;">
                 "${loadingMessages[0]}"
               </p>
             </div>
@@ -92,7 +92,7 @@ export class BootScene extends Phaser.Scene {
           <!-- Pagination dots -->
           <div class="flex gap-sm mt-md" id="boot-dots">
             ${loadingMessages.map((_, i) => `
-              <div class="w-2 h-2 rounded-full ${i === 0 ? 'w-6 bg-primary-container shadow-sm' : 'bg-on-primary-container/30'} transition-all duration-300"></div>
+              <div class="h-2 rounded-full transition-all duration-300" style="background-color: ${i === 0 ? '#3A1F0F' : 'rgba(58, 31, 15, 0.2)'}; width: ${i === 0 ? '24px' : '8px'};"></div>
             `).join('')}
           </div>
         </div>
@@ -100,11 +100,11 @@ export class BootScene extends Phaser.Scene {
         <!-- Bottom loading -->
         <div class="w-full max-w-sm flex flex-col items-center gap-sm pb-lg z-10">
           <div class="flex items-center gap-xs">
-            <span class="font-label-bold text-label-bold text-on-primary-fixed tracking-widest uppercase">Loading...</span>
-            <span class="font-stats-number text-stats-number text-on-primary-fixed" id="boot-percent">0%</span>
+            <span class="font-label-bold text-label-bold tracking-widest uppercase" style="color: #FFF1DC;">Loading...</span>
+            <span class="font-stats-number text-stats-number" id="boot-percent" style="color: #FFF1DC;">0%</span>
           </div>
-          <div class="w-full h-5 bg-surface-container-low/40 rounded-full p-1 overflow-hidden backdrop-blur-sm border border-white/10">
-            <div class="h-full bg-secondary rounded-full loading-glow relative overflow-hidden transition-all duration-500 ease-out" id="boot-progress" style="width: 0%;">
+          <div class="w-full h-5 rounded-full p-1 overflow-hidden backdrop-blur-sm" style="background-color: rgba(255, 241, 220, 0.2); border: 1px solid rgba(255, 241, 220, 0.3);">
+            <div class="h-full rounded-full relative overflow-hidden transition-all duration-500 ease-out" id="boot-progress" style="width: 0%; background: linear-gradient(90deg, #4CAF50, #5CBF60); box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);">
               <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent shimmer-bar"></div>
             </div>
           </div>
@@ -143,8 +143,8 @@ export class BootScene extends Phaser.Scene {
       logoContainer.appendChild(img);
     } else {
       logoContainer.innerHTML = `
-        <h2 class="font-display-lg text-display-lg text-on-primary-fixed text-center tracking-tight drop-shadow-lg">EFO EGUSI:</h2>
-        <h3 class="font-headline-lg text-headline-lg text-on-primary-fixed text-center drop-shadow-md">COOKING MY WAY!</h3>
+        <h2 class="font-display-lg text-display-lg text-center tracking-tight drop-shadow-lg" style="color: #FFF1DC;">EFO EGUSI:</h2>
+        <h3 class="font-headline-lg text-headline-lg text-center drop-shadow-md" style="color: #FFF1DC;">COOKING MY WAY!</h3>
       `;
     }
 
@@ -178,9 +178,11 @@ export class BootScene extends Phaser.Scene {
         const dots = dotsContainer.children;
         for (let i = 0; i < dots.length; i++) {
           if (i === msgIdx) {
-            dots[i].className = 'w-6 h-2 rounded-full bg-primary-container shadow-sm transition-all duration-300';
+            dots[i].style.backgroundColor = '#3A1F0F';
+            dots[i].style.width = '24px';
           } else {
-            dots[i].className = 'w-2 h-2 rounded-full bg-on-primary-container/30 transition-all duration-300';
+            dots[i].style.backgroundColor = 'rgba(58, 31, 15, 0.2)';
+            dots[i].style.width = '8px';
           }
         }
       }, 300);
